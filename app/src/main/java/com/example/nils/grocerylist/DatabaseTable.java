@@ -60,72 +60,105 @@ public class DatabaseTable {
 
     private static class DatabaseOpenHelper extends SQLiteOpenHelper {
 
-        private final Context mHelperContext;
-        private SQLiteDatabase mDatabase;
-
-        private static final String FTS_TABLE_CREATE =
-                "CREATE VIRTUAL TABLE " + FTS_VIRTUAL_TABLE +
-                        " USING fts3 (" +
-                        COL_WORD + ", " +
-                        COL_DEFINITION + ")";
-
-        DatabaseOpenHelper(Context context) {
+        private static final String KEY_NAME = "name";
+        private static final String KEY_PRICE = "price";
+        private static final String KEY_PPU = "ppu";
+        public DatabaseOpenHelper (Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
-            mHelperContext = context;
         }
-
         @Override
         public void onCreate(SQLiteDatabase db) {
-            mDatabase = db;
-            mDatabase.execSQL(FTS_TABLE_CREATE);
+            String CREATE_CONTACTS_TABLE = "CREATE TABLE " + FTS_VIRTUAL_TABLE + "("
+            + KEY_NAME + " NAME, " + KEY_PRICE + " PRICE,"
+            + KEY_PPU + " PRICE PER UNIT" + ")";
+            db.execSQL(CREATE_CONTACTS_TABLE);
         }
-
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
-                    + newVersion + ", which will destroy all old data");
+            // Drop older table if existed
             db.execSQL("DROP TABLE IF EXISTS " + FTS_VIRTUAL_TABLE);
+            // Creating tables again
             onCreate(db);
         }
 
-        private void loadDictionary() {
-            new Thread(new Runnable() {
-                public void run() {
-                    try {
-                        loadWords();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }).start();
+        // Adding new shop
+        public void addShop(Item item) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(KEY_NAME, item.getName()); // Shop Name
+            values.put(KEY_PRICE, item.getPrice()); // Shop Phone Number
+            // Inserting Row
+            db.insert(FTS_VIRTUAL_TABLE, null, values);
+            db.close(); // Closing database connection
         }
 
-        private void loadWords() throws IOException {
-            final Resources resources = mHelperContext.getResources();
-            InputStream inputStream = resources.openRawResource(R.raw.fruit);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            try {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] strings = TextUtils.split(line, "-");
-                    if (strings.length < 2) continue;
-                    long id = addWord(strings[0].trim(), strings[1].trim());
-                    if (id < 0) {
-                        Log.e(TAG, "unable to add word: " + strings[0].trim());
-                    }
-                }
-            } finally {
-                reader.close();
-            }
-        }
-
-        public long addWord(String word, String definition) {
-            ContentValues initialValues = new ContentValues();
-            initialValues.put(COL_WORD, word);
-            initialValues.put(COL_DEFINITION, definition);
-
-            return mDatabase.insert(FTS_VIRTUAL_TABLE, null, initialValues);
-        }
+//        private final Context mHelperContext;
+//        private SQLiteDatabase mDatabase;
+//
+//        private static final String FTS_TABLE_CREATE =
+//                "CREATE VIRTUAL TABLE " + FTS_VIRTUAL_TABLE +
+//                        " USING fts3 (" +
+//                        COL_WORD + ", " +
+//                        COL_DEFINITION + ")";
+//
+//        DatabaseOpenHelper(Context context) {
+//            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+//            mHelperContext = context;
+//        }
+//
+//        @Override
+//        public void onCreate(SQLiteDatabase db) {
+//            mDatabase = db;
+//            mDatabase.execSQL(FTS_TABLE_CREATE);
+//        }
+//
+//        @Override
+//        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+//            Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
+//                    + newVersion + ", which will destroy all old data");
+//            db.execSQL("DROP TABLE IF EXISTS " + FTS_VIRTUAL_TABLE);
+//            onCreate(db);
+//        }
+//
+//        private void loadDictionary() {
+//            new Thread(new Runnable() {
+//                public void run() {
+//                    try {
+//                        loadWords();
+//                    } catch (IOException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                }
+//            }).start();
+//        }
+//
+//        private void loadWords() throws IOException {
+//            final Resources resources = mHelperContext.getResources();
+//            InputStream inputStream = resources.openRawResource(R.raw.fruit);
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+//
+//            try {
+//                String line;
+//                while ((line = reader.readLine()) != null) {
+//                    String[] strings = TextUtils.split(line, "-");
+//                    if (strings.length < 2) continue;
+//                    long id = addWord(strings[0].trim(), strings[1].trim());
+//                    if (id < 0) {
+//                        Log.e(TAG, "unable to add word: " + strings[0].trim());
+//                    }
+//                }
+//            } finally {
+//                reader.close();
+//            }
+//        }
+//
+//        public long addWord(String word, String definition) {
+//            ContentValues initialValues = new ContentValues();
+//            initialValues.put(COL_WORD, word);
+//            initialValues.put(COL_DEFINITION, definition);
+//
+//            return mDatabase.insert(FTS_VIRTUAL_TABLE, null, initialValues);
+//        }
     }
 }

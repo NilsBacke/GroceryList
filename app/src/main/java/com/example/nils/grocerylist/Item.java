@@ -11,12 +11,11 @@ import java.util.ArrayList;
 public class Item {
 
     private String name;
-    private ArrayList<Double> price;
+    private Double price;
 
     public Item(String name, Double price) {
         this.name = name;
-        this.price = new ArrayList<Double>();
-        this.price.add(price);
+        this.price = price;
     }
 
     public Item(String name) {
@@ -24,14 +23,14 @@ public class Item {
     }
     public Item() {
         name = "";
-        this.price = new ArrayList<Double>();
+        this.price = price;
     }
 
     public Item(String name, CheckBox check) {
         this.name = name;
     }
 
-    public ArrayList<Double> getPrices() {
+    public Double getPrice() {
         return price;
     }
 
