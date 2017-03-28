@@ -1,11 +1,14 @@
 package com.example.nils.grocerylist;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -62,11 +65,28 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //do something
-                Toast.makeText(context, items.get(position).getName() + " has been removed.",
-                        Toast.LENGTH_SHORT).show();
-                items.remove(position); //or some other task
-                notifyDataSetChanged();
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+                // set dialog message
+                alertDialogBuilder.setMessage("Are you sure you want to delete?")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(context, items.get(position).getName() + " has been removed.",
+                                        Toast.LENGTH_SHORT).show();
+                                items.remove(position);
+                                notifyDataSetChanged();
+                            }
+                        })
+                .setNegativeButton("Cancel", null);
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
+
+
             }
         });
 

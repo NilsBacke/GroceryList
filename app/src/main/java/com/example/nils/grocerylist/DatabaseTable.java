@@ -102,7 +102,7 @@ public class DatabaseTable {
 
         private void loadWords() throws IOException {
             final Resources resources = mHelperContext.getResources();
-            InputStream inputStream = resources.openRawResource(R.raw.Fruit);
+            InputStream inputStream = resources.openRawResource(R.raw.fruit);
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
             try {
