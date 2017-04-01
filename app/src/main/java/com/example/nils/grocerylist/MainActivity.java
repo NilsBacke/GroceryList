@@ -6,15 +6,18 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import java.io.InputStream;
 import java.util.ArrayList;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.util.Log;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -31,6 +34,22 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list);
         items = new ArrayList<Item>();
         updateList();
+
+        DatabaseTable.DatabaseOpenHelper db = new DatabaseTable.DatabaseOpenHelper(this);
+
+        // Inserting Items/Rows
+        Log.d("Insert: ", "Inserting ..");
+        db.addItem(new Item());
+
+        // Reading all items
+        Log.d("Reading: ", "Reading all items..");
+        List<Item> items = db.getAllItems();
+
+        for (Item item : items) {
+            String log = "Id: "  + item.getId() + " ,Name: " + item.getName() + " ,Price: " + item.getPrice() + " ,PPU: " + item.getPPU();
+            // Writing items to log
+            Log.d("Item: : ", log);
+        }
 
     }
 
@@ -69,10 +88,6 @@ public class MainActivity extends AppCompatActivity {
         CustomAdapter adapter = new CustomAdapter(this, items);
         listView.setAdapter(adapter);
     }
-
-//    public void deleteItem(View view) {
-//        items.remove();
-//    }
 
     private void handleIntent(Intent intent) {
 

@@ -14,6 +14,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseTable {
 
@@ -58,21 +60,30 @@ public class DatabaseTable {
 
 
 
-    private static class DatabaseOpenHelper extends SQLiteOpenHelper {
+    public static class DatabaseOpenHelper extends SQLiteOpenHelper {
 
+        private static final String KEY_ID = "id";
         private static final String KEY_NAME = "name";
         private static final String KEY_PRICE = "price";
         private static final String KEY_PPU = "ppu";
+        private static final String KEY_CALORIES = "calories";
+        private static final String KEY_SUGAR = "sugar";
+        private static final String KEY_PROTEIN = "protein";
+        private static final String KEY_TOTALFAT = "total fat";
+
+
         public DatabaseOpenHelper (Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
+
         @Override
         public void onCreate(SQLiteDatabase db) {
-            String CREATE_CONTACTS_TABLE = "CREATE TABLE " + FTS_VIRTUAL_TABLE + "("
-            + KEY_NAME + " NAME, " + KEY_PRICE + " PRICE,"
-            + KEY_PPU + " PRICE PER UNIT" + ")";
-            db.execSQL(CREATE_CONTACTS_TABLE);
+            String CREATE_TABLE = "CREATE TABLE " + FTS_VIRTUAL_TABLE + "(" + KEY_ID + "ID"
+                    + KEY_NAME + " NAME, " + KEY_PRICE + " PRICE," + KEY_PPU + " PRICE PER UNIT, " + KEY_CALORIES + " CALORIES, "
+            + KEY_SUGAR + " SUGAR, " + KEY_PROTEIN + " PROTEIN, " + KEY_TOTALFAT + " TOTAL FAT, " + ")";
+            db.execSQL(CREATE_TABLE);
         }
+
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             // Drop older table if existed
@@ -81,84 +92,92 @@ public class DatabaseTable {
             onCreate(db);
         }
 
-        // Adding new shop
-        public void addShop(Item item) {
+        // Adding new item
+        public void addItem(Item item) {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(KEY_NAME, item.getName()); // Shop Name
-            values.put(KEY_PRICE, item.getPrice()); // Shop Phone Number
+            values.put(KEY_NAME, item.getName());
+            values.put(KEY_PRICE, item.getPrice());
+            values.put(KEY_PPU, item.getPPU());
             // Inserting Row
             db.insert(FTS_VIRTUAL_TABLE, null, values);
             db.close(); // Closing database connection
         }
 
+        // Getting one shop
+        public Item getItem(int id) {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.query(FTS_VIRTUAL_TABLE, new String[] { KEY_ID,
+                            KEY_NAME, KEY_PRICE, KEY_PPU, KEY_CALORIES, KEY_SUGAR, KEY_PROTEIN, KEY_TOTALFAT }, KEY_ID + "=?",
+                    new String[] { String.valueOf(id) }, null, null, null, null);
+            if (cursor != null)
+                cursor.moveToFirst();
+            return new Item(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
+                    Double.parseDouble(cursor.getString(2)), Double.parseDouble(cursor.getString(3)),
+                    Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)),
+                    Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)));
+        }
 
-//        private final Context mHelperContext;
-//        private SQLiteDatabase mDatabase;
-//
-//        private static final String FTS_TABLE_CREATE =
-//                "CREATE VIRTUAL TABLE " + FTS_VIRTUAL_TABLE +
-//                        " USING fts3 (" +
-//                        COL_WORD + ", " +
-//                        COL_DEFINITION + ")";
-//
-//        DatabaseOpenHelper(Context context) {
-//            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//            mHelperContext = context;
-//        }
-//
-//        @Override
-//        public void onCreate(SQLiteDatabase db) {
-//            mDatabase = db;
-//            mDatabase.execSQL(FTS_TABLE_CREATE);
-//        }
-//
-//        @Override
-//        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//            Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
-//                    + newVersion + ", which will destroy all old data");
-//            db.execSQL("DROP TABLE IF EXISTS " + FTS_VIRTUAL_TABLE);
-//            onCreate(db);
-//        }
-//
-//        private void loadDictionary() {
-//            new Thread(new Runnable() {
-//                public void run() {
-//                    try {
-//                        loadWords();
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                }
-//            }).start();
-//        }
-//
-//        private void loadWords() throws IOException {
-//            final Resources resources = mHelperContext.getResources();
-//            InputStream inputStream = resources.openRawResource(R.raw.fruit);
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-//
-//            try {
-//                String line;
-//                while ((line = reader.readLine()) != null) {
-//                    String[] strings = TextUtils.split(line, "-");
-//                    if (strings.length < 2) continue;
-//                    long id = addWord(strings[0].trim(), strings[1].trim());
-//                    if (id < 0) {
-//                        Log.e(TAG, "unable to add word: " + strings[0].trim());
-//                    }
-//                }
-//            } finally {
-//                reader.close();
-//            }
-//        }
-//
-//        public long addWord(String word, String definition) {
-//            ContentValues initialValues = new ContentValues();
-//            initialValues.put(COL_WORD, word);
-//            initialValues.put(COL_DEFINITION, definition);
-//
-//            return mDatabase.insert(FTS_VIRTUAL_TABLE, null, initialValues);
-//        }
+        // Getting All Items
+        public ArrayList<Item> getAllItems() {
+            ArrayList<Item> itemlist = new ArrayList<Item>();
+            // Select All Query
+            String selectQuery = "SELECT * FROM " + FTS_VIRTUAL_TABLE;
+            SQLiteDatabase db = this.getWritableDatabase();
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            // looping through all rows and adding to list
+            if (cursor.moveToFirst()) {
+                do {
+                    Item item = new Item();
+                    item.setId(Integer.parseInt(cursor.getString(0)));
+                    item.setName(cursor.getString(1));
+                    item.setPrice(Double.parseDouble(cursor.getString(2)));
+                    item.setPPU(Double.parseDouble(cursor.getString(3)));
+                    item.setCalories(Integer.parseInt(cursor.getString(4)));
+                    item.setSugar(Integer.parseInt(cursor.getString(5)));
+                    item.setProtein(Integer.parseInt(cursor.getString(6)));
+                    item.setTotalfat(Integer.parseInt(cursor.getString(7)));
+                    // Adding item to list
+                    itemlist.add(item);
+                } while (cursor.moveToNext());
+            }
+            // return item list
+            return itemlist;
+        }
+
+        // Getting items count
+        public int getItemsCount() {
+            String countQuery = "SELECT * FROM " + FTS_VIRTUAL_TABLE;
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery(countQuery, null);
+            cursor.close();
+            // return count
+            return cursor.getCount();
+        }
+
+        // Updating an item
+        public int updateItem(Item item) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(KEY_NAME, item.getName());
+            values.put(KEY_PRICE, item.getPrice());
+            values.put(KEY_PPU, item.getPPU());
+            values.put(KEY_CALORIES, item.getCalories());
+            values.put(KEY_SUGAR, item.getSugar());
+            values.put(KEY_PROTEIN, item.getProtein());
+            values.put(KEY_TOTALFAT, item.getTotalfat());
+            // updating row
+            return db.update(FTS_VIRTUAL_TABLE, values, KEY_ID + " = ?",
+                    new String[]{String.valueOf(item.getId())});
+        }
+
+        // Deleting a item
+        public void deleteItem(Item item) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.delete(FTS_VIRTUAL_TABLE, KEY_ID + " = ?",
+                    new String[] { String.valueOf(item.getId()) });
+            db.close();
+        }
+
     }
 }
