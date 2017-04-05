@@ -1,5 +1,7 @@
 package com.example.nils.grocerylist;
 
+import java.util.ArrayList;
+
 /**
  * Created by Nils on 3/22/17.
  */
@@ -10,8 +12,9 @@ public class Item {
     private Double price, ppu;
     private int calories, sugar, protein, totalfat;
     private int id;
+    public ArrayList<String> ingredients;
 
-    public Item(int id, String name, Double price, Double ppu, int calories, int sugar, int protein, int totalfat) {
+    public Item(int id, String name, Double price, Double ppu, int calories, int sugar, int protein, int totalfat, ArrayList<String> ingredients) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -20,6 +23,7 @@ public class Item {
         this.sugar = sugar;
         this.protein = protein;
         this.totalfat = totalfat;
+        this.ingredients = ingredients;
     }
 
     public Item() {
@@ -76,7 +80,11 @@ public class Item {
         return totalfat;
     }
 
+    public ArrayList<String> getIngredients() {
+        return ingredients;
+    }
 
+    ;
 
 
     public void setId(int id) {
@@ -111,7 +119,11 @@ public class Item {
         this.totalfat = totalfat;
     }
 
+    public void setIngredients(ArrayList<String> ingredients) {
+        this.ingredients = ingredients;
+    }
 
+    ;
 
 
     @Override
