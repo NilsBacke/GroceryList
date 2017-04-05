@@ -1,7 +1,9 @@
 package com.example.nils.grocerylist;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +20,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,9 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        JSONReader json = new JSONReader();
+//        JSONReader json = new JSONReader();
+
         try {
-            json.readJSON();
+            readJSON();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -110,6 +118,53 @@ public class MainActivity extends AppCompatActivity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Cursor c = db.getWordMatches(query, null);
             //process Cursor and display results
+        }
+    }
+
+    private String AssetJSONFile (String filename, Context context) throws IOException {
+        AssetManager manager = context.getAssets();
+        InputStream file = manager.open(filename);
+        byte[] formArray = new byte[file.available()];
+        file.read(formArray);
+        file.close();
+
+        return new String(formArray);
+    }
+
+    public void readJSON() throws IOException {
+        try {
+            String jsonLocation = AssetJSONFile("fruit.json", this);
+            JSONObject obj = new JSONObject(jsonLocation);
+            JSONArray itemsArray = obj.getJSONArray("Item");
+            ArrayList<HashMap<String, String>> itemsList = new ArrayList<HashMap<String, String>>();
+            HashMap<String, String> m_li;
+
+            for (int i = 0; i < itemsArray.length(); i++) {
+                JSONObject jo_inside = itemsArray.getJSONObject(i);
+                Log.d("Details-->", jo_inside.getString("name"));
+                String name = jo_inside.getString("name");
+                String price = jo_inside.getString("price");
+                String each = jo_inside.getString("each");
+
+                //Add your values in your `ArrayList` as below:
+                m_li = new HashMap<String, String>();
+                m_li.put("name", name);
+                m_li.put("price", price);
+                m_li.put("each", each);
+
+                itemsList.add(m_li);
+
+                Double doubleprice = Double.parseDouble(price);
+                Double doubleeach = Double.parseDouble(each);
+
+                Item newItem = new Item(name, doubleprice, doubleeach);
+
+                DatabaseTable.DatabaseOpenHelper db = new DatabaseTable.DatabaseOpenHelper(this);
+
+                db.addItem(newItem);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
