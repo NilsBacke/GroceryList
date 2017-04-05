@@ -12,13 +12,13 @@ public class Item {
     private Double price, ppu;
     private int calories, sugar, protein, totalfat;
     private int id;
-    private ArrayList<String> ingredients;
+    private String ingredients;
     private int vitA;
     private int vitC;
     private int iron;
     private int calcium;
 
-    public Item(int id, String name, Double price, Double ppu, int calories, int sugar, int protein, int totalfat, ArrayList<String> ingredients, int vitA, int vitC, int iron, int calcium) {
+    public Item(int id, String name, Double price, Double ppu, int calories, int sugar, int protein, int totalfat, String ingredients, int vitA, int vitC, int iron, int calcium) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -110,7 +110,7 @@ public class Item {
         return totalfat;
     }
 
-    public ArrayList<String> getIngredients() {
+    public String getIngredients() {
         return ingredients;
     }
 
@@ -164,7 +164,7 @@ public class Item {
         this.totalfat = totalfat;
     }
 
-    public void setIngredients(ArrayList<String> ingredients) {
+    public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
 
