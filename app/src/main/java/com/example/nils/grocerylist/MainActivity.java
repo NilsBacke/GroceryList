@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import android.support.v7.app.ActionBarActivity;
@@ -37,6 +38,18 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseTable.DatabaseOpenHelper db = new DatabaseTable.DatabaseOpenHelper(this);
 
+
+
+        JSONReader json = new JSONReader();
+        try {
+            json.readJSON();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
         // Inserting Items/Rows
         Log.d("Insert: ", "Inserting ..");
         db.addItem(new Item());
@@ -50,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
             // Writing items to log
             Log.d("Item: : ", log);
         }
+
+
 
     }
 
