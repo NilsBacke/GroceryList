@@ -16,9 +16,30 @@ public class HealthLogic {
         b = z;
     }
 
-    public Item chooseHealthier(){
-        return a;
+    public Item chooseHealthier() {
+        Item h = new Item();
+        oseIngerdients(a);
+        oseIngerdients(b);
+        sugarContent(a);
+        sugarContent(b);
+        calorieCount(a);
+        calorieCount(b);
+        fatContent(a);
+        fatContent(b);
+        proteinContent(a);
+        proteinContent(b);
+        numIngredients(a);
+        numIngredients(b);
+        if (apoints > bpoints) {
+            h = a;
+        } else if (apoints == bpoints) {
+            return null;
+        } else if (bpoints > apoints) {
+            h = b;
+        }
+        return h;
     }
+
     private void oseIngerdients(Item q) {
 
 
