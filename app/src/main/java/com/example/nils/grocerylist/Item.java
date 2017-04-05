@@ -59,6 +59,17 @@ public class Item {
         this.totalfat = 0;
     }
 
+    public Item(int id, String name, Double price, Double ppu) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.ppu = ppu;
+        this.calories = 0;
+        this.sugar = 0;
+        this.protein = 0;
+        this.totalfat = 0;
+    }
+
     public int getId() {
         return id;
     }

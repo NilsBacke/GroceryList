@@ -154,7 +154,20 @@ public class MainActivity extends AppCompatActivity {
 
                 itemsList.add(m_li);
 
+                price = price.substring(1);
                 Double doubleprice = Double.parseDouble(price);
+
+                int start = 0;
+                int end = 0;
+                for (int j = 0; j < each.length(); j++) {
+                    if (each.charAt(j) == '$') {
+                        start = j + 1;
+                    }
+                    if (each.charAt(j) == '/') {
+                        end = j - 1;
+                    }
+                }
+                each = each.substring(start, end);
                 Double doubleeach = Double.parseDouble(each);
 
                 Item newItem = new Item(name, doubleprice, doubleeach);
