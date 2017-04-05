@@ -113,9 +113,7 @@ public class DatabaseTable {
             if (cursor != null)
                 cursor.moveToFirst();
             return new Item(Integer.parseInt(cursor.getString(0)), cursor.getString(1),
-                    Double.parseDouble(cursor.getString(2)), Double.parseDouble(cursor.getString(3)),
-                    Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)),
-                    Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)));
+                    Double.parseDouble(cursor.getString(2)), Double.parseDouble(cursor.getString(3)));
         }
 
         // Getting All Items
