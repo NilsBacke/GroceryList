@@ -12,9 +12,13 @@ public class Item {
     private Double price, ppu;
     private int calories, sugar, protein, totalfat;
     private int id;
-    public ArrayList<String> ingredients;
+    private ArrayList<String> ingredients;
+    private int vitA;
+    private int vitC;
+    private int iron;
+    private int calcium;
 
-    public Item(int id, String name, Double price, Double ppu, int calories, int sugar, int protein, int totalfat, ArrayList<String> ingredients) {
+    public Item(int id, String name, Double price, Double ppu, int calories, int sugar, int protein, int totalfat, ArrayList<String> ingredients, int vitA, int vitC, int iron, int calcium) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -24,6 +28,10 @@ public class Item {
         this.protein = protein;
         this.totalfat = totalfat;
         this.ingredients = ingredients;
+        this.vitA = vitA;
+        this.vitC = vitC;
+        this.iron = iron;
+        this.calcium = calcium;
     }
 
     public Item() {
@@ -95,7 +103,22 @@ public class Item {
         return ingredients;
     }
 
-    ;
+    public int getVitA() {
+        return vitA;
+    }
+
+    public int getVitC() {
+        return vitC;
+    }
+
+    public int getIron() {
+        return iron;
+    }
+
+    public int getCalcium() {
+        return calcium;
+    }
+
 
 
     public void setId(int id) {
@@ -134,7 +157,18 @@ public class Item {
         this.ingredients = ingredients;
     }
 
-    ;
+    public void setVitA(int vitA) {
+        this.vitA = vitA;
+    }
+    public void setVitC(int vitC) {
+        this.vitC = vitC;
+    }
+    public void setIron(int iron) {
+        this.iron = iron;
+    }
+    public void setCalcium(int calcium) {
+        this.calcium = calcium;
+    }
 
 
     @Override
