@@ -128,7 +128,7 @@ public class Item {
         return protein;
     }
 
-    public String getIngredients() {
+    public String[] getIngredients() {
         return ingredients.split(",");
     }
 

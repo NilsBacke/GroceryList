@@ -144,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jo_inside = itemsArray.getJSONObject(i);
 //                Log.d("Details-->", jo_inside.getString("name"));
 
+                String price = jo_inside.getString("price");
+                String each = jo_inside.getString("priceper");
                 String calories = jo_inside.getString("calories");
                 String fatCalories = jo_inside.getString("fatCalories");
                 String fat = jo_inside.getString("fat");
@@ -153,21 +155,13 @@ public class MainActivity extends AppCompatActivity {
                 String fiber = jo_inside.getString("fiber");
                 String sugar = jo_inside.getString("sugar");
                 String protein = jo_inside.getString("protein");
-
-
-//                "calories”:”250”,
-//                "fatCalories":"10",
-//                        "Fat":"2.5g",
-//                        "cholesterol":"0mg",
-//                        "Sodium":"380mg",
-//                        "carbs":"52g",
-//                        "fiber":"2g",
-//                        "sugar":"8g",
-//                        "protein":"8g",
+                String ingredients = jo_inside.getString("ingredients");
 
                 //Add your values in your `ArrayList` as below:
                 m_li = new HashMap<String, String>();
                 m_li.put("name", name);
+                m_li.put("price", price);
+                m_li.put("priceper", each);
                 m_li.put("calories", calories);
                 m_li.put("fatCalories", fatCalories);
                 m_li.put("fat", fat);
@@ -177,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 m_li.put("fiber", fiber);
                 m_li.put("sugar", sugar);
                 m_li.put("protein", protein);
+                m_li.put("ingredients", ingredients);
 
                 itemsList.add(m_li);
 
@@ -221,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                 int intprotein = Integer.parseInt(protein);
 
                 Item newItem = new Item(name, doubleprice, doubleeach, intcalories, intFatCalories, intfat,
-                        intcholesterol, intsodium, intcarbs, intfiber, intsugar, intprotein);
+                        intcholesterol, intsodium, intcarbs, intfiber, intsugar, intprotein, ingredients);
 
                 DatabaseTable.DatabaseOpenHelper db = new DatabaseTable.DatabaseOpenHelper(this);
 
