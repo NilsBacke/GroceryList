@@ -62,6 +62,11 @@ public class DatabaseTable {
 
     public static class DatabaseOpenHelper extends SQLiteOpenHelper {
 
+        private static final String DATABASE_NAME = "itemsInfo";
+        private static final String FTS_VIRTUAL_TABLE = "FTS";
+        private static final int DATABASE_VERSION = 1;
+
+
         private static final String KEY_ID = "id";
         private static final String KEY_NAME = "name";
         private static final String KEY_PRICE = "price";
@@ -85,7 +90,7 @@ public class DatabaseTable {
         public void onCreate(SQLiteDatabase db) {
             String CREATE_TABLE = "CREATE TABLE " + FTS_VIRTUAL_TABLE + "(" + KEY_ID + "ID"
                     + KEY_NAME + " NAME, " + KEY_PRICE + " PRICE," + KEY_PPU + " PRICE PER UNIT, " + KEY_CALORIES + " CALORIES, "
-            + KEY_FATCALORIES + " fatcalories, " + KEY_SODIUM + " SODIUM, " + KEY_CARBS + " CARBS, " + KEY_FIBER + " FIBER, " +
+            + KEY_FATCALORIES + " FATCALORIES, " + KEY_SODIUM + " SODIUM, " + KEY_CARBS + " CARBS, " + KEY_FIBER + " FIBER, " +
                 KEY_SUGAR + " SUGAR, " + KEY_PROTEIN + " PROTEIN, " + KEY_INGREDIENTS + " INGREDIENTS, " + ")";
             db.execSQL(CREATE_TABLE);
         }
@@ -167,16 +172,6 @@ public class DatabaseTable {
             // return item list
             return itemlist;
         }
-
-        //        "calories”:"250",
-//                "fatCalories":"10",
-//                "Fat":"2.5g",
-//                "cholesterol":"0mg",
-//                "Sodium":"380mg",
-//                "carbs":"52g",
-//                "fiber":"2g",
-//                "sugar":"8g",
-//                "protein":"8g",
 
         // Getting items count
         public int getItemsCount() {

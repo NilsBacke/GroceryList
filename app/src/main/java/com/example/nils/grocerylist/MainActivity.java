@@ -132,24 +132,24 @@ public class MainActivity extends AppCompatActivity {
 
     public void readJSON() throws IOException {
         try {
-            String jsonLocation = AssetJSONFile("test.json", this);
+            String jsonLocation = AssetJSONFile("test2.json", this);
             JSONObject obj = new JSONObject(jsonLocation);
-            String name = obj.getString("name");
-            JSONArray itemsArray = obj.getJSONArray("Nutrition");
+
+            JSONArray itemsArray = obj.getJSONArray("Bagels");
             ArrayList<HashMap<String, String>> itemsList = new ArrayList<HashMap<String, String>>();
             HashMap<String, String> m_li;
 
-            for (int i = 0; i < itemsArray.length(); i++) {
-                JSONObject jo_inside = itemsArray.getJSONObject(i);
-//                Log.d("Details-->", jo_inside.getString("name"));
-
-                String price = jo_inside.getString("price");
+//            for (int i = 0; i < itemsArray.length(); i++) {
+                JSONObject jo_inside = itemsArray.getJSONObject(0);
+                Log.d("Details-->", jo_inside.getString("name"));
+                String name = obj.getString("name");
+                String price = jo_inside.getString("Price");
                 String each = jo_inside.getString("PerUnit");
-                String calories = jo_inside.getString("calories");
+                int calories = jo_inside.getInt("calories");
                 String fatCalories = jo_inside.getString("fatCalories");
                 String fat = jo_inside.getString("fat");
                 String cholesterol = jo_inside.getString("cholesterol");
-                String sodium = jo_inside.getString("Sodium");
+                String sodium = jo_inside.getString("sodium");
                 String carbs = jo_inside.getString("carbs");
                 String fiber = jo_inside.getString("fiber");
                 String sugar = jo_inside.getString("sugar");
@@ -157,11 +157,13 @@ public class MainActivity extends AppCompatActivity {
                 String ingredients = jo_inside.getString("ingredients");
 
                 //Add your values in your `ArrayList` as below:
+
+
                 m_li = new HashMap<String, String>();
                 m_li.put("name", name);
                 m_li.put("price", price);
                 m_li.put("priceper", each);
-                m_li.put("calories", calories);
+                m_li.put("calories", Integer.toString(calories));
                 m_li.put("fatCalories", fatCalories);
                 m_li.put("fat", fat);
                 m_li.put("cholesterol", cholesterol);
@@ -190,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
                 each = each.substring(start, end);
                 Double doubleeach = Double.parseDouble(each);
 
-                int intcalories = Integer.parseInt(calories);
                 int intFatCalories = Integer.parseInt(fatCalories);
 
                 fat = fat.substring(0, fat.length());
@@ -214,13 +215,13 @@ public class MainActivity extends AppCompatActivity {
                 protein = protein.substring(0, protein.length());
                 int intprotein = Integer.parseInt(protein);
 
-                Item newItem = new Item(name, doubleprice, doubleeach, intcalories, intFatCalories, intfat,
+                Item newItem = new Item(name, doubleprice, doubleeach, calories, intFatCalories, intfat,
                         intcholesterol, intsodium, intcarbs, intfiber, intsugar, intprotein, ingredients);
 
                 DatabaseTable.DatabaseOpenHelper db = new DatabaseTable.DatabaseOpenHelper(this);
 
                 db.addItem(newItem);
-            }
+//            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
