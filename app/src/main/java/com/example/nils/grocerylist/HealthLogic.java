@@ -14,8 +14,8 @@ public class HealthLogic {
     public HealthLogic(Item y, Item z) {
         a = y;
         b = z;
-        apoints = 0;
-        bpoints = 0;
+        apoints = y.points;
+        bpoints = z.points;
     }
 
     public Item chooseHealthier() {
@@ -43,6 +43,7 @@ public class HealthLogic {
     }
 
     private void ingredients(Item q) {
+        String[] healthy = {"Egg whites", "Potatoes", "Asparagus", "Chicken", "Lima beans", "Bamboo shoots", "Ground Turkey", "Black-eyed peas", "Green beans", "Turkey", "Corn", "Broccoli", "Lean beef", "Lentils", "Brussels sprouts", "Tuna", "Oatmeal", "Cabbage", "Salmon", "Peas", "Carrots", "Scallops", "Popcorn", "Cauliflower", "Shrimp", "Brown rice", "Cucumbers", "Halibut", "Acorn squash", "Eggplant", "Other Fish", "Sweet potato", "Lettuce", "Yogurt", "Tomato", "Red peppers", "Skim milk", "Shredded wheat", "Green peppers", "Cottage cheese", "Yams", "Spinach", "Venison", "White rice", "Summer squash", "Buffalo", "Black beans", "Zucchini squash", "Pork loin", "Kidney beans", "Onions", "Canadian bacon", "Pinto beans", "Rabbit", "Garbanzo beans", "Split peas", "Fruits", "Cereals", "Grains", "Bagels", "Breads", "Crackers", "Pasta"};
 
         //for each ingredient
         //if ingredient.contains(healthy) points++

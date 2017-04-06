@@ -17,8 +17,9 @@ public class Item {
     private int vitC;
     private int iron;
     private int calcium;
+    public int points;
 
-    public Item(int id, String name, Double price, Double ppu, int calories, int sugar, int protein, int totalfat, String ingredients, int vitA, int vitC, int iron, int calcium) {
+    public Item(int id, String name, Double price, Double ppu, int calories, int sugar, int protein, int totalfat, String ingredients, int vitA, int vitC, int iron, int calcium, int points) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -32,6 +33,7 @@ public class Item {
         this.vitC = vitC;
         this.iron = iron;
         this.calcium = calcium;
+        this.points = points;
     }
 
     public Item() {
