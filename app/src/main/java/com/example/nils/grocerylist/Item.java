@@ -12,10 +12,10 @@ public class Item {
     private Double price, ppu;
     private int calories, sugar, protein, fatCalories, fat, cholesterol, sodium, carbs, fiber;
     private int id;
-    private ArrayList<String> ingredients;
+    private String ingredients;
 
     public Item(String name, Double price, Double ppu, int calories, int fatCalories, int fat, int cholesterol,
-                int sodium, int carbs, int fiber, int sugar, int protein, ArrayList<String> ingredients) {
+                int sodium, int carbs, int fiber, int sugar, int protein, String ingredients) {
         this.name = name;
         this.price = price;
         this.ppu = ppu;
@@ -128,8 +128,8 @@ public class Item {
         return protein;
     }
 
-    public ArrayList<String> getIngredients() {
-        return ingredients;
+    public String getIngredients() {
+        return ingredients.split(",");
     }
 
 
