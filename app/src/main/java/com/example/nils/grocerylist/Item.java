@@ -13,6 +13,7 @@ public class Item {
     private int calories, sugar, protein, fatCalories, fat, cholesterol, sodium, carbs, fiber;
     private int id;
     private String ingredients;
+    public int points;
 
     public Item(String name, Double price, Double ppu, int calories, int fatCalories, int fat, int cholesterol,
                 int sodium, int carbs, int fiber, int sugar, int protein, String ingredients) {
@@ -29,6 +30,7 @@ public class Item {
         this.sugar = sugar;
         this.protein = protein;
         this.ingredients = ingredients;
+        points = 0;
     }
 
 
@@ -128,7 +130,7 @@ public class Item {
         return protein;
     }
 
-    public String getIngredients() {
+    public String[] getIngredients() {
         return ingredients.split(",");
     }
 

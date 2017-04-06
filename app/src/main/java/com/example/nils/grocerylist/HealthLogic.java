@@ -42,9 +42,15 @@ public class HealthLogic {
         return h;
     }
 
-    private void ingredients(Item q) {
+    private void ingredients(Item g) {
         String[] healthy = {"Egg whites", "Potatoes", "Asparagus", "Chicken", "Lima beans", "Bamboo shoots", "Ground Turkey", "Black-eyed peas", "Green beans", "Turkey", "Corn", "Broccoli", "Lean beef", "Lentils", "Brussels sprouts", "Tuna", "Oatmeal", "Cabbage", "Salmon", "Peas", "Carrots", "Scallops", "Popcorn", "Cauliflower", "Shrimp", "Brown rice", "Cucumbers", "Halibut", "Acorn squash", "Eggplant", "Other Fish", "Sweet potato", "Lettuce", "Yogurt", "Tomato", "Red peppers", "Skim milk", "Shredded wheat", "Green peppers", "Cottage cheese", "Yams", "Spinach", "Venison", "White rice", "Summer squash", "Buffalo", "Black beans", "Zucchini squash", "Pork loin", "Kidney beans", "Onions", "Canadian bacon", "Pinto beans", "Rabbit", "Garbanzo beans", "Split peas", "Fruits", "Cereals", "Grains", "Bagels", "Breads", "Crackers", "Pasta"};
+        for(int i = 0; i < g.getIngredients().length; i++){
+            for(int j = 0; j < healthy.length; j++){
+                if(g.getIngredients()[i].equals(healthy[j])){
 
+                }
+            }
+        }
         //for each ingredient
         //if ingredient.contains(healthy) points++
         //if ingredient.contains(NOT healthy) points--
