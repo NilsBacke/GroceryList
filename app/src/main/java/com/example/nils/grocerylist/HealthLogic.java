@@ -8,18 +8,20 @@ public class HealthLogic {
 
     Item a;
     Item b;
-    int apoints = 0;
-    int bpoints = 0;
+    int apoints;
+    int bpoints;
 
     public HealthLogic(Item y, Item z) {
         a = y;
         b = z;
+        apoints = 0;
+        bpoints = 0;
     }
 
     public Item chooseHealthier() {
         Item h = new Item();
-        oseIngerdients(a);
-        oseIngerdients(b);
+        ingredients(a);
+        ingredients(b);
         sugarContent(a);
         sugarContent(b);
         calorieCount(a);
@@ -40,8 +42,11 @@ public class HealthLogic {
         return h;
     }
 
-    private void oseIngerdients(Item q) {
+    private void ingredients(Item q) {
 
+        //for each ingredient
+        //if ingredient.contains(healthy) points++
+        //if ingredient.contains(NOT healthy) points--
 
     }
 
@@ -64,6 +69,9 @@ public class HealthLogic {
     private void numIngredients(Item g) {
 
     }
-
+    //vitamin a
+    //vitamin C
+    //iron
+    //calcium
 }
 

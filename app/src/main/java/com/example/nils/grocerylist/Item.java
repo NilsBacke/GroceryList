@@ -111,6 +111,7 @@ public class Item {
     }
 
     public String getIngredients() {
+        ingredients.split(",");
         return ingredients;
     }
 
