@@ -108,7 +108,7 @@ public class DatabaseTable {
         public Item getItem(int id) {
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor cursor = db.query(FTS_VIRTUAL_TABLE, new String[] { KEY_ID,
-                            KEY_NAME, KEY_PRICE, KEY_PPU, KEY_CALORIES, KEY_SUGAR, KEY_PROTEIN, KEY_TOTALFAT }, KEY_ID + "=?",
+                            KEY_NAME, KEY_PRICE, KEY_PPU }, KEY_ID + "=?",
                     new String[] { String.valueOf(id) }, null, null, null, null);
             if (cursor != null)
                 cursor.moveToFirst();
@@ -160,10 +160,10 @@ public class DatabaseTable {
             values.put(KEY_NAME, item.getName());
             values.put(KEY_PRICE, item.getPrice());
             values.put(KEY_PPU, item.getPPU());
-            values.put(KEY_CALORIES, item.getCalories());
-            values.put(KEY_SUGAR, item.getSugar());
-            values.put(KEY_PROTEIN, item.getProtein());
-            values.put(KEY_TOTALFAT, item.getTotalfat());
+//            values.put(KEY_CALORIES, item.getCalories());
+//            values.put(KEY_SUGAR, item.getSugar());
+//            values.put(KEY_PROTEIN, item.getProtein());
+//            values.put(KEY_TOTALFAT, item.getTotalfat());
             // updating row
             return db.update(FTS_VIRTUAL_TABLE, values, KEY_ID + " = ?",
                     new String[]{String.valueOf(item.getId())});
