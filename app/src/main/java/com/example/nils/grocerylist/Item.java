@@ -35,47 +35,20 @@ public class Item {
 
 
     public Item() {
-        id = 0;
-        name = "";
-        price = 0.;
-        ppu = 0.;
-        calories = 0;
-        sugar = 0;
-        protein = 0;
-        totalfat = 0;
-    }
-
-    public Item(String name) {
-        id = 0;
-        this.name = name;
-        price = 0.;
-        ppu = 0.;
-        calories = 0;
-        sugar = 0;
-        protein = 0;
-        totalfat = 0;
-    }
-
-    public Item(String name, Double price, Double ppu) {
-        this.id = 0;
-        this.name = name;
-        this.price = price;
-        this.ppu = ppu;
+        this.name = "";
+        this.price = 0.;
+        this.ppu = 0.;
         this.calories = 0;
+        this.fatCalories = 0;
+        this.fat = 0;
+        this.cholesterol = 0;
+        this.sodium = 0;
+        this.carbs = 0;
+        this.fiber = 0;
         this.sugar = 0;
         this.protein = 0;
-        this.totalfat = 0;
-    }
-
-    public Item(int id, String name, Double price, Double ppu) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.ppu = ppu;
-        this.calories = 0;
-        this.sugar = 0;
-        this.protein = 0;
-        this.totalfat = 0;
+        this.ingredients = "";
+        points = 0;
     }
 
     public int getId() {
@@ -128,6 +101,10 @@ public class Item {
 
     public int getProtein() {
         return protein;
+    }
+
+    public String getStringIngredients() {
+        return ingredients;
     }
 
     public String[] getIngredients() {
@@ -190,7 +167,7 @@ public class Item {
         this.protein = protein;
     }
 
-    public void setIngredients(ArrayList<String> ingredients) {
+    public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
 

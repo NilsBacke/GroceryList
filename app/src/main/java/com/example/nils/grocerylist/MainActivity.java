@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String task = String.valueOf(taskEditText.getText());
-                                items.add(new Item(task));
                                 updateList();
                             }
                         })
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 //                Log.d("Details-->", jo_inside.getString("name"));
 
                 String price = jo_inside.getString("price");
-                String each = jo_inside.getString("priceper");
+                String each = jo_inside.getString("PerUnit");
                 String calories = jo_inside.getString("calories");
                 String fatCalories = jo_inside.getString("fatCalories");
                 String fat = jo_inside.getString("fat");
