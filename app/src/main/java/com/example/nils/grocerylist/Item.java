@@ -10,29 +10,27 @@ public class Item {
 
     private String name;
     private Double price, ppu;
-    private int calories, sugar, protein, totalfat;
+    private int calories, sugar, protein, fatCalories, fat, cholesterol, sodium, carbs, fiber;
     private int id;
-    private String ingredients;
-    private int vitA;
-    private int vitC;
-    private int iron;
-    private int calcium;
+    private ArrayList<String> ingredients;
 
-    public Item(int id, String name, Double price, Double ppu, int calories, int sugar, int protein, int totalfat, String ingredients, int vitA, int vitC, int iron, int calcium) {
-        this.id = id;
+    public Item(String name, Double price, Double ppu, int calories, int fatCalories, int fat, int cholesterol,
+                int sodium, int carbs, int fiber, int sugar, int protein, ArrayList<String> ingredients) {
         this.name = name;
         this.price = price;
         this.ppu = ppu;
         this.calories = calories;
+        this.fatCalories = fatCalories;
+        this.fat = fat;
+        this.cholesterol = cholesterol;
+        this.sodium = sodium;
+        this.carbs = carbs;
+        this.fiber = fiber;
         this.sugar = sugar;
         this.protein = protein;
-        this.totalfat = totalfat;
         this.ingredients = ingredients;
-        this.vitA = vitA;
-        this.vitC = vitC;
-        this.iron = iron;
-        this.calcium = calcium;
     }
+
 
     public Item() {
         id = 0;
@@ -98,6 +96,30 @@ public class Item {
         return calories;
     }
 
+    public int getFatCalories() {
+        return fatCalories;
+    }
+
+    public int getFat() {
+        return fat;
+    }
+
+    public int getCholesterol() {
+        return cholesterol;
+    }
+
+    public int getSodium() {
+        return sodium;
+    }
+
+    public int getCarbs() {
+        return carbs;
+    }
+
+    public int getFiber() {
+        return fiber;
+    }
+
     public int getSugar() {
         return sugar;
     }
@@ -106,30 +128,11 @@ public class Item {
         return protein;
     }
 
-    public int getTotalfat() {
-        return totalfat;
-    }
-
-    public String getIngredients() {
-        ingredients.split(",");
+    public ArrayList<String> getIngredients() {
         return ingredients;
     }
 
-    public int getVitA() {
-        return vitA;
-    }
 
-    public int getVitC() {
-        return vitC;
-    }
-
-    public int getIron() {
-        return iron;
-    }
-
-    public int getCalcium() {
-        return calcium;
-    }
 
 
 
@@ -153,33 +156,40 @@ public class Item {
         this.calories = calories;
     }
 
-    public void setSugar(int sugar) {
+    public void setFatCalories(int fatCalories) {
+        this.fatCalories = fatCalories;
+    }
+
+    public void setFat(int fat) {
+        this.fat = fat;
+    }
+
+    public void setCholesterol(int cholesterol) {
+        this.cholesterol = cholesterol;
+    }
+
+    public void setSodium(int sodium) {
+        this.sodium = sodium;
+    }
+
+    public void setCarbs (int carbs) {
+        this.carbs = carbs;
+    }
+
+    public void setFiber (int fiber) {
+        this.fiber = fiber;
+    }
+
+    public void setSugar (int sugar) {
         this.sugar = sugar;
     }
 
-    public void setProtein(int protein) {
+    public void setProtein (int protein) {
         this.protein = protein;
     }
 
-    public void setTotalfat(int totalfat) {
-        this.totalfat = totalfat;
-    }
-
-    public void setIngredients(String ingredients) {
+    public void setIngredients(ArrayList<String> ingredients) {
         this.ingredients = ingredients;
-    }
-
-    public void setVitA(int vitA) {
-        this.vitA = vitA;
-    }
-    public void setVitC(int vitC) {
-        this.vitC = vitC;
-    }
-    public void setIron(int iron) {
-        this.iron = iron;
-    }
-    public void setCalcium(int calcium) {
-        this.calcium = calcium;
     }
 
 
