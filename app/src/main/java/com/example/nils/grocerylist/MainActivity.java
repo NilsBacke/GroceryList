@@ -86,15 +86,6 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-//    private void handleIntent(Intent intent) {
-//
-//        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-//            String query = intent.getStringExtra(SearchManager.QUERY);
-//            Cursor c = db.getWordMatches(query, null);
-//            //process Cursor and display results
-//        }
-//    }
-
     private String AssetJSONFile (String filename, Context context) throws IOException {
         AssetManager manager = context.getAssets();
         InputStream file = manager.open(filename);
@@ -196,15 +187,15 @@ public class MainActivity extends AppCompatActivity {
                 db.addItem(newItem);
             }
 
-            // Reading all items
-//            Log.d("Reading: ", "Reading all shops..");
-//            List<Item> items = db.getAllItems();
-//
-//            for (Item item : items) {
-//                String log = "Id: " + item.getId() + " ,Name: " + item.getName() + " ,Price: " + item.getPrice();
-//                // Writing shops to log
-//                Log.d("Item: : ", log);
-//            }
+//              Reading all items
+            Log.d("Reading: ", "Reading all shops..");
+            List<Item> items = db.getAllItems();
+
+            for (Item item : items) {
+                String log = "Id: " + item.getId() + " ,Name: " + item.getName() + " ,Price: " + item.getPrice();
+                // Writing shops to log
+                Log.d("Item: : ", log);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
