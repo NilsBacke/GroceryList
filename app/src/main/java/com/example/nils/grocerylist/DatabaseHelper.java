@@ -97,4 +97,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return itemlist;
     }
 
+//    public void clearDatabase(String TABLE_NAME) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+////        db.delete("SQLITE_SEQUENCE","NAME = ?",new String[]{TABLE_NAME});
+//        String clearDBQuery = "DELETE FROM "+TABLE_NAME+ "WHERE NAME = " + TABLE_NAME;
+//        db.execSQL(clearDBQuery);
+////        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + TABLE_NAME + "'");
+//    }
+
 }

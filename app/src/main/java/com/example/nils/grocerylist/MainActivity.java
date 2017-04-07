@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list);
         items = new ArrayList<Item>();
         updateList();
-
+//        db.clearDatabase("items_tables");
         try {
             readJSON();
         } catch (IOException e) {
