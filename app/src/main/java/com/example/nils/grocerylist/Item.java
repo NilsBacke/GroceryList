@@ -15,8 +15,9 @@ public class Item {
     private String ingredients;
     public int points;
 
-    public Item(String name, Double price, Double ppu, int calories, int fatCalories, int fat, int cholesterol,
+    public Item(int id, String name, Double price, Double ppu, int calories, int fatCalories, int fat, int cholesterol,
                 int sodium, int carbs, int fiber, int sugar, int protein, String ingredients) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.ppu = ppu;

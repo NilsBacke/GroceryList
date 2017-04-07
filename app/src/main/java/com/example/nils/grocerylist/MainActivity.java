@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     ListView listView ;
     ArrayList<Item> items;
-    DatabaseTable db = new DatabaseTable(this);
+    DatabaseHelper db = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,36 +43,11 @@ public class MainActivity extends AppCompatActivity {
         items = new ArrayList<Item>();
         updateList();
 
-        DatabaseTable.DatabaseOpenHelper db = new DatabaseTable.DatabaseOpenHelper(this);
-
-
-
-//        JSONReader json = new JSONReader();
-
         try {
             readJSON();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-
-        // Inserting Items/Rows
-        Log.d("Insert: ", "Inserting ..");
-        db.addItem(new Item());
-
-        // Reading all items
-        Log.d("Reading: ", "Reading all items..");
-        List<Item> items = db.getAllItems();
-
-        for (Item item : items) {
-            String log = "Id: "  + item.getId() + " ,Name: " + item.getName() + " ,Price: " + item.getPrice() + " ,PPU: " + item.getPPU();
-            // Writing items to log
-            Log.d("Item: : ", log);
-        }
-
-
 
     }
 
@@ -111,14 +86,14 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-    private void handleIntent(Intent intent) {
-
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            Cursor c = db.getWordMatches(query, null);
-            //process Cursor and display results
-        }
-    }
+//    private void handleIntent(Intent intent) {
+//
+//        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+//            String query = intent.getStringExtra(SearchManager.QUERY);
+//            Cursor c = db.getWordMatches(query, null);
+//            //process Cursor and display results
+//        }
+//    }
 
     private String AssetJSONFile (String filename, Context context) throws IOException {
         AssetManager manager = context.getAssets();
@@ -139,10 +114,10 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<HashMap<String, String>> itemsList = new ArrayList<HashMap<String, String>>();
             HashMap<String, String> m_li;
 
-//            for (int i = 0; i < itemsArray.length(); i++) {
+            for (int i = 0; i < itemsArray.length(); i++) {
                 JSONObject jo_inside = itemsArray.getJSONObject(0);
                 Log.d("Details-->", jo_inside.getString("name"));
-                String name = obj.getString("name");
+                String name = jo_inside.getString("name");
                 String price = jo_inside.getString("Price");
                 String each = jo_inside.getString("PerUnit");
                 int calories = jo_inside.getInt("calories");
@@ -194,34 +169,43 @@ public class MainActivity extends AppCompatActivity {
 
                 int intFatCalories = Integer.parseInt(fatCalories);
 
-                fat = fat.substring(0, fat.length());
+                fat = fat.substring(0, fat.length()-1);
                 int intfat = Integer.parseInt(fat);
 
-                cholesterol = cholesterol.substring(0, cholesterol.length()-1);
+                cholesterol = cholesterol.substring(0, cholesterol.length()-2);
                 int intcholesterol = Integer.parseInt(cholesterol);
 
-                sodium = sodium.substring(0, sodium.length()-1);
+                sodium = sodium.substring(0, sodium.length()-2);
                 int intsodium = Integer.parseInt(sodium);
 
-                carbs = carbs.substring(0, carbs.length());
+                carbs = carbs.substring(0, carbs.length()-1);
                 int intcarbs = Integer.parseInt(carbs);
 
-                fiber = fiber.substring(0, fiber.length());
+                fiber = fiber.substring(0, fiber.length()-1);
                 int intfiber = Integer.parseInt(fiber);
 
-                sugar = sugar.substring(0, sugar.length());
+                sugar = sugar.substring(0, sugar.length()-1);
                 int intsugar = Integer.parseInt(sugar);
 
-                protein = protein.substring(0, protein.length());
+                protein = protein.substring(0, protein.length()-1);
                 int intprotein = Integer.parseInt(protein);
 
-                Item newItem = new Item(name, doubleprice, doubleeach, calories, intFatCalories, intfat,
+                Item newItem = new Item(i, name, doubleprice, doubleeach, calories, intFatCalories, intfat,
                         intcholesterol, intsodium, intcarbs, intfiber, intsugar, intprotein, ingredients);
 
-                DatabaseTable.DatabaseOpenHelper db = new DatabaseTable.DatabaseOpenHelper(this);
-
                 db.addItem(newItem);
+            }
+
+            // Reading all items
+//            Log.d("Reading: ", "Reading all shops..");
+//            List<Item> items = db.getAllItems();
+//
+//            for (Item item : items) {
+//                String log = "Id: " + item.getId() + " ,Name: " + item.getName() + " ,Price: " + item.getPrice();
+//                // Writing shops to log
+//                Log.d("Item: : ", log);
 //            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
