@@ -8,8 +8,11 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -28,9 +31,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String SEARCH = "com.example.nils.grocerylist.SEARCH";
     private static final String TAG = "MainActivity";
-    ListView listView ;
-    ArrayList<Item> items;
+    private Cursor mCursor;
+    ListView listView;
+    ArrayList<Item> selecteditems;
     DatabaseHelper db = new DatabaseHelper(this);
 
     @Override
@@ -40,9 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
-        items = new ArrayList<Item>();
+        selecteditems = new ArrayList<Item>();
         updateList();
-//        db.clearDatabase("items_tables");
+        db.clearDatabase("items_tables");
         try {
             readJSON();
         } catch (IOException e) {
@@ -53,36 +58,17 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_add_task:
-                final EditText taskEditText = new EditText(this);
-                AlertDialog dialog = new AlertDialog.Builder(this)
-                        .setTitle("Add a new item")
-                        .setMessage("What is the name of the item you want to add?")
-                        .setView(taskEditText)
-                        .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String task = String.valueOf(taskEditText.getText());
-                                updateList();
-                            }
-                        })
-                        .setNegativeButton("Cancel", null)
-                        .create();
-                dialog.show();
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        startActivity(new Intent(MainActivity.this, SearchActivity.class));
+        return true;
     }
 
     private void updateList() {
-        CustomAdapter adapter = new CustomAdapter(this, items);
+        CustomAdapter adapter = new CustomAdapter(this, selecteditems);
         listView.setAdapter(adapter);
     }
 
@@ -98,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void readJSON() throws IOException {
         try {
-            String jsonLocation = AssetJSONFile("test2.json", this);
+            String jsonLocation = AssetJSONFile("bagels.json", this);
             JSONObject obj = new JSONObject(jsonLocation);
 
             JSONArray itemsArray = obj.getJSONArray("Bagels");
@@ -106,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             HashMap<String, String> m_li;
 
             for (int i = 0; i < itemsArray.length(); i++) {
-                JSONObject jo_inside = itemsArray.getJSONObject(0);
+                JSONObject jo_inside = itemsArray.getJSONObject(i);
                 Log.d("Details-->", jo_inside.getString("name"));
                 String name = jo_inside.getString("name");
                 String price = jo_inside.getString("Price");
@@ -161,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 int intFatCalories = Integer.parseInt(fatCalories);
 
                 fat = fat.substring(0, fat.length()-1);
-                int intfat = Integer.parseInt(fat);
+                Double doublefat = Double.parseDouble(fat);
 
                 cholesterol = cholesterol.substring(0, cholesterol.length()-2);
                 int intcholesterol = Integer.parseInt(cholesterol);
@@ -181,26 +167,21 @@ public class MainActivity extends AppCompatActivity {
                 protein = protein.substring(0, protein.length()-1);
                 int intprotein = Integer.parseInt(protein);
 
-                Item newItem = new Item(i, name, doubleprice, doubleeach, calories, intFatCalories, intfat,
+                Item newItem = new Item(i, name, doubleprice, doubleeach, calories, intFatCalories, doublefat,
                         intcholesterol, intsodium, intcarbs, intfiber, intsugar, intprotein, ingredients);
 
                 db.addItem(newItem);
             }
 
-//              Reading all items
-            Log.d("Reading: ", "Reading all shops..");
-            List<Item> items = db.getAllItems();
-
-            for (Item item : items) {
-                String log = "Id: " + item.getId() + " ,Name: " + item.getName() + " ,Price: " + item.getPrice();
-                // Writing shops to log
-                Log.d("Item: : ", log);
-            }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+    public void addItemToList(Item item) {
+        selecteditems.add(item);
+        updateList();
+    }
 
 }

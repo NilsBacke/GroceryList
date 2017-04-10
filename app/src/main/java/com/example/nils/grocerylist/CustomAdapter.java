@@ -42,7 +42,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public long getItemId(int pos) {
-        return 0;
+        return items.get(pos).getId();
         //just return 0 if your list items do not have an Id variable.
     }
 

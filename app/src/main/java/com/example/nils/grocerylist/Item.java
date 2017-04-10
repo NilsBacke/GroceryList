@@ -9,13 +9,13 @@ import java.util.ArrayList;
 public class Item {
 
     private String name;
-    private Double price, ppu;
-    private int calories, sugar, protein, fatCalories, fat, cholesterol, sodium, carbs, fiber;
+    private Double price, ppu, fat;
+    private int calories, sugar, protein, fatCalories, cholesterol, sodium, carbs, fiber;
     private int id;
     private String ingredients;
     public int points;
 
-    public Item(int id, String name, Double price, Double ppu, int calories, int fatCalories, int fat, int cholesterol,
+    public Item(int id, String name, Double price, Double ppu, int calories, int fatCalories, Double fat, int cholesterol,
                 int sodium, int carbs, int fiber, int sugar, int protein, String ingredients) {
         this.id = id;
         this.name = name;
@@ -41,7 +41,7 @@ public class Item {
         this.ppu = 0.;
         this.calories = 0;
         this.fatCalories = 0;
-        this.fat = 0;
+        this.fat = 0.;
         this.cholesterol = 0;
         this.sodium = 0;
         this.carbs = 0;
@@ -76,7 +76,7 @@ public class Item {
         return fatCalories;
     }
 
-    public int getFat() {
+    public Double getFat() {
         return fat;
     }
 
@@ -140,7 +140,7 @@ public class Item {
         this.fatCalories = fatCalories;
     }
 
-    public void setFat(int fat) {
+    public void setFat(Double fat) {
         this.fat = fat;
     }
 

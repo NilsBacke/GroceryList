@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT," + COL_2 + " TEXT," + COL_3 +
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " INTEGER PRIMARY KEY," + COL_2 + " TEXT," + COL_3 +
         " TEXT," + COL_4 +  " TEXT," + COL_5 + " TEXT," + COL_6 + " TEXT," + COL_7 + " TEXT," + COL_8 + " TEXT," + COL_9 + " TEXT," +
         COL_10 + " TEXT," + COL_11 + " TEXT," + COL_12 + " TEXT," + COL_13 + " TEXT," + COL_14 + " TEXT" + ");");
     }
@@ -47,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void addItem(Item item) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-//        values.put(COL_1, item.getId());
+        values.put(COL_1, item.getId());
         values.put(COL_2, item.getName());
         values.put(COL_3, item.getPrice());
         values.put(COL_4, item.getPPU());
@@ -81,7 +82,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 item.setPPU(Double.parseDouble(cursor.getString(3)));
                 item.setCalories(Integer.parseInt(cursor.getString(4)));
                 item.setFatCalories(Integer.parseInt(cursor.getString(5)));
-                item.setFat(Integer.parseInt(cursor.getString(6)));
+                item.setFat(Double.parseDouble(cursor.getString(6)));
                 item.setCholesterol(Integer.parseInt(cursor.getString(7)));
                 item.setSodium(Integer.parseInt(cursor.getString(8)));
                 item.setCarbs(Integer.parseInt(cursor.getString(9)));
@@ -97,12 +98,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return itemlist;
     }
 
-//    public void clearDatabase(String TABLE_NAME) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-////        db.delete("SQLITE_SEQUENCE","NAME = ?",new String[]{TABLE_NAME});
-//        String clearDBQuery = "DELETE FROM "+TABLE_NAME+ "WHERE NAME = " + TABLE_NAME;
-//        db.execSQL(clearDBQuery);
-////        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + TABLE_NAME + "'");
-//    }
+    public void clearDatabase(String TABLE_NAME) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String clearDBQuery = "DELETE FROM "+TABLE_NAME;
+        db.execSQL(clearDBQuery);
+    }
+
+
+    public Cursor getItemMatches(String query, String[] columns) {
+        String selection = COL_2 + " MATCH ?";
+        String[] selectionArgs = new String[] {query+"*"};
+
+        return query(selection, selectionArgs, columns);
+    }
+
+    private Cursor query(String selection, String[] selectionArgs, String[] columns) {
+        SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+        builder.setTables(TABLE_NAME);
+
+        Cursor cursor = builder.query(getReadableDatabase(),
+                columns, selection, selectionArgs, null, null, null);
+
+        if (cursor == null) {
+            return null;
+        } else if (!cursor.moveToFirst()) {
+            cursor.close();
+            return null;
+        }
+        return cursor;
+    }
 
 }
