@@ -18,10 +18,10 @@
         android:id="@+id/item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/checkbox"
-        android:layout_alignBottom="@+id/checkbox"
+        android:text="TextView"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/checkbox"
-        android:text="TextView" />
+        android:layout_toEndOf="@+id/checkbox" />
 
     <ImageButton
         android:id="@+id/deleteButton"

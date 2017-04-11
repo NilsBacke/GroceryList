@@ -3,12 +3,12 @@ package com.example.nils.grocerylist;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -30,6 +30,11 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         this.context = context;
     }
 
+    public CustomAdapter(Context context) {
+        items = new ArrayList<Item>();
+        this.context = context;
+    }
+
     @Override
     public int getCount() {
         return items.size();
@@ -44,6 +49,10 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
     public long getItemId(int pos) {
         return items.get(pos).getId();
         //just return 0 if your list items do not have an Id variable.
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
     }
 
     @Override

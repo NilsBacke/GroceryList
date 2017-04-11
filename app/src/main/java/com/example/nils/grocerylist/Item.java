@@ -1,12 +1,13 @@
 package com.example.nils.grocerylist;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Nils on 3/22/17.
  */
 
-public class Item {
+public class Item implements Serializable {
 
     private String name;
     private Double price, ppu, fat;

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
         selecteditems = new ArrayList<Item>();
-        updateList();
+//        updateList();
         db.clearDatabase("items_tables");
         try {
             readJSON();
@@ -54,6 +54,17 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        Log.d("Intent: ","onCreate");
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Log.d("Intent: ","onNewIntent");
+        super.onNewIntent(intent);
+        Item item = (Item) intent.getSerializableExtra("newitem");
+        selecteditems.add(item);
+        updateList();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
