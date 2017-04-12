@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String SEARCH = "com.example.nils.grocerylist.SEARCH";
     private static final String TAG = "MainActivity";
     private Cursor mCursor;
+    TextView textView;
     ListView listView;
     ArrayList<Item> selecteditems;
     DatabaseHelper db = new DatabaseHelper(this);
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
+        textView = (TextView)findViewById(R.id.totalPrice);
         selecteditems = new ArrayList<Item>();
 //        updateList();
         db.clearDatabase("items_tables");
@@ -66,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         Item item = (Item) intent.getSerializableExtra("newitem");
         selecteditems.add(item);
         updateList();
-        TextView textView = (TextView)findViewById(R.id.totalPrice);
 
         Double totalprice = 0.;
 
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateList() {
-        CustomAdapter adapter = new CustomAdapter(this, selecteditems);
+        CustomAdapter adapter = new CustomAdapter(this, selecteditems, textView);
         listView.setAdapter(adapter);
     }
 
@@ -106,10 +107,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void readJSON() throws IOException {
         try {
-            String jsonLocation = AssetJSONFile("bagels.json", this);
+            String jsonLocation = AssetJSONFile("sample.json", this);
             JSONObject obj = new JSONObject(jsonLocation);
 
-            JSONArray itemsArray = obj.getJSONArray("Bagels");
+            JSONArray itemsArray = obj.getJSONArray("Fruit");
             ArrayList<HashMap<String, String>> itemsList = new ArrayList<HashMap<String, String>>();
             HashMap<String, String> m_li;
 
@@ -166,31 +167,31 @@ public class MainActivity extends AppCompatActivity {
                 each = each.substring(start, end);
                 Double doubleeach = Double.parseDouble(each);
 
-                int intFatCalories = Integer.parseInt(fatCalories);
+                Double doubleFatCalories = Double.parseDouble(fatCalories);
 
                 fat = fat.substring(0, fat.length()-1);
                 Double doublefat = Double.parseDouble(fat);
 
                 cholesterol = cholesterol.substring(0, cholesterol.length()-2);
-                int intcholesterol = Integer.parseInt(cholesterol);
+                Double doublecholesterol = Double.parseDouble(cholesterol);
 
                 sodium = sodium.substring(0, sodium.length()-2);
-                int intsodium = Integer.parseInt(sodium);
+                Double doublesodium = Double.parseDouble(sodium);
 
                 carbs = carbs.substring(0, carbs.length()-1);
-                int intcarbs = Integer.parseInt(carbs);
+                Double doublecarbs = Double.parseDouble(carbs);
 
                 fiber = fiber.substring(0, fiber.length()-1);
-                int intfiber = Integer.parseInt(fiber);
+                Double doublefiber = Double.parseDouble(fiber);
 
                 sugar = sugar.substring(0, sugar.length()-1);
-                int intsugar = Integer.parseInt(sugar);
+                Double doublesugar = Double.parseDouble(sugar);
 
                 protein = protein.substring(0, protein.length()-1);
-                int intprotein = Integer.parseInt(protein);
+                Double doubleprotein = Double.parseDouble(protein);
 
-                Item newItem = new Item(i, name, doubleprice, doubleeach, calories, intFatCalories, doublefat,
-                        intcholesterol, intsodium, intcarbs, intfiber, intsugar, intprotein, ingredients);
+                Item newItem = new Item(i, name, doubleprice, doubleeach, calories, doubleFatCalories, doublefat,
+                        doublecholesterol, doublesodium, doublecarbs, doublefiber, doublesugar, doubleprotein, ingredients);
 
                 db.addItem(newItem);
             }
