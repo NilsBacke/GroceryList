@@ -61,7 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_11, item.getFiber());
         values.put(COL_12, item.getSugar());
         values.put(COL_13, item.getProtein());
-        values.put(COL_14, item.getStringIngredients());
+        values.put(COL_14, item.ingredientstoString());
         db.insert(TABLE_NAME, null, values);
         db.close(); // Closing database connection
     }

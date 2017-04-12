@@ -105,14 +105,9 @@ public class Item implements Serializable {
         return protein;
     }
 
-    public String getStringIngredients() {
-        return ingredients;
-    }
-
     public String[] getIngredients() {
         return ingredients.split(",");
     }
-
 
 
 
@@ -177,6 +172,54 @@ public class Item implements Serializable {
     @Override
     public String toString() {
         return name;
+    }
+
+    public String pricetoString() {
+        return ("$" + price);
+    }
+
+    public String PPUtoString() {
+        return ("$" + ppu);
+    }
+
+    public String caloriestoString() {
+        return Integer.toString(calories);
+    }
+
+    public String fatCaloriestoString() {
+        return Integer.toString(fatCalories);
+    }
+
+    public String fattoString() {
+        return (fat + "g");
+    }
+
+    public String cholesteroltoString() {
+        return (cholesterol + "mg");
+    }
+
+    public String sodiumtoString() {
+        return (sodium + "mg");
+    }
+
+    public String carbstoString() {
+        return (carbs + "g");
+    }
+
+    public String fibertoString() {
+        return (fiber + "g");
+    }
+
+    public String sugartoString() {
+        return (sugar + "g");
+    }
+
+    public String proteintoString() {
+        return (protein + "g");
+    }
+
+    public String ingredientstoString() {
+        return ingredients;
     }
 
 

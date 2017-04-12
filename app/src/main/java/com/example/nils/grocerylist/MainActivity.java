@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,11 +62,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-        Log.d("Intent: ","onNewIntent");
         super.onNewIntent(intent);
         Item item = (Item) intent.getSerializableExtra("newitem");
         selecteditems.add(item);
         updateList();
+        TextView textView = (TextView)findViewById(R.id.totalPrice);
+
+        Double totalprice = 0.;
+
+        for (int i = 0; i < selecteditems.size(); i++) {
+            totalprice += selecteditems.get(i).getPrice();
+        }
+
+        textView.setText("Total Price: $" + Double.toString(totalprice));
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -188,11 +199,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    public void addItemToList(Item item) {
-        selecteditems.add(item);
-        updateList();
     }
 
 }

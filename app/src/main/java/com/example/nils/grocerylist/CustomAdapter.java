@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -99,19 +100,36 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
             }
         });
 
-//        cb.setOnClickListener(new View.OnClickListener(){
-//                    @Override
-//                    public void onClick(View view) {
-//                        //do something
-//                        Toast.makeText(context, items.get(position).getName() + " has been checked off the list.",
-//                                Toast.LENGTH_SHORT).show();
-//                        Item tempitem = items.get(position);
-//                        items.remove(position);
-//                        items.add(tempitem);
-//                        notifyDataSetChanged();
-//                    }
-//
-//        });
+        View.OnClickListener yourClickListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(context);
+
+                String string = ("Price: " + items.get(position).pricetoString() + "\n"
+                        + "Price Per Unit: " + items.get(position).PPUtoString() + "\n"
+                        + "Calories: " + items.get(position).caloriestoString() + "\n"
+                        + "Calories from fat: " + items.get(position).fatCaloriestoString() + "\n"
+                        + "Fat: " + items.get(position).fattoString() + "\n"
+                        + "Cholesterol: " + items.get(position).cholesteroltoString() + "\n"
+                        + "Sodium: " + items.get(position).sodiumtoString() + "\n"
+                        + "Carbs: " + items.get(position).carbstoString() + "\n"
+                        + "Fiber: " + items.get(position).fibertoString() + "\n"
+                        + "Sugar: " + items.get(position).sugartoString() + "\n"
+                        + "Protein: " + items.get(position).proteintoString() + "\n\n"
+                        + "Ingredients: " + items.get(position).ingredientstoString() + "\n");
+
+                // set dialog message
+                alertDialogBuilder.setTitle(items.get(position).getName())
+                        .setMessage(string)
+                        .setNegativeButton("Exit", null);
+
+                // create alert dialog
+                android.app.AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
+            }
+        };
+
+        view.setOnClickListener(yourClickListener);
 
         return view;
     }
