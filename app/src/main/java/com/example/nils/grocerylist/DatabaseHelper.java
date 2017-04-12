@@ -81,14 +81,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 item.setPrice(Double.parseDouble(cursor.getString(2)));
                 item.setPPU(Double.parseDouble(cursor.getString(3)));
                 item.setCalories(Integer.parseInt(cursor.getString(4)));
-                item.setFatCalories(Integer.parseInt(cursor.getString(5)));
+                item.setFatCalories(Double.parseDouble(cursor.getString(5)));
                 item.setFat(Double.parseDouble(cursor.getString(6)));
-                item.setCholesterol(Integer.parseInt(cursor.getString(7)));
-                item.setSodium(Integer.parseInt(cursor.getString(8)));
-                item.setCarbs(Integer.parseInt(cursor.getString(9)));
-                item.setFiber(Integer.parseInt(cursor.getString(10)));
-                item.setSugar(Integer.parseInt(cursor.getString(11)));
-                item.setProtein(Integer.parseInt(cursor.getString(12)));
+                item.setCholesterol(Double.parseDouble(cursor.getString(7)));
+                item.setSodium(Double.parseDouble(cursor.getString(8)));
+                item.setCarbs(Double.parseDouble(cursor.getString(9)));
+                item.setFiber(Double.parseDouble(cursor.getString(10)));
+                item.setSugar(Double.parseDouble(cursor.getString(11)));
+                item.setProtein(Double.parseDouble(cursor.getString(12)));
                 item.setIngredients(cursor.getString(13));
                 // Adding item to list
                 itemlist.add(item);

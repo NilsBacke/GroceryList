@@ -21,11 +21,11 @@
     <ListView
         android:id="@+id/searchlist"
         android:layout_width="match_parent"
-        android:layout_height="403dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="0dp"
+        android:layout_weight="1.06"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="8dp"
-        android:layout_weight="1.06" />
+        tools:layout_editor_absoluteX="8dp" />
 
 </LinearLayout>

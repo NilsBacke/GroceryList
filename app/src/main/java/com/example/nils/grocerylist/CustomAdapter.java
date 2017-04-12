@@ -15,6 +15,8 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -25,8 +27,9 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
 
     private ArrayList<Item> items;
     private Context context;
+    private TextView textView;
 
-    public CustomAdapter(Context context, ArrayList<Item> list) {
+    public CustomAdapter(Context context, ArrayList<Item> list, TextView textView) {
         this.items = list;
         this.context = context;
     }

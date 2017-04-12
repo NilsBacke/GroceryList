@@ -10,14 +10,14 @@ import java.util.ArrayList;
 public class Item implements Serializable {
 
     private String name;
-    private Double price, ppu, fat;
-    private int calories, sugar, protein, fatCalories, cholesterol, sodium, carbs, fiber;
+    private Double price, ppu, fat, fiber, sugar, protein, fatCalories, cholesterol, sodium, carbs;
+    private int calories;
     private int id;
     private String ingredients;
     public int points;
 
-    public Item(int id, String name, Double price, Double ppu, int calories, int fatCalories, Double fat, int cholesterol,
-                int sodium, int carbs, int fiber, int sugar, int protein, String ingredients) {
+    public Item(int id, String name, Double price, Double ppu, int calories, Double fatCalories, Double fat, Double cholesterol,
+                Double sodium, Double carbs, Double fiber, Double sugar, Double protein, String ingredients) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -41,14 +41,14 @@ public class Item implements Serializable {
         this.price = 0.;
         this.ppu = 0.;
         this.calories = 0;
-        this.fatCalories = 0;
+        this.fatCalories = 0.;
         this.fat = 0.;
-        this.cholesterol = 0;
-        this.sodium = 0;
-        this.carbs = 0;
-        this.fiber = 0;
-        this.sugar = 0;
-        this.protein = 0;
+        this.cholesterol = 0.;
+        this.sodium = 0.;
+        this.carbs = 0.;
+        this.fiber = 0.;
+        this.sugar = 0.;
+        this.protein = 0.;
         this.ingredients = "";
         points = 0;
     }
@@ -73,7 +73,7 @@ public class Item implements Serializable {
         return calories;
     }
 
-    public int getFatCalories() {
+    public Double getFatCalories() {
         return fatCalories;
     }
 
@@ -81,27 +81,27 @@ public class Item implements Serializable {
         return fat;
     }
 
-    public int getCholesterol() {
+    public Double getCholesterol() {
         return cholesterol;
     }
 
-    public int getSodium() {
+    public Double getSodium() {
         return sodium;
     }
 
-    public int getCarbs() {
+    public Double getCarbs() {
         return carbs;
     }
 
-    public int getFiber() {
+    public Double getFiber() {
         return fiber;
     }
 
-    public int getSugar() {
+    public Double getSugar() {
         return sugar;
     }
 
-    public int getProtein() {
+    public Double getProtein() {
         return protein;
     }
 
@@ -132,7 +132,7 @@ public class Item implements Serializable {
         this.calories = calories;
     }
 
-    public void setFatCalories(int fatCalories) {
+    public void setFatCalories(Double fatCalories) {
         this.fatCalories = fatCalories;
     }
 
@@ -140,27 +140,27 @@ public class Item implements Serializable {
         this.fat = fat;
     }
 
-    public void setCholesterol(int cholesterol) {
+    public void setCholesterol(Double cholesterol) {
         this.cholesterol = cholesterol;
     }
 
-    public void setSodium(int sodium) {
+    public void setSodium(Double sodium) {
         this.sodium = sodium;
     }
 
-    public void setCarbs (int carbs) {
+    public void setCarbs (Double carbs) {
         this.carbs = carbs;
     }
 
-    public void setFiber (int fiber) {
+    public void setFiber (Double fiber) {
         this.fiber = fiber;
     }
 
-    public void setSugar (int sugar) {
+    public void setSugar (Double sugar) {
         this.sugar = sugar;
     }
 
-    public void setProtein (int protein) {
+    public void setProtein (Double protein) {
         this.protein = protein;
     }
 
@@ -187,7 +187,7 @@ public class Item implements Serializable {
     }
 
     public String fatCaloriestoString() {
-        return Integer.toString(fatCalories);
+        return Double.toString(fatCalories);
     }
 
     public String fattoString() {
