@@ -26,16 +26,14 @@ public class HealthLogic {
         sugarContent(b);
         calorieCount(a);
         calorieCount(b);
-        fatCalorieCount(a);
-        fatCalorieCount(b);
+        fatPercentage(a);
+        fatPercentage(b);
         fatContent(a);
         fatContent(b);
         proteinContent(a);
         proteinContent(b);
         numIngredients(a);
         numIngredients(b);
-        nutrients(a);
-        nutrients(b);
         cholesterol(a);
         cholesterol(b);
         fiber(a);
@@ -77,13 +75,23 @@ public class HealthLogic {
 
     private void sugarContent(Item g) {
         g.points -= g.getSugar();
+        for (int i = 0; i < 5 || i < g.getIngredients().length; i++) {
+            if (g.getIngredients()[i].toLowerCase().contains("sugar")) {
+                g.points--;
+            }
+        }
     }
 
     private void calorieCount(Item g) {
 
     }
 
-    private void fatCalorieCount(Item g) {
+    private void fatPercentage(Item g) {
+        double fatP = (g.getFatCalories() / g.getCalories()) * 100;
+        if (fatP > 35) {
+            g.points -= fatP - 35;
+        }
+
 
     }
 
@@ -96,22 +104,23 @@ public class HealthLogic {
     }
 
     private void numIngredients(Item g) {
-
+        for (int i = 0; i < g.getIngredients().length; i++) {
+            if (i % 5 == 0) {
+                g.points--;
+            }
+        }
     }
 
-    private void nutrients(Item g) {
-        //vitamin a
-        //vitamin C
-        //iron
-        //calcium
-    }
 
     private void cholesterol(Item g) {
-
+        g.points -= g.getCholesterol();
     }
 
     private void sodium(Item g) {
-
+        //lower than 5% DV (75mg)
+        if (g.getSodium() > 75) {
+            g.points -= g.getSodium() - 75;
+        }
     }
 
     private void fiber(Item g) {
