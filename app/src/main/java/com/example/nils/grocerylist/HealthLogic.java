@@ -1,5 +1,7 @@
 package com.example.nils.grocerylist;
 
+import java.util.ArrayList;
+
 /**
  * Created by Daya on 4/3/2017.
  */
@@ -7,51 +9,45 @@ package com.example.nils.grocerylist;
 public class HealthLogic {
 
     Item a;
-    Item b;
+    ArrayList<Item> b;
     int apoints;
-    int bpoints;
 
-    public HealthLogic(Item y, Item z) {
+    public HealthLogic(Item y, ArrayList<Item> items) {
         a = y;
-        b = z;
-        apoints = y.points;
-        bpoints = z.points;
+        b = items;
     }
 
     public Item chooseHealthier() {
         Item h = new Item();
         ingredients(a);
-        ingredients(b);
         sugarContent(a);
-        sugarContent(b);
         calorieCount(a);
-        calorieCount(b);
         fatPercentage(a);
-        fatPercentage(b);
         fatContent(a);
-        fatContent(b);
         proteinContent(a);
-        proteinContent(b);
         numIngredients(a);
-        numIngredients(b);
         cholesterol(a);
-        cholesterol(b);
         fiber(a);
-        fiber(b);
         sodium(a);
-        sodium(b);
         carbs(a);
-        carbs(b);
         apoints = a.points;
-        bpoints = b.points;
-        if (apoints > bpoints) {
-            h = a;
-        } else if (apoints == bpoints) {
-            return null;
-        } else if (bpoints > apoints) {
-            h = b;
+
+        for(int i = 0; i < b.size(); i++){
+            ingredients(b.get(i));
+            sugarContent(b.get(i));
+            calorieCount(b.get(i));
+            fatPercentage(b.get(i));
+            fatContent(b.get(i));
+            proteinContent(b.get(i));
+            numIngredients(b.get(i));
+            cholesterol(b.get(i));
+            fiber(b.get(i));
+            sodium(b.get(i));
+            carbs(b.get(i));
         }
-        return h;
+
+
+        return a;
     }
 
     private void ingredients(Item g) {
@@ -76,14 +72,16 @@ public class HealthLogic {
     private void sugarContent(Item g) {
         g.points -= g.getSugar();
         for (int i = 0; i < 5 || i < g.getIngredients().length; i++) {
-            if (g.getIngredients()[i].toLowerCase().contains("sugar")) {
+            if (g.getIngredients()[i].toLowerCase().contains("sugar") || g.getIngredients()[i].toLowerCase().contains("ose")) {
                 g.points--;
             }
         }
     }
 
     private void calorieCount(Item g) {
-
+        if (g.getCalories() > 50) {
+            g.points -= g.getCalories() - 50;
+        }
     }
 
     private void fatPercentage(Item g) {
@@ -111,7 +109,6 @@ public class HealthLogic {
         }
     }
 
-
     private void cholesterol(Item g) {
         g.points -= g.getCholesterol();
     }
@@ -128,7 +125,9 @@ public class HealthLogic {
     }
 
     private void carbs(Item g) {
-
+        if (g.getCarbs() > 15) {
+            g.points += g.getCarbs() - 15;
+        }
     }
 
 }

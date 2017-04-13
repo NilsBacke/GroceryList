@@ -21,29 +21,54 @@ public class CustomSearchAdapter extends BaseAdapter implements ListAdapter {
 
     private ArrayList<Item> items;
     private Context context;
-    private ArrayList<Integer> checkedpositions;
 
+    /**
+     * Constructs a new CustomSearchAdapter object from context and an array list of items.
+     * @param context The context of the class that constructs the object.
+     * @param list The array list of items.
+     */
     public CustomSearchAdapter(Context context, ArrayList<Item> list) {
         this.items = list;
         this.context = context;
-        checkedpositions = null;
     }
 
+    /**
+     * This method returns the number of items in the list.
+     * @return The size of the array list.
+     */
     @Override
     public int getCount() {
         return items.size();
     }
 
+    /**
+     * This method returns an object at a given position.
+     * @param pos The position of the item in the arraylist.
+     * @return The item at the given position.
+     */
     @Override
-    public Item getItem(int pos) {
+    public Object getItem(int pos) {
         return items.get(pos);
     }
 
+    /**
+     * This method returns the id of the item at a given position.
+     * @param pos The position of the item in the arraylist.
+     * @return The item's id at the given position.
+     */
     @Override
     public long getItemId(int pos) {
         return items.get(pos).getId();
+        //just return 0 if your list items do not have an Id variable.
     }
 
+    /**
+     * This method controls the view of an item in the arraylist.
+     * @param position The position of the item.
+     * @param convertView The view of the item.
+     * @param parent The viewgroup of the item.
+     * @return The altered view.
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -54,13 +79,10 @@ public class CustomSearchAdapter extends BaseAdapter implements ListAdapter {
 
         //Handle TextView and display string from your list
         TextView listItemText = (TextView)view.findViewById(R.id.search_item_name);
+        // Sets each element of the list to the name of the corresponding item.
         listItemText.setText(items.get(position).getName());
 
         return view;
-    }
-
-    public ArrayList<Integer> getCheckedPositions() {
-        return checkedpositions;
     }
 
 

@@ -29,36 +29,70 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
     private ArrayList<Item> items;
     private Context context;
 
+    /**
+     * Constructs a new CustomAdapter object from context and an array list of items.
+     * @param context The context of the class that constructs the object.
+     * @param list The array list of items.
+     */
     public CustomAdapter(Context context, ArrayList<Item> list) {
         this.items = list;
         this.context = context;
     }
 
+    /**
+     * Constructs a new CustomAdapter class from context.
+     * @param context The context of the class that constructs the object.
+     */
     public CustomAdapter(Context context) {
         items = new ArrayList<Item>();
         this.context = context;
     }
 
+    /**
+     * This method returns the number of items in the list.
+     * @return The size of the array list.
+     */
     @Override
     public int getCount() {
         return items.size();
     }
 
+    /**
+     * This method returns an object at a given position.
+     * @param pos The position of the item in the arraylist.
+     * @return The item at the given position.
+     */
     @Override
     public Object getItem(int pos) {
         return items.get(pos);
     }
 
+    /**
+     * This method returns the id of the item at a given position.
+     * @param pos The position of the item in the arraylist.
+     * @return The item's id at the given position.
+     */
     @Override
     public long getItemId(int pos) {
         return items.get(pos).getId();
         //just return 0 if your list items do not have an Id variable.
     }
 
+    /**
+     * This method adds an item to the arraylist.
+     * @param item The item that will be added.
+     */
     public void addItem(Item item) {
         items.add(item);
     }
 
+    /**
+     * This method controls the view of an item in the arraylist.
+     * @param position The position of the item.
+     * @param convertView The view of the item.
+     * @param parent The viewgroup of the item.
+     * @return The altered view.
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -75,10 +109,12 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         ImageButton deleteButton = (ImageButton) view.findViewById(R.id.deleteButton);
         CheckBox cb = (CheckBox) view.findViewById(R.id.checkbox);
 
+        // The on click listener for the delete button.
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
+                // A new alert dialog is created.
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
                 // set dialog message
@@ -86,11 +122,14 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                // Make toast saying which item was removed.
                                 Toast.makeText(context, items.get(position).getName() + " has been removed.",
                                         Toast.LENGTH_SHORT).show();
+                                // Remove the item.
                                 items.remove(position);
                                 notifyDataSetChanged();
                                 MainActivity main = (MainActivity)context;
+                                // Call the getTotalPrice() method to update the price in the MainActivity.
                                 main.getTotalPrice();
                             }
                         })
@@ -98,17 +137,19 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
 
                 // create alert dialog
                 AlertDialog alertDialog = alertDialogBuilder.create();
-                // show it
+                // show the alert dialog
                 alertDialog.show();
 
 
             }
         });
 
+        // The on click listener for an item in the list.
         View.OnClickListener yourClickListener = new View.OnClickListener() {
             public void onClick(View v) {
                 android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(context);
 
+                // The string that displays the information of the nutrition label.
                 String string = ("Price: " + items.get(position).pricetoString() + "\n"
                         + "Price Per Unit: " + items.get(position).PPUtoString() + "\n"
                         + "Calories: " + items.get(position).caloriestoString() + "\n"

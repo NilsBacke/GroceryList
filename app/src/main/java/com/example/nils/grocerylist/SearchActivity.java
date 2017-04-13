@@ -16,6 +16,16 @@ public class SearchActivity extends AppCompatActivity {
     DatabaseHelper db;
     ListView searchlistView;
 
+    /**
+     * This method is called when the SearchActivity first loads.
+     * The handle intent method is called.
+     * The database is initialized using the class' context.
+     * The generateSearchList() method is called.
+     * A searchadapter object is constructed from the context of the class and from all of the items in the virtual database.
+     * An onItemClickListener is made, for when an item is clicked on the intent is passed to the MainActivity
+     *       and a Toast appears saying that the selected item was added to the list in the MainActivity.
+     * @param savedInstanceState The savedInstanceState of the app.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,12 +38,14 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                Item item = (Item) searchadapter.getItem(position);
+                String itemname = item.getName();
                 Toast.makeText(getApplicationContext(),
-                        searchadapter.getItem(position).getName() + " was added to the list.", Toast.LENGTH_LONG)
+                        itemname + " was added to the list.", Toast.LENGTH_LONG)
                         .show();
                 Intent intent = new Intent(SearchActivity.this, MainActivity.class);
-                Item item = searchadapter.getItem(position);
-                Log.d("Retrieved item: ", item.getName());
+
+                // The new item that needs to be added to the list in the MainActivity is passed through the intent in an extra.
                 intent.putExtra("newitem", item);
                 startActivity(intent);
 
@@ -41,12 +53,20 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method creats a list of items from the CustomSearchAdapter class.
+     */
     private void generateSearchList() {
         CustomSearchAdapter searchadapter = new CustomSearchAdapter(this, db.getAllItems());
         searchlistView = (ListView) findViewById(R.id.searchlist);
         searchlistView.setAdapter(searchadapter);
     }
 
+    /**
+     * This method is called when an intent is passed to this activity.
+     * The handleIntent method is called.
+     * @param intent
+     */
     @Override
     protected void onNewIntent(Intent intent) {
         handleIntent(intent);
@@ -57,7 +77,7 @@ public class SearchActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             DatabaseHelper db = new DatabaseHelper(this);
-            Cursor c = db.getItemMatches(query, null);
+//            Cursor c = db.getItemMatches(query, null);
 
         }
     }

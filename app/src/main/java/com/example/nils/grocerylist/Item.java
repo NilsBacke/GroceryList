@@ -190,6 +190,10 @@ public class Item implements Serializable {
         return ingredients.split(",");
     }
 
+    public int getPoints() {
+        return points;
+    }
+
 
     /**
      * Sets the ID of the item to the value of id.
