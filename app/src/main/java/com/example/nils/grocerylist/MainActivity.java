@@ -1,36 +1,23 @@
 package com.example.nils.grocerylist;
-import android.app.SearchManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
-import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
     public static final String SEARCH = "com.example.nils.grocerylist.SEARCH";
@@ -50,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list);
         textView = (TextView)findViewById(R.id.totalPrice);
         selecteditems = new ArrayList<Item>();
-//        updateList();
+        updateList();
         db.clearDatabase("items_tables");
         try {
             readJSON();
@@ -68,14 +55,7 @@ public class MainActivity extends AppCompatActivity {
         Item item = (Item) intent.getSerializableExtra("newitem");
         selecteditems.add(item);
         updateList();
-
-        Double totalprice = 0.;
-
-        for (int i = 0; i < selecteditems.size(); i++) {
-            totalprice += selecteditems.get(i).getPrice();
-        }
-
-        textView.setText("Total Price: $" + Double.toString(totalprice));
+        getTotalPrice();
 
     }
 
@@ -90,8 +70,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateList();
+        getTotalPrice();
+
+    }
+
     private void updateList() {
-        CustomAdapter adapter = new CustomAdapter(this, selecteditems, textView);
+        CustomAdapter adapter = new CustomAdapter(this, selecteditems);
         listView.setAdapter(adapter);
     }
 
@@ -113,23 +101,80 @@ public class MainActivity extends AppCompatActivity {
             JSONArray itemsArray = obj.getJSONArray("Fruit");
             ArrayList<HashMap<String, String>> itemsList = new ArrayList<HashMap<String, String>>();
             HashMap<String, String> m_li;
-
+            String name, price, each, fatCalories, fat, cholesterol, sodium, carbs, fiber, sugar, protein, ingredients;
+            int calories;
             for (int i = 0; i < itemsArray.length(); i++) {
                 JSONObject jo_inside = itemsArray.getJSONObject(i);
+                Log.d("JSON length: ", Integer.toString(itemsArray.length()));
                 Log.d("Details-->", jo_inside.getString("name"));
-                String name = jo_inside.getString("name");
-                String price = jo_inside.getString("Price");
-                String each = jo_inside.getString("PerUnit");
-                int calories = jo_inside.getInt("calories");
-                String fatCalories = jo_inside.getString("fatCalories");
-                String fat = jo_inside.getString("fat");
-                String cholesterol = jo_inside.getString("cholesterol");
-                String sodium = jo_inside.getString("sodium");
-                String carbs = jo_inside.getString("carbs");
-                String fiber = jo_inside.getString("fiber");
-                String sugar = jo_inside.getString("sugar");
-                String protein = jo_inside.getString("protein");
-                String ingredients = jo_inside.getString("ingredients");
+
+                try {
+                    name = jo_inside.getString("name");
+                } catch (JSONException e) {
+                    name = " ";
+                }
+                try {
+                    price = jo_inside.getString("Price");
+                } catch (JSONException e) {
+                    price = "0";
+                }
+                try {
+                    each = jo_inside.getString("PerUnit");
+                } catch (JSONException e) {
+                    each = "0";
+                }
+                try {
+                    calories = jo_inside.getInt("calories");
+                } catch (JSONException e) {
+                    calories = 0;
+                }
+                try {
+                    fatCalories = jo_inside.getString("fatCalories");
+                } catch (JSONException e) {
+                    fatCalories = "0";
+                }
+                try {
+                    fat = jo_inside.getString("fat");
+                } catch (JSONException e) {
+                    fat = "0";
+                }
+                try {
+                    cholesterol = jo_inside.getString("cholesterol");
+                } catch (JSONException e) {
+                    cholesterol = "0";
+                }
+                try {
+                    sodium = jo_inside.getString("sodium");
+                } catch (JSONException e) {
+                    sodium = "0";
+                }
+                try {
+                    carbs = jo_inside.getString("carbs");
+                } catch (JSONException e) {
+                    carbs = "0";
+                }
+                try {
+                    fiber = jo_inside.getString("fiber");
+                } catch (JSONException e) {
+                    fiber = "0";
+                }
+                try {
+                    sugar = jo_inside.getString("sugar");
+                } catch (JSONException e) {
+                    sugar = "0";
+                }
+
+                try {
+                    protein = jo_inside.getString("protein");
+                } catch (JSONException e) {
+                    protein = "0";
+                }
+                try {
+                    ingredients = jo_inside.getString("ingredients");
+                } catch (JSONException e) {
+                    ingredients = " ";
+                }
+
 
                 //Add your values in your `ArrayList` as below:
 
@@ -172,7 +217,9 @@ public class MainActivity extends AppCompatActivity {
                 fat = fat.substring(0, fat.length()-1);
                 Double doublefat = Double.parseDouble(fat);
 
-                cholesterol = cholesterol.substring(0, cholesterol.length()-2);
+                if (cholesterol.length() >= 2) {
+                    cholesterol = cholesterol.substring(0, cholesterol.length()-2);
+                }
                 Double doublecholesterol = Double.parseDouble(cholesterol);
 
                 sodium = sodium.substring(0, sodium.length()-2);
@@ -200,6 +247,16 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void getTotalPrice() {
+        Double totalprice = 0.;
+
+        for (int i = 0; i < selecteditems.size(); i++) {
+            totalprice += selecteditems.get(i).getPrice();
+        }
+
+        textView.setText("Total Price: $" + Double.toString(totalprice));
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.nils.grocerylist;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +28,8 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
 
     private ArrayList<Item> items;
     private Context context;
-    private TextView textView;
 
-    public CustomAdapter(Context context, ArrayList<Item> list, TextView textView) {
+    public CustomAdapter(Context context, ArrayList<Item> list) {
         this.items = list;
         this.context = context;
     }
@@ -90,6 +90,8 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                                         Toast.LENGTH_SHORT).show();
                                 items.remove(position);
                                 notifyDataSetChanged();
+                                MainActivity main = (MainActivity)context;
+                                main.getTotalPrice();
                             }
                         })
                 .setNegativeButton("Cancel", null);

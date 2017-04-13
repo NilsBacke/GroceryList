@@ -1,10 +1,8 @@
 package com.example.nils.grocerylist;
 
 import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
 
