@@ -38,11 +38,13 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                Item item = (Item) searchadapter.getItem(position);
+                String itemname = item.getName();
                 Toast.makeText(getApplicationContext(),
-                        searchadapter.getItem(position).getName() + " was added to the list.", Toast.LENGTH_LONG)
+                        itemname + " was added to the list.", Toast.LENGTH_LONG)
                         .show();
                 Intent intent = new Intent(SearchActivity.this, MainActivity.class);
-                Item item = searchadapter.getItem(position);
+
                 // The new item that needs to be added to the list in the MainActivity is passed through the intent in an extra.
                 intent.putExtra("newitem", item);
                 startActivity(intent);
