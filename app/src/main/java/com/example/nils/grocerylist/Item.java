@@ -8,18 +8,17 @@ import java.util.ArrayList;
  */
 
 public class Item implements Serializable {
-    /**
-     *
-     */
+
     private String name;
 
-    /**
-     *
-     */
     private Double price, ppu, fat, fiber, sugar, protein, fatCalories, cholesterol, sodium, carbs;
+
     private int calories;
+
     private int id;
+
     private String ingredients;
+
     public int points;
 
     /**
@@ -136,7 +135,7 @@ public class Item implements Serializable {
 
     /**
      * Gets the amount of cholesterol for the item.
-     * @return The amount cholesterol for the item.
+     * @return The amount of cholesterol for the item.
      */
     public Double getCholesterol() {
         return cholesterol;
@@ -144,7 +143,7 @@ public class Item implements Serializable {
 
     /**
      * Gets the amount of sodium for the item.
-     * @return The amount of sodium the item.
+     * @return The amount of sodium for the item.
      */
     public Double getSodium() {
         return sodium;
@@ -190,13 +189,14 @@ public class Item implements Serializable {
         return ingredients.split(",");
     }
 
-    public int getPoints() {
-        return points;
-    }
-
+    /**
+     * Gets the number of point for the item.
+     * @return The number of points for the item.
+     */
+    public int getPoints() {return points;}
 
     /**
-     * Sets the ID of the item to the value of id.
+     * Sets the ID of the item to id.
      * @param id The new id of the item.
      */
     public void setId(int id) {
@@ -311,61 +311,105 @@ public class Item implements Serializable {
     @Override
 
     /**
-     *
-     * @return name The name of the item.
+     * Gets the name of the item as a string.
+     * @return The name of the item as a string.
      */
     public String toString() {
         return name;
     }
 
     /**
-     *
-     * @return
+     * Gets the price of the item as a string.
+     * @return The price of the item as a string.
      */
     public String pricetoString() {
         return ("$" + price);
     }
 
+    /**
+     * Gets the price per unit of the item as a string.
+     * @return The price per unit of the item as a string.
+     */
     public String PPUtoString() {
         return ("$" + ppu);
     }
 
+    /**
+     * Gets the number of calories for the item as a string.
+     * @return The number of calories for the item as a string.
+     */
     public String caloriestoString() {
         return Integer.toString(calories);
     }
 
+    /**
+     * Gets the number of calories from fat for the item as a string.
+     * @return The number of calories from fat for the item as a string.
+     */
     public String fatCaloriestoString() {
         return Double.toString(fatCalories);
     }
 
+    /**
+     * Gets the amount of fat for the item as a string.
+     * @return The amount of fat for the item as a string.
+     */
     public String fattoString() {
         return (fat + "g");
     }
 
+    /**
+     * Gets the amount of cholesterol for the item as a string.
+     * @return The amount of cholesterol for the item as a string.
+     */
     public String cholesteroltoString() {
         return (cholesterol + "mg");
     }
 
+    /**
+     * Gets the amount of sodium for the item as a string.
+     * @return The amount of sodium for the item as a string.
+     */
     public String sodiumtoString() {
         return (sodium + "mg");
     }
 
+    /**
+     * Gets the amount of carbohydrates for the item as a string.
+     * @return The amount of carbohydrates for the item as a string.
+     */
     public String carbstoString() {
         return (carbs + "g");
     }
 
+    /**
+     * Gets the amount of fiber for the itemas a string.
+     * @return The amount of fiber for the item as a string.
+     */
     public String fibertoString() {
         return (fiber + "g");
     }
 
+    /**
+     * Gets the amount of sugar for the item as a string.
+     * @return The amount of sugar for the item as a string.
+     */
     public String sugartoString() {
         return (sugar + "g");
     }
 
+    /**
+     * Gets the amount of protein for the item as a string.
+     * @return The amount of protein for the item as a string.
+     */
     public String proteintoString() {
         return (protein + "g");
     }
 
+    /**
+     * Gets the list of ingredients for the item as a string.
+     * @return The list of ingredients for the item as a string.
+     */
     public String ingredientstoString() {
         return ingredients;
     }
