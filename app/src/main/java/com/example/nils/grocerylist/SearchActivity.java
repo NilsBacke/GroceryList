@@ -5,9 +5,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,6 +20,7 @@ public class SearchActivity extends AppCompatActivity {
 
     DatabaseHelper db;
     ListView searchlistView;
+    private SearchView mSearchView;
 
     /**
      * This method is called when the SearchActivity first loads.
@@ -51,6 +57,10 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
+//        mSearchView=(SearchView) findViewById(R.id.searchView1);
+//        searchlistView.setTextFilterEnabled(true);
+//        setupSearchView();
+
     }
 
     /**
@@ -81,6 +91,32 @@ public class SearchActivity extends AppCompatActivity {
 
         }
     }
+
+//    private void setupSearchView()
+//    {
+//        mSearchView.setIconifiedByDefault(false);
+//        mSearchView.setOnQueryTextListener(this);
+//        mSearchView.setSubmitButtonEnabled(true);
+//        mSearchView.setQueryHint("Search Here");
+//    }
+//
+//    @Override
+//    public boolean onQueryTextChange(String newText)
+//    {
+//
+//        if (TextUtils.isEmpty(newText)) {
+//            searchlistView.clearTextFilter();
+//        } else {
+//            searchlistView.setFilterText(newText);
+//        }
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onQueryTextSubmit(String query)
+//    {
+//        return false;
+//    }
 
 
 

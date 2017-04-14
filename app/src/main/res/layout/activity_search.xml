@@ -8,15 +8,10 @@
     tools:context="com.example.nils.grocerylist.SearchActivity"
     android:weightSum="1">
 
-    <EditText
-        android:id="@+id/searchbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/search"
-        android:inputType="text|textPersonName"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="9dp" />
+    <SearchView
+    android:id="@+id/searchView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
 
     <ListView
         android:id="@+id/searchlist"
