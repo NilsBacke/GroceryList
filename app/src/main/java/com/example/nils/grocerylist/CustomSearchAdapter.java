@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -17,9 +19,10 @@ import java.util.jar.Pack200;
  * Created by Nils on 3/25/17.
  */
 
-public class CustomSearchAdapter extends BaseAdapter implements ListAdapter {
+public class CustomSearchAdapter extends BaseAdapter {
 
     private ArrayList<Item> items;
+    public ArrayList<Item> searcheditems;
     private Context context;
 
     /**
@@ -85,5 +88,41 @@ public class CustomSearchAdapter extends BaseAdapter implements ListAdapter {
         return view;
     }
 
+//    public Filter getFilter() {
+//        return new Filter() {
+//
+//            @Override
+//            protected FilterResults performFiltering(CharSequence constraint) {
+//                final FilterResults oReturn = new FilterResults();
+//                final ArrayList<Item> results = new ArrayList<Item>();
+//                if (items == null)
+//                    items = searcheditems;
+//                if (constraint != null) {
+//                    if (items != null && items.size() > 0) {
+//                        for (final Item g : items) {
+//                            if (g.getName().toLowerCase()
+//                                    .contains(constraint.toString()))
+//                                results.add(g);
+//                        }
+//                    }
+//                    oReturn.values = results;
+//                }
+//                return oReturn;
+//            }
+//
+//            @SuppressWarnings("unchecked")
+//            @Override
+//            protected void publishResults(CharSequence constraint,
+//                                          FilterResults results) {
+//                searcheditems = (ArrayList<Item>) results.values;
+//                notifyDataSetChanged();
+//            }
+//        };
+//    }
+
 
 }
+
+//Apples Honeycrisp
+//NW Pear Bureau Pears Bartlet
+//Potatoes Red
