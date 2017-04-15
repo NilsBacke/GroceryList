@@ -2,25 +2,24 @@ package com.example.nils.grocerylist;
 
 import android.app.SearchManager;
 import android.content.Intent;
-import android.database.Cursor;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     DatabaseHelper db;
     ListView searchlistView;
-    private SearchView mSearchView;
+    CustomSearchAdapter searchadapter;
+    SearchView sv;
 
     /**
      * This method is called when the SearchActivity first loads.
@@ -39,7 +38,8 @@ public class SearchActivity extends AppCompatActivity {
         handleIntent(getIntent());
         db = new DatabaseHelper(this);
         generateSearchList();
-        final CustomSearchAdapter searchadapter = new CustomSearchAdapter(this, db.getAllItems());
+        searchadapter = new CustomSearchAdapter(this, db.getAllItems());
+        searchlistView.setTextFilterEnabled(true);
         searchlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -57,14 +57,20 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
-//        mSearchView=(SearchView) findViewById(R.id.searchView1);
-//        searchlistView.setTextFilterEnabled(true);
-//        setupSearchView();
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.searchmenu, menu);
+        MenuItem searchItem = menu.findItem(R.id.menu_search);
+        sv = (SearchView) MenuItemCompat.getActionView(searchItem);
+        setupSearchView();
+        return true;
+    }
+
     /**
-     * This method creats a list of items from the CustomSearchAdapter class.
+     * This method creates a list of items from the CustomSearchAdapter class.
      */
     private void generateSearchList() {
         CustomSearchAdapter searchadapter = new CustomSearchAdapter(this, db.getAllItems());
@@ -92,33 +98,39 @@ public class SearchActivity extends AppCompatActivity {
         }
     }
 
-//    private void setupSearchView()
-//    {
-//        mSearchView.setIconifiedByDefault(false);
-//        mSearchView.setOnQueryTextListener(this);
-//        mSearchView.setSubmitButtonEnabled(true);
-//        mSearchView.setQueryHint("Search Here");
-//    }
-//
-//    @Override
-//    public boolean onQueryTextChange(String newText)
-//    {
-//
-//        if (TextUtils.isEmpty(newText)) {
-//            searchlistView.clearTextFilter();
-//        } else {
-//            searchlistView.setFilterText(newText);
-//        }
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onQueryTextSubmit(String query)
-//    {
-//        return false;
-//    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.menu_search) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setupSearchView() {
+        sv.setIconifiedByDefault(false);
+        sv.setOnQueryTextListener(this);
+        sv.setSubmitButtonEnabled(true);
+        sv.setQueryHint("Search Here");
+    }
 
 
+    public boolean onQueryTextChange(String newText) {
+        if (TextUtils.isEmpty(newText)) {
+            searchlistView.clearTextFilter();
+        } else {
+            searchlistView.setFilterText(newText.toString());
+        }
+        return true;
+    }
 
-
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 }

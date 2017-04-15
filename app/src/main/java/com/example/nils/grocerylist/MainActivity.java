@@ -315,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < selecteditems.size(); i++) {
             totalprice += selecteditems.get(i).getPrice();
         }
-        totalprice = (double)Math.round(totalprice*100)/100.0;
+        totalprice = (double)Math.round(totalprice*100.0)/100.0;
         textView.setText("Total Price: $" + Double.toString(totalprice));
     }
 

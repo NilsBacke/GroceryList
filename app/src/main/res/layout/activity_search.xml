@@ -8,17 +8,11 @@
     tools:context="com.example.nils.grocerylist.SearchActivity"
     android:weightSum="1">
 
-    <SearchView
-    android:id="@+id/searchView1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
-
     <ListView
         android:id="@+id/searchlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="0dp"
-        android:layout_weight="1.06"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="8dp" />
