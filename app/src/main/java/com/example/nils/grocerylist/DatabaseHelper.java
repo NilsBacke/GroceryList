@@ -3,6 +3,7 @@ package com.example.nils.grocerylist;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
@@ -130,31 +131,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public void clearDatabase(String TABLE_NAME) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String clearDBQuery = "DELETE FROM "+TABLE_NAME;
+        String clearDBQuery = "DELETE FROM " + TABLE_NAME;
         db.execSQL(clearDBQuery);
     }
 
-//    public Cursor getItemMatches(String query, String[] columns) {
-//        String selection = COL_2 + " MATCH ?";
-//        String[] selectionArgs = new String[] {query+"*"};
-//
-//        return query(selection, selectionArgs, columns);
-//    }
-//
-//    private Cursor query(String selection, String[] selectionArgs, String[] columns) {
-//        SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-//        builder.setTables(TABLE_NAME);
-//
-//        Cursor cursor = builder.query(getReadableDatabase(),
-//                columns, selection, selectionArgs, null, null, null);
-//
-//        if (cursor == null) {
-//            return null;
-//        } else if (!cursor.moveToFirst()) {
-//            cursor.close();
-//            return null;
-//        }
-//        return cursor;
-//    }
 
 }

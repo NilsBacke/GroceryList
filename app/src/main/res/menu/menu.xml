@@ -2,9 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/search"
+        android:id="@+id/search_button"
         android:actionViewClass="android.widget.SearchView"
         android:icon="@android:drawable/ic_menu_add"
         android:title="Search"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/deleteAll_button"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="Delete All"
         app:showAsAction="always" />
 </menu>

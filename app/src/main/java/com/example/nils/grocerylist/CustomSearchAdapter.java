@@ -21,7 +21,7 @@ import java.util.jar.Pack200;
  * Created by Nils on 3/25/17.
  */
 
-public class CustomSearchAdapter extends BaseAdapter implements Filterable {
+public class CustomSearchAdapter extends BaseAdapter implements Filterable{
 
     private ArrayList<Item> origitems;
     private ArrayList<Item> filtereditems;
@@ -36,8 +36,8 @@ public class CustomSearchAdapter extends BaseAdapter implements Filterable {
     public CustomSearchAdapter(Context context, ArrayList<Item> list) {
         this.context = context;
         filtereditems = list;
-//        origitems = new ArrayList<Item>();
-//        origitems.addAll(filtereditems);
+        origitems = new ArrayList<Item>();
+        origitems.addAll(filtereditems);
     }
 
     /**
@@ -133,6 +133,21 @@ public class CustomSearchAdapter extends BaseAdapter implements Filterable {
 
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
+    }
+
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        filtereditems.clear();
+        if (charText.length() == 0) {
+            filtereditems.addAll(origitems);
+        } else {
+            for (Item item : origitems) {
+                if (item.getName().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    filtereditems.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }
 

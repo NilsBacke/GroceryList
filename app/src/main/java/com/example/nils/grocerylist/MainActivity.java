@@ -1,5 +1,7 @@
 package com.example.nils.grocerylist;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
@@ -12,6 +14,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -85,14 +89,45 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method is called when a button on the options menu is pressed.
-     * It passes the intent to the SearchActivity activity.
+     * If the search button is pressed, it passes the intent to the SearchActivity activity.
+     * If the deleteAll button is pressed, the list is cleared.
      * @param item The menu item.
      * @return Always true.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        startActivity(new Intent(MainActivity.this, SearchActivity.class));
-        return true;
+        switch (item.getItemId()) {
+            case R.id.search_button:
+                startActivity(new Intent(MainActivity.this, SearchActivity.class));
+                return true;
+            case R.id.deleteAll_button:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+                // set dialog message
+                alertDialogBuilder.setMessage("Are you sure you want to delete all items in your list?")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Make toast
+                                Toast.makeText(MainActivity.this,  "The list has been cleared.",
+                                        Toast.LENGTH_SHORT).show();
+                                // Remove all items
+                                selecteditems.clear();
+                                updateList();
+                                getTotalPrice();
+                            }
+                        })
+                        .setNegativeButton("Cancel", null);
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show the alert dialog
+                alertDialog.show();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
@@ -105,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         updateList();
         getTotalPrice();
-
     }
 
     /**
@@ -315,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < selecteditems.size(); i++) {
             totalprice += selecteditems.get(i).getPrice();
         }
-        totalprice = (double)Math.round(totalprice*100.0)/100.0;
+        totalprice = (double)Math.round(totalprice*100.00)/100.00;
         textView.setText("Total Price: $" + Double.toString(totalprice));
     }
 

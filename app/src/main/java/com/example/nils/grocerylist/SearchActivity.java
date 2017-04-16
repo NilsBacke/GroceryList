@@ -2,24 +2,36 @@ package com.example.nils.grocerylist;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+import java.util.ArrayList;
+import java.util.Locale;
+
+import android.os.Handler;
+
+public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, SearchView.OnCloseListener {
 
     DatabaseHelper db;
     ListView searchlistView;
     CustomSearchAdapter searchadapter;
     SearchView sv;
+    ArrayList<Item> itemlist;
 
     /**
      * This method is called when the SearchActivity first loads.
@@ -35,9 +47,11 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        handleIntent(getIntent());
+
         db = new DatabaseHelper(this);
         generateSearchList();
+        itemlist = db.getAllItems();
+
         searchadapter = new CustomSearchAdapter(this, db.getAllItems());
         searchlistView.setTextFilterEnabled(true);
         searchlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -45,6 +59,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Item item = (Item) searchadapter.getItem(position);
+                Log.d("Item ID: ", Integer.toString(item.getId()));
                 String itemname = item.getName();
                 Toast.makeText(getApplicationContext(),
                         itemname + " was added to the list.", Toast.LENGTH_LONG)
@@ -58,6 +73,12 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
             }
         });
 
+    }
+
+    @Override
+    public boolean onClose() {
+        searchlistView.setAdapter(searchadapter);
+        return false;
     }
 
     @Override
@@ -78,41 +99,6 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         searchlistView.setAdapter(searchadapter);
     }
 
-    /**
-     * This method is called when an intent is passed to this activity.
-     * The handleIntent method is called.
-     * @param intent
-     */
-    @Override
-    protected void onNewIntent(Intent intent) {
-        handleIntent(intent);
-    }
-
-    private void handleIntent(Intent intent) {
-
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            DatabaseHelper db = new DatabaseHelper(this);
-//            Cursor c = db.getItemMatches(query, null);
-
-        }
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.menu_search) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void setupSearchView() {
         sv.setIconifiedByDefault(false);
         sv.setOnQueryTextListener(this);
@@ -126,6 +112,8 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
             searchlistView.clearTextFilter();
         } else {
             searchlistView.setFilterText(newText.toString());
+            searchadapter.filter(newText);
+
         }
         return true;
     }
@@ -133,4 +121,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
+
+
+
 }
