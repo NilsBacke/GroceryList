@@ -127,14 +127,26 @@ public class HealthLogic {
 
     }
 
+    /**
+     * Subtracts one health point for every gram of fat.
+     * @param g an Item to examine
+     */
     private void fatContent(Item g) {
         g.points -= g.getFat();
     }
 
+    /**
+     * Adds one health point for every gram of protein.
+     * @param g an Item to examine
+     */
     private void proteinContent(Item g) {
         g.points += g.getProtein();
     }
 
+    /**
+     * Removes one health point for every five ingredients.
+     * @param g an Item to examine
+     */
     private void numIngredients(Item g) {
         for (int i = 0; i < g.getIngredients().length; i++) {
             if (i % 5 == 0) {
@@ -143,21 +155,36 @@ public class HealthLogic {
         }
     }
 
+    /**
+     * Subtracts one health point for every milligram of cholesterol
+     * @param g an Item to examine
+     */
     private void cholesterol(Item g) {
         g.points -= g.getCholesterol();
     }
 
+    /**
+     * Subtracts one health point for every milligram of sodium past 75mg.
+     * @param g an Item to examine
+     */
     private void sodium(Item g) {
-        //lower than 5% DV (75mg)
         if (g.getSodium() > 75) {
             g.points -= g.getSodium() - 75;
         }
     }
 
+    /**
+     * Adds one health point for every gram of fiber.
+     * @param g an Item to examine
+     */
     private void fiber(Item g) {
         g.points += g.getFiber();
     }
 
+    /**
+     * Adds one health point for every gram of carbohydrates past 15g.
+     * @param g an Item to examine
+     */
     private void carbs(Item g) {
         if (g.getCarbs() > 15) {
             g.points += g.getCarbs() - 15;
