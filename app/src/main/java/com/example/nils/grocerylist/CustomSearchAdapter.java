@@ -58,7 +58,6 @@ public class CustomSearchAdapter extends BaseAdapter implements Filterable{
      */
     @Override
     public Object getItem(int pos) {
-        Log.d("Get item (Array Length)", Integer.toString(filtereditems.size()));
         return filtereditems.get(pos);
     }
 
@@ -94,7 +93,6 @@ public class CustomSearchAdapter extends BaseAdapter implements Filterable{
         TextView listItemText = (TextView) view.findViewById(R.id.search_item_name);
         // Sets each element of the list to the name of the corresponding item.
         listItemText.setText(filtereditems.get(position).getName());
-        Log.d("Displayed filtered list", Integer.toString(filtereditems.size()));
 
         return view;
     }
