@@ -12,32 +12,29 @@ import java.util.ArrayList;
 public class HealthLogic {
 
     //data
-    private Item a;
+
     private ArrayList<Item> b;
-    private int apoints;
+
 
     //constructor
 
     /**
-     * Constructs a HealthLogic object. Takes in an item and an ArrayList of similar items. The Arraylist was constructed in an earlier class.
+     * Constructs a HealthLogic object.
      *
-     * @param y     the original item to be compared to
-     * @param items the ArrayList of similar items
+     * @param items an ArrayList of similar Items
      */
-    public HealthLogic(Item y, ArrayList<Item> items) {
-        a = y;
+    public HealthLogic(ArrayList<Item> items) {
         b = items;
     }
 
     //methods
 
     /**
-     * Compares the items from the ArrayList to the original item. Assigns "HealthPoints" based on how healthy the item is. Sorts the array by the number of point seach item has.
+     * Compares the items from the ArrayList to each other. Assigns "HealthPoints" based on how healthy the item is. Sorts the array by the number of point seach item has.
      *
      * @return the ArrayList of all items sorted by health points.
      */
     public ArrayList<Item> rankByHealth() {
-        b.add(a);
         for (int i = 0; i < b.size(); i++) {
             ingredients(b.get(i));
             sugarContent(b.get(i));
