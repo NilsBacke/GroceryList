@@ -62,7 +62,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
                 Log.d("Item ID: ", Integer.toString(item.getId()));
                 String itemname = item.getName();
                 Toast.makeText(getApplicationContext(),
-                        itemname + " was added to the list.", Toast.LENGTH_LONG)
+                        itemname + " was added to the list.", Toast.LENGTH_SHORT)
                         .show();
                 Intent intent = new Intent(SearchActivity.this, MainActivity.class);
 
