@@ -11,11 +11,11 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="8dp"
-        android:layout_above="@+id/totalPrice"
-        android:layout_alignParentTop="true" />
+        android:layout_above="@+id/totalPrice" />
 
     <TextView
         android:id="@+id/totalPrice"
@@ -23,9 +23,18 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:paddingBottom="8dp"
+        android:layout_above="@+id/button_alternatives"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/button_alternatives"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:paddingBottom="8dp"/>
+        android:text="Find Alternative List" />
 
 </RelativeLayout>

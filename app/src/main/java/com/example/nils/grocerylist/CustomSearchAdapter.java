@@ -99,6 +99,11 @@ public class CustomSearchAdapter extends BaseAdapter implements Filterable{
         return view;
     }
 
+    /**
+     * This method returns a Filter object that will filter the search list view given a search term.
+     * This method does not visually filter the list, only internally.
+     * @return The filter.
+     */
     public Filter getFilter() {
         return new Filter() {
 
@@ -135,6 +140,11 @@ public class CustomSearchAdapter extends BaseAdapter implements Filterable{
         super.notifyDataSetChanged();
     }
 
+    /**
+     * This method filters the search list view given a search term.
+     * This method only filters the list view visually, not internally.
+     * @param charText
+     */
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());
         filtereditems.clear();
