@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ListView;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import android.util.Log;
 import android.widget.TextView;
@@ -351,7 +352,8 @@ public class MainActivity extends AppCompatActivity {
             totalprice += selecteditems.get(i).getPrice();
         }
         totalprice = (double)Math.round(totalprice*100.00)/100.00;
-        textView.setText("Total Price: $" + Double.toString(totalprice));
+        NumberFormat fmt = NumberFormat.getCurrencyInstance();
+        textView.setText("Total Price: " + fmt.format(totalprice));
     }
 
     public void AlternateItemsButton(View view) {
