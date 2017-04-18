@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import java.io.IOException;
 import java.io.InputStream;
@@ -351,6 +352,11 @@ public class MainActivity extends AppCompatActivity {
         }
         totalprice = (double)Math.round(totalprice*100.00)/100.00;
         textView.setText("Total Price: $" + Double.toString(totalprice));
+    }
+
+    public void AlternateItemsButton(View view) {
+        Intent intent = new Intent(MainActivity.this, AlternateItemsActivity.class);
+        intent.putExtra("Grocery List", selecteditems);
     }
 
 }

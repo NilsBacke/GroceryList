@@ -21,7 +21,7 @@ import java.util.jar.Pack200;
  * Created by Nils on 3/25/17.
  */
 
-public class CustomSearchAdapter extends BaseAdapter implements Filterable{
+public class CustomSearchAdapter extends BaseAdapter implements Filterable {
 
     private ArrayList<Item> origitems;
     private ArrayList<Item> filtereditems;
@@ -141,7 +141,7 @@ public class CustomSearchAdapter extends BaseAdapter implements Filterable{
     /**
      * This method filters the search list view given a search term.
      * This method only filters the list view visually, not internally.
-     * @param charText
+     * @param charText The string of the searched text inputted by the user.
      */
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());

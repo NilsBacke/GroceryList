@@ -109,8 +109,8 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         if (TextUtils.isEmpty(newText)) {
             searchlistView.clearTextFilter();
         } else {
-            searchlistView.setFilterText(newText.toString());
-            searchadapter.filter(newText);
+            searchlistView.setFilterText(newText.toString().toLowerCase());
+            searchadapter.filter(newText.toLowerCase());
 
         }
         return true;
