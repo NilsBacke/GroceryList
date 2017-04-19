@@ -3,6 +3,7 @@ package com.example.nils.grocerylist;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -13,7 +14,6 @@ public class AlternateItemsActivity extends AppCompatActivity {
     DatabaseHelper db;
     AlternateItemsHelper helper;
     ListView listview;
-    CustomAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,8 @@ public class AlternateItemsActivity extends AppCompatActivity {
         db = new DatabaseHelper(this);
         helper = new AlternateItemsHelper(this);
         listview = (ListView) findViewById(R.id.list);
+        Log.d("On create: ", "new intent");
+        onNewIntent(getIntent());
 
     }
 
@@ -32,9 +34,17 @@ public class AlternateItemsActivity extends AppCompatActivity {
         for (int i = 0; i < items.size(); i++) {
             helper.findAlternateItems(items.get(i));
         }
+        updateList();
+        Log.d("On next intent: ", "new intent");
 
-        adapter = new CustomAdapter(this, alternate);
+    }
 
+    /**
+     * This method updates the CustomAdapter with the selecteditems array list.
+     */
+    private void updateList() {
+        CustomAdapter adapter = new CustomAdapter(this, helper.getAlternateItemsList());
+        listview.setAdapter(adapter);
     }
 
 

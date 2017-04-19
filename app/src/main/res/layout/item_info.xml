@@ -23,6 +23,15 @@
         android:layout_toRightOf="@+id/checkbox"
         android:layout_toEndOf="@+id/checkbox" />
 
+    <TextView
+        android:id="@+id/PPUtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/deleteButton"
+        android:layout_toLeftOf="@+id/deleteButton" />
+
     <ImageButton
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"

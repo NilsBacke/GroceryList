@@ -1,6 +1,7 @@
 package com.example.nils.grocerylist;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 /**
@@ -323,7 +324,8 @@ public class Item implements Serializable {
      * @return The price of the item as a string.
      */
     public String pricetoString() {
-        return ("$" + price);
+        NumberFormat fmt = NumberFormat.getCurrencyInstance();
+        return fmt.format(price);
     }
 
     /**
@@ -331,7 +333,8 @@ public class Item implements Serializable {
      * @return The price per unit of the item as a string.
      */
     public String PPUtoString() {
-        return ("$" + ppu);
+        NumberFormat fmt = NumberFormat.getCurrencyInstance();
+        return fmt.format(ppu);
     }
 
     /**

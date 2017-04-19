@@ -101,9 +101,12 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
             view = inflater.inflate(R.layout.item_info, null);
         }
 
-        //Handle TextView and display string from your list
+        //Handle TextViews and display strings from your list
         TextView listItemText = (TextView)view.findViewById(R.id.item_name);
         listItemText.setText(items.get(position).getName());
+
+        TextView PPUtext = (TextView)view.findViewById(R.id.PPUtext);
+        PPUtext.setText("Per Unit: " + items.get(position).PPUtoString());
 
         //Handle buttons and add onClickListeners
         ImageButton deleteButton = (ImageButton) view.findViewById(R.id.deleteButton);

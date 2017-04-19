@@ -359,6 +359,8 @@ public class MainActivity extends AppCompatActivity {
     public void AlternateItemsButton(View view) {
         Intent intent = new Intent(MainActivity.this, AlternateItemsActivity.class);
         intent.putExtra("Grocery List", selecteditems);
+        startActivity(intent);
+        Log.d("Intent ","Intent is switched");
     }
 
 }

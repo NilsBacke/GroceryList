@@ -94,6 +94,9 @@ public class CustomSearchAdapter extends BaseAdapter implements Filterable {
         // Sets each element of the list to the name of the corresponding item.
         listItemText.setText(filtereditems.get(position).getName());
 
+        TextView PPUtext = (TextView)view.findViewById(R.id.PPUsearchtext);
+        PPUtext.setText("Per Unit: " + filtereditems.get(position).PPUtoString());
+
         return view;
     }
 

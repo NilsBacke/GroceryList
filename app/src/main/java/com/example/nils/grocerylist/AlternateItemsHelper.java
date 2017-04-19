@@ -1,6 +1,7 @@
 package com.example.nils.grocerylist;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -23,22 +24,27 @@ public class AlternateItemsHelper {
         String[] itemingredients = item.getIngredients();
         String[] ingredients;
         double percent = 0;
-        alternate.add(item);
 
         for (Item a: fulllist) {
             ingredients = a.getIngredients();
+
             for (int i = 0; i < ingredients.length; i++) {
                 for (int j = 0; j < itemingredients.length; j++) {
                     if (ingredients[i].contains(itemingredients[j])) {
-                        percent++;
+                        percent = percent + 1;
+                        Log.d("Percent: ", " ++ (" + percent + ")");
+                        Log.d("Item added to alternate", a.toString());
                     }
                 }
             }
             percent = percent / ingredients.length;
-            if (percent >= 60) {
+            if (percent >= 0.3) {
                 alternate.add(a);
+                Log.d("Alternate items", alternate.toString());
             }
+            percent = 0;
         }
+        Log.d("Alternate items", alternate.toString());
     }
 
     public ArrayList<Item> getAlternateItemsList() {
