@@ -34,11 +34,16 @@ public class AlternateItemsHelper {
                         percent = percent + 1;
                         Log.d("Percent: ", " ++ (" + percent + ")");
                         Log.d("Item added to alternate", a.toString());
+                    } else if (itemingredients[j].contains(ingredients[i])) {
+                        percent = percent + 1;
+                        Log.d("Percent: ", " ++ (" + percent + ")");
+                        Log.d("Item added to alternate", a.toString());
                     }
+
                 }
             }
             percent = percent / ingredients.length;
-            if (percent >= 0.3) {
+            if (percent >= 0.5) {
                 alternate.add(a);
                 Log.d("Alternate items", alternate.toString());
             }
