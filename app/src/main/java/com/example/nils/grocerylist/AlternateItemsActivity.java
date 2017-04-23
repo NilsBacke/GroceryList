@@ -10,18 +10,21 @@ import java.util.ArrayList;
 
 public class AlternateItemsActivity extends AppCompatActivity {
 
-    ArrayList<Item> alternate;
+    ArrayList<Item> orig;
     DatabaseHelper db;
     AlternateItemsHelper helper;
-    ListView listview;
+    ListView origlistview;
+    ListView alternatelistview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alternate_items);
+        setContentView(R.layout.alternate_items_activity);
+        orig = new ArrayList<Item>();
         db = new DatabaseHelper(this);
         helper = new AlternateItemsHelper(this);
-        listview = (ListView) findViewById(R.id.list);
+        origlistview = (ListView) findViewById(R.id.origlist);
+        alternatelistview = (ListView) findViewById(R.id.list);
         Log.d("On create: ", "new intent");
         onNewIntent(getIntent());
 
@@ -31,10 +34,11 @@ public class AlternateItemsActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         ArrayList<Item> items = (ArrayList<Item>) intent.getSerializableExtra("Grocery List");
+        orig = items;
         for (int i = 0; i < items.size(); i++) {
             helper.findAlternateItems(items.get(i));
         }
-        updateList();
+        updateLists();
         Log.d("On next intent: ", "new intent");
 
     }
@@ -42,9 +46,11 @@ public class AlternateItemsActivity extends AppCompatActivity {
     /**
      * This method updates the CustomAdapter with the selecteditems array list.
      */
-    private void updateList() {
+    private void updateLists() {
         CustomAdapter adapter = new CustomAdapter(this, helper.getAlternateItemsList());
-        listview.setAdapter(adapter);
+        alternatelistview.setAdapter(adapter);
+        CustomAdapter adapter2 = new CustomAdapter(this, orig);
+        origlistview.setAdapter(adapter2);
     }
 
 
