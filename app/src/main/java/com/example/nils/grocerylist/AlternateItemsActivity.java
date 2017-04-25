@@ -13,7 +13,6 @@ public class AlternateItemsActivity extends AppCompatActivity {
     ArrayList<Item> orig;
     DatabaseHelper db;
     AlternateItemsHelper helper;
-    ListView origlistview;
     ListView alternatelistview;
 
     @Override
@@ -23,7 +22,6 @@ public class AlternateItemsActivity extends AppCompatActivity {
         orig = new ArrayList<Item>();
         db = new DatabaseHelper(this);
         helper = new AlternateItemsHelper(this);
-        origlistview = (ListView) findViewById(R.id.origlist);
         alternatelistview = (ListView) findViewById(R.id.list);
         Log.d("On create: ", "new intent");
         onNewIntent(getIntent());
@@ -49,8 +47,6 @@ public class AlternateItemsActivity extends AppCompatActivity {
     private void updateLists() {
         CustomAdapter adapter = new CustomAdapter(this, helper.getAlternateItemsList());
         alternatelistview.setAdapter(adapter);
-        CustomAdapter adapter2 = new CustomAdapter(this, orig);
-        origlistview.setAdapter(adapter2);
     }
 
 

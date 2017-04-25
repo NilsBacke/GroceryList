@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     ingredients = jo_inside.getString("ingredients");
                 } catch (JSONException e) {
-                    ingredients = " ";
+                    ingredients = "";
                 }
 
 

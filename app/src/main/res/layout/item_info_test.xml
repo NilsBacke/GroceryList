@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="6dip" >
+    android:orientation="horizontal"
+    android:weightSum="1">
 
     <CheckBox
         android:id="@+id/checkbox"
@@ -18,34 +18,27 @@
 
     <TextView
         android:id="@+id/item_name"
-        android:layout_width="match_parent"
+        android:layout_width="139dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="TextView"
+        android:layout_toEndOf="@+id/checkbox"
         android:layout_toLeftOf="@+id/PPUtext"
         android:layout_toRightOf="@+id/checkbox"
-        android:layout_toEndOf="@+id/checkbox" />
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="TextView"
+        android:layout_weight="0.98" />
 
     <TextView
         android:id="@+id/PPUtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/deleteButton"
-        android:layout_toLeftOf="@+id/deleteButton" />
+        android:text="TextView" />
 
     <ImageButton
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:elevation="0dp"
         app:srcCompat="@android:drawable/presence_busy" />
 
-</RelativeLayout>
+</LinearLayout>

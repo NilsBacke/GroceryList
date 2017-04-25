@@ -25,31 +25,38 @@ public class AlternateItemsHelper {
         String[] ingredients;
         double percent = 0;
 
-        for (Item a: fulllist) {
-            ingredients = a.getIngredients();
+        if (!itemingredients[0].equals("")) {
+            for (int k = 0; k < fulllist.size(); k++) {
+                ingredients = fulllist.get(k).getIngredients();
 
-            for (int i = 0; i < ingredients.length; i++) {
-                for (int j = 0; j < itemingredients.length; j++) {
-                    if (ingredients[i].contains(itemingredients[j])) {
-                        percent = percent + 1;
-                        Log.d("Percent: ", " ++ (" + percent + ")");
-                        Log.d("Item added to alternate", a.toString());
-                    } else if (itemingredients[j].contains(ingredients[i])) {
-                        percent = percent + 1;
-                        Log.d("Percent: ", " ++ (" + percent + ")");
-                        Log.d("Item added to alternate", a.toString());
+                if (ingredients[0].equals("")) {
+                    k++;
+                } else {
+
+                    for (int i = 0; i < ingredients.length; i++) {
+                        for (int j = 0; j < itemingredients.length; j++) {
+                            if (ingredients[i].contains(itemingredients[j])) {
+                                percent = percent + 1;
+                                Log.d("Percent: ", " ++ (" + percent + ")");
+                                Log.d("Item added to alternate", fulllist.get(k).toString());
+                            } else if (itemingredients[j].contains(ingredients[i])) {
+                                percent = percent + 1;
+                                Log.d("Percent: ", " ++ (" + percent + ")");
+                                Log.d("Item added to alternate", fulllist.get(k).toString());
+                            }
+
+                        }
                     }
-
                 }
+                percent = percent / ingredients.length;
+                if (percent >= 0.5) {
+                    alternate.add(fulllist.get(k));
+                    Log.d("Alternate items", alternate.toString());
+                }
+                percent = 0;
             }
-            percent = percent / ingredients.length;
-            if (percent >= 0.5) {
-                alternate.add(a);
-                Log.d("Alternate items", alternate.toString());
-            }
-            percent = 0;
+            Log.d("Alternate items", alternate.toString());
         }
-        Log.d("Alternate items", alternate.toString());
     }
 
     public ArrayList<Item> getAlternateItemsList() {

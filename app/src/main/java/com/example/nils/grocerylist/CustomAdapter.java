@@ -98,7 +98,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_info, null);
+            view = inflater.inflate(R.layout.item_info_test, null);
         }
 
         //Handle TextViews and display strings from your list
@@ -142,7 +142,6 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 // show the alert dialog
                 alertDialog.show();
-
 
             }
         });
