@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ListView;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import android.util.Log;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
         // Get TextView object from xml
-        textView = (TextView)findViewById(R.id.totalPrice);
+        textView = (TextView)findViewById(R.id.totalPriceNewList);
         selecteditems = new ArrayList<Item>();
         db = new DatabaseHelper(this);
         updateList();
@@ -71,8 +72,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+
+
         Item item = (Item) intent.getSerializableExtra("newitem");
-        selecteditems.add(item);
+        ArrayList<Item> itemslist = (ArrayList<Item>) intent.getSerializableExtra("Alternate List");
+        if (item != null) {
+            selecteditems.add(item);
+            Log.d("Tried: ", selecteditems.toString());
+        } else if (itemslist != null) {
+            Log.d("List: ", itemslist.toString());
+            selecteditems.clear();
+            selecteditems.addAll(itemslist);
+        } else {
+            Log.d("Intent: ", "no intent found.");
+        }
+
         updateList();
         getTotalPrice();
 
@@ -254,6 +268,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 try {
                     ingredients = jo_inside.getString("ingredients");
+                    if (ingredients.equals(" ")) {
+                        ingredients = "";
+                    }
                 } catch (JSONException e) {
                     ingredients = "";
                 }
@@ -351,7 +368,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < selecteditems.size(); i++) {
             totalprice += selecteditems.get(i).getPrice();
         }
-        totalprice = (double)Math.round(totalprice*100.00)/100.00;
+        totalprice = (double) Math.round(totalprice*100.00)/100.00;
         NumberFormat fmt = NumberFormat.getCurrencyInstance();
         textView.setText("Total Price: " + fmt.format(totalprice));
     }

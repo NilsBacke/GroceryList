@@ -15,7 +15,6 @@ public class HealthLogic {
 
     private ArrayList<Item> b;
 
-
     //constructor
 
     /**
@@ -30,11 +29,18 @@ public class HealthLogic {
     //methods
 
     /**
-     * Compares the items from the ArrayList to each other. Assigns "HealthPoints" based on how healthy the item is. Sorts the array by the number of point seach item has.
-     *
+     * Compares the items from the ArrayList to each other.
+     * Assigns "HealthPoints" based on how healthy the item is.
+     * Sorts the array by the number of points each item has.
      * @return the ArrayList of all items sorted by health points.
      */
-    public ArrayList<Item> rankByHealth() {
+
+    public Item findBest() {
+        rankByHealth();
+        return b.get(0);
+    }
+
+    public void rankByHealth() {
         for (int i = 0; i < b.size(); i++) {
             ingredients(b.get(i));
             sugarContent(b.get(i));
@@ -60,7 +66,17 @@ public class HealthLogic {
         }
 
 
-        return b;
+    }
+
+    public Item getCheapestItem() {
+        Item cheapest = new Item();
+        cheapest.setPPU(5.0);
+        for (int i = 0; i < b.size(); i++) {
+            if (b.get(i).getPPU() <= cheapest.getPPU()) {
+                cheapest = b.get(i);
+            }
+        }
+        return cheapest;
     }
 
     /**
@@ -94,7 +110,7 @@ public class HealthLogic {
      */
     private void sugarContent(Item g) {
         g.points -= g.getSugar();
-        for (int i = 0; i < 5 || i < g.getIngredients().length; i++) {
+        for (int i = 0; i < 5 && i < g.getIngredients().length; i++) {
             if (g.getIngredients()[i].toLowerCase().contains("sugar") || g.getIngredients()[i].toLowerCase().contains("ose")) {
                 g.points--;
             }

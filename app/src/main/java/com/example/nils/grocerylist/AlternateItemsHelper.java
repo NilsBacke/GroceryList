@@ -11,11 +11,13 @@ import java.util.ArrayList;
 
 public class AlternateItemsHelper {
 
+    ArrayList<Item> tempalternate;
     ArrayList<Item> alternate;
     DatabaseHelper db;
 
     public AlternateItemsHelper (Context context){
         db = new DatabaseHelper(context);
+        tempalternate = new ArrayList<Item>();
         alternate = new ArrayList<Item>();
     }
 
@@ -32,7 +34,6 @@ public class AlternateItemsHelper {
                 if (ingredients[0].equals("")) {
                     k++;
                 } else {
-
                     for (int i = 0; i < ingredients.length; i++) {
                         for (int j = 0; j < itemingredients.length; j++) {
                             if (ingredients[i].contains(itemingredients[j])) {
@@ -41,25 +42,37 @@ public class AlternateItemsHelper {
                                 Log.d("Item added to alternate", fulllist.get(k).toString());
                             } else if (itemingredients[j].contains(ingredients[i])) {
                                 percent = percent + 1;
-                                Log.d("Percent: ", " ++ (" + percent + ")");
-                                Log.d("Item added to alternate", fulllist.get(k).toString());
                             }
 
                         }
                     }
+
+                    percent = percent / ingredients.length;
+                    if (percent >= 0.25) {
+                        tempalternate.add(fulllist.get(k));
+                        Log.d("Item added in percent", fulllist.get(k).toString());
+                    }
                 }
-                percent = percent / ingredients.length;
-                if (percent >= 0.5) {
-                    alternate.add(fulllist.get(k));
-                    Log.d("Alternate items", alternate.toString());
-                }
+
                 percent = 0;
+
             }
-            Log.d("Alternate items", alternate.toString());
+            if (!tempalternate.isEmpty()) {
+                alternate.add(findBestItem(tempalternate));
+            }
+        } else {
+            tempalternate.add(item);
+            alternate.add(findBestItem(tempalternate));
         }
+        tempalternate.clear();
     }
 
     public ArrayList<Item> getAlternateItemsList() {
         return alternate;
+    }
+
+    public Item findBestItem(ArrayList<Item> list) {
+        HealthLogic healthLogic = new HealthLogic(list);
+        return healthLogic.getCheapestItem();
     }
 }

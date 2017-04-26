@@ -15,21 +15,21 @@
         android:layout_alignParentTop="true"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="8dp"
-        android:layout_above="@+id/totalPrice" />
+        android:layout_above="@+id/totalPriceNewList" />
 
     <TextView
-        android:id="@+id/totalPrice"
+        android:id="@+id/totalPriceNewList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="24sp"
         android:paddingBottom="8dp"
-        android:layout_above="@+id/button_alternatives"
+        android:layout_above="@+id/button_replacelist"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
-        android:id="@+id/button_alternatives"
+        android:id="@+id/button_replacelist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
