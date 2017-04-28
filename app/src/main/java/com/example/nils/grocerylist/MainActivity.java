@@ -38,12 +38,14 @@ public class MainActivity extends AppCompatActivity {
      * The updatelist() method is called.
      * The database is initialized and cleared.
      * The readJSON() method is called.
+     *
      * @param savedInstanceState The savedInstanceState of the app.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         Item item = (Item) intent.getSerializableExtra("newitem");
         ArrayList<Item> itemslist = (ArrayList<Item>) intent.getSerializableExtra("Alternate List");
+        Log.d("Intent: ", "Intent was passed.");
         if (item != null) {
             selecteditems.add(item);
             Log.d("Tried: ", selecteditems.toString());

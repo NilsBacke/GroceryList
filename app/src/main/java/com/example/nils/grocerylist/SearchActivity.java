@@ -58,6 +58,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                Log.d("Intent passed: ", "passed1.");
                 Item item = (Item) searchadapter.getItem(position);
                 Toast.makeText(getApplicationContext(),
                         item.getName() + " was added to the list.", Toast.LENGTH_SHORT)
@@ -65,6 +66,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
                 Intent intent = new Intent(SearchActivity.this, MainActivity.class);
 
                 // The new item that needs to be added to the list in the MainActivity is passed through the intent in an extra.
+                Log.d("Intent passed: ", "passed.");
                 intent.putExtra("newitem", item);
                 startActivity(intent);
 
