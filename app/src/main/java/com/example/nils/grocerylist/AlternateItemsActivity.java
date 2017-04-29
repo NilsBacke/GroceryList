@@ -23,6 +23,7 @@ public class AlternateItemsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alternate_items_activity);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         db = new DatabaseHelper(this);
         helper = new AlternateItemsHelper(this);
         newlist = new ArrayList<Item>();
@@ -45,6 +46,13 @@ public class AlternateItemsActivity extends AppCompatActivity {
         Log.d("On next intent: ", "new intent");
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in2, R.anim.slide_out2);
+    }
+
 
     /**
      * This method updates the CustomAdapter with the selecteditems array list.

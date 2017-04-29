@@ -47,6 +47,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         db = new DatabaseHelper(this);
         generateSearchList();
@@ -73,6 +74,12 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in2, R.anim.slide_out2);
     }
 
     @Override

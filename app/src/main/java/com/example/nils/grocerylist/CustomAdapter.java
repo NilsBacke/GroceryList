@@ -4,6 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +16,16 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 /**
@@ -108,6 +116,9 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         TextView PPUtext = (TextView)view.findViewById(R.id.PPUtext);
         PPUtext.setText("Per Unit: " + items.get(position).PPUtoString());
 
+        TextView pricetext = (TextView)view.findViewById(R.id.item_price);
+        pricetext.setText("Price: " + items.get(position).pricetoString());
+
         //Handle buttons and add onClickListeners
         ImageButton deleteButton = (ImageButton) view.findViewById(R.id.deleteButton);
         CheckBox cb = (CheckBox) view.findViewById(R.id.checkbox);
@@ -182,5 +193,6 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         return view;
     }
 
-
 }
+
+

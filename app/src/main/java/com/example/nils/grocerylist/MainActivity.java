@@ -4,8 +4,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +17,8 @@ import android.widget.ListView;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.net.URI;
+import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import android.util.Log;
@@ -46,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
         // Get TextView object from xml
@@ -74,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
+        overridePendingTransition(R.anim.slide_in2, R.anim.slide_out2);
 
         Item item = (Item) intent.getSerializableExtra("newitem");
         ArrayList<Item> itemslist = (ArrayList<Item>) intent.getSerializableExtra("Alternate List");
@@ -200,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<HashMap<String, String>> itemsList = new ArrayList<HashMap<String, String>>();
             HashMap<String, String> m_li;
             String name, price, each, fatCalories, fat, cholesterol, sodium, carbs, fiber, sugar, protein, ingredients;
+            Uri pictureuri;
             int calories;
 
             // Loops through every item and gets all of the nutrition label information.
@@ -222,6 +228,12 @@ public class MainActivity extends AppCompatActivity {
                     each = jo_inside.getString("PerUnit");
                 } catch (JSONException e) {
                     each = "0";
+                }
+                try {
+                    String s = jo_inside.getString("picture");
+                    pictureuri =  Uri.parse(s);
+                } catch (JSONException e) {
+                    pictureuri = Uri.parse(" ");
                 }
                 try {
                     calories = jo_inside.getInt("calories");
@@ -348,8 +360,9 @@ public class MainActivity extends AppCompatActivity {
                 protein = protein.substring(0, protein.length()-1);
                 Double doubleprotein = Double.parseDouble(protein);
 
+                Log.d("PictureUri: " , pictureuri.toString());
                 // A new item object is formed from all of the retreived data.
-                Item newItem = new Item(i, name, doubleprice, doubleeach, calories, doubleFatCalories, doublefat,
+                Item newItem = new Item(i, name, doubleprice, doubleeach, pictureuri, calories, doubleFatCalories, doublefat,
                         doublecholesterol, doublesodium, doublecarbs, doublefiber, doublesugar, doubleprotein, ingredients);
 
                 // The new item is added to the virtual data table.
