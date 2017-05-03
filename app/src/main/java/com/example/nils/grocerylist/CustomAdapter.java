@@ -132,7 +132,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
                 // set dialog message
-                alertDialogBuilder.setMessage("Are you sure you want to delete " + items.get(position).getName() + " from the list?")
+                alertDialogBuilder.setMessage("Are you sure you want to delete?")
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

@@ -38,8 +38,6 @@ public class AlternateItemsActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         ArrayList<Item> items = (ArrayList<Item>) intent.getSerializableExtra("Grocery List");
-        int mode = (int) intent.getSerializableExtra("Mode");
-        helper.setMode(mode);
         for (int i = 0; i < items.size(); i++) {
             helper.findAlternateItems(items.get(i));
         }
