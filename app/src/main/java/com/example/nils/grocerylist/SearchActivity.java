@@ -70,6 +70,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
                 Log.d("Intent passed: ", "passed.");
                 intent.putExtra("newitem", item);
                 startActivity(intent);
+
             }
         });
 

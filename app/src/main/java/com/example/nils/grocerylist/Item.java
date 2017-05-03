@@ -83,10 +83,6 @@ public class Item implements Serializable {
         points = 0;
     }
 
-    public Item(int i, String name, Double doubleprice, Double doubleeach, int calories, Double doubleFatCalories, Double doublefat, Double doublecholesterol, Double doublesodium, Double doublecarbs, Double doublefiber, Double doublesugar, Double doubleprotein, String ingredients) {
-
-    }
-
     /**
      * Gets the id of the item.
      * @return The id of the item.
