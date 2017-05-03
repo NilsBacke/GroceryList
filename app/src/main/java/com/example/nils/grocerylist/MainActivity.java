@@ -13,6 +13,9 @@ import android.transition.TransitionManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +25,7 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import android.util.Log;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<Item> selecteditems;
     DatabaseHelper db;
+    int mode; //price mode = 1, health mode = 2
 
 
     /**
@@ -58,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView)findViewById(R.id.totalPriceNewList);
         selecteditems = new ArrayList<Item>();
         db = new DatabaseHelper(this);
+        mode = 1; //defaultly mode is set to price mode
         updateList();
         db.clearDatabase("items_tables");
         try {
@@ -147,7 +153,16 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 // show the alert dialog
                 alertDialog.show();
-
+                return true;
+            case R.id.price_mode:
+                mode = 1;
+                Toast.makeText(MainActivity.this, "Price mode set",
+                        Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.health_mode:
+                mode = 2;
+                Toast.makeText(MainActivity.this, "Health mode set",
+                        Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -392,6 +407,7 @@ public class MainActivity extends AppCompatActivity {
     public void AlternateItemsButton(View view) {
         Intent intent = new Intent(MainActivity.this, AlternateItemsActivity.class);
         intent.putExtra("Grocery List", selecteditems);
+        intent.putExtra("Mode", mode);
         startActivity(intent);
         Log.d("Intent ","Intent is switched");
     }
