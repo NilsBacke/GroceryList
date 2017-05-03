@@ -13,4 +13,18 @@
         android:icon="@android:drawable/ic_menu_delete"
         android:title="Delete All"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/price_mode"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="Set Price Mode"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/health_mode"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="Set Health Mode"
+        app:showAsAction="ifRoom" />
+
+
 </menu>

@@ -14,11 +14,13 @@ public class AlternateItemsHelper {
     ArrayList<Item> tempalternate;
     ArrayList<Item> alternate;
     DatabaseHelper db;
+    int mode;
 
-    public AlternateItemsHelper (Context context){
+    public AlternateItemsHelper (Context context, int mode){
         db = new DatabaseHelper(context);
         tempalternate = new ArrayList<Item>();
         alternate = new ArrayList<Item>();
+        this.mode = mode;
     }
 
     public void findAlternateItems(Item item) {
@@ -73,6 +75,12 @@ public class AlternateItemsHelper {
 
     public Item findBestItem(ArrayList<Item> list) {
         HealthLogic healthLogic = new HealthLogic(list);
-        return healthLogic.getCheapestItem();
+        if (mode == 1) {
+            return healthLogic.getCheapestItem();
+        }
+        if (mode == 2) {
+            return healthLogic.getHealthiestItem();
+        }
+        return null;
     }
 }

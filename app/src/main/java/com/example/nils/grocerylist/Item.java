@@ -25,6 +25,8 @@ public class Item implements Serializable {
 
     private Uri pictureuri;
 
+    private boolean selected;
+
     /**
      * Constructor that initializes the item's id, name, price information, and nutritionial information.
      * @param id ID number for each item.
@@ -60,6 +62,7 @@ public class Item implements Serializable {
         this.protein = protein;
         this.ingredients = ingredients;
         points = 0;
+        selected = false;
     }
 
     /**
@@ -81,6 +84,7 @@ public class Item implements Serializable {
         this.protein = 0.;
         this.ingredients = "";
         points = 0;
+        selected = false;
     }
 
     /**
@@ -208,6 +212,14 @@ public class Item implements Serializable {
      * @return The number of points for the item.
      */
     public int getPoints() {return points;}
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 
     /**
      * Sets the ID of the item to id.

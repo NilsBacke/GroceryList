@@ -35,8 +35,11 @@ public class HealthLogic {
      * @return the ArrayList of all items sorted by health points.
      */
 
-    public Item findBest() {
+    public Item getHealthiestItem() {
         rankByHealth();
+        if (b.size() > 1 && b.get(0).points == b.get(1).points) {
+            return getCheapestItem(b.get(0), b.get(1));
+        }
         return b.get(0);
     }
 
@@ -70,13 +73,21 @@ public class HealthLogic {
 
     public Item getCheapestItem() {
         Item cheapest = new Item();
-        cheapest.setPPU(5.0);
+        cheapest.setPPU(1000000.0);
         for (int i = 0; i < b.size(); i++) {
             if (b.get(i).getPPU() <= cheapest.getPPU()) {
                 cheapest = b.get(i);
             }
         }
         return cheapest;
+    }
+
+    public Item getCheapestItem(Item one, Item two) {
+        if (one.getPPU() <= two.getPPU()) {
+            return one;
+        } else {
+            return two;
+        }
     }
 
     /**
