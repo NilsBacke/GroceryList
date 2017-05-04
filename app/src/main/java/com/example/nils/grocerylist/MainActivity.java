@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView)findViewById(R.id.totalPriceNewList);
         selecteditems = new ArrayList<Item>();
         mode = 1; //Defaultly choose price mode
+        setTitle("Price Mode");
         db = new DatabaseHelper(this);
         updateList();
         db.clearDatabase("items_tables");
@@ -149,11 +150,13 @@ public class MainActivity extends AppCompatActivity {
                 mode = 1;
                 Toast.makeText(MainActivity.this,  "Price mode set",
                         Toast.LENGTH_SHORT).show();
+                setTitle("Price Mode");
                 return true;
             case R.id.health_mode:
                 mode = 2;
                 Toast.makeText(MainActivity.this,  "Health mode set",
                         Toast.LENGTH_SHORT).show();
+                setTitle("Health Mode");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -396,7 +399,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void AlternateItemsButton(View view) {
-        Intent intent = new Intent(MainActivity.this, AlternateItemsActivity.class);
+        Intent intent = new Intent(MainActivity.this, InstructionsActivity.class);
         intent.putExtra("Grocery List", selecteditems);
         intent.putExtra("Mode", mode);
         startActivity(intent);
