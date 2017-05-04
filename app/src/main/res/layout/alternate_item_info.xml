@@ -11,25 +11,26 @@
         android:id="@+id/alternate_items_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/deleteButton"
         android:focusable="false"
-        android:focusableInTouchMode="false" />
+        android:focusableInTouchMode="false"
+        android:layout_alignBaseline="@+id/item_name"
+        android:layout_alignBottom="@+id/item_name"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/PPUtext"
+        android:layout_toRightOf="@+id/imageView"
         android:layout_weight="0.98"
+        android:fontFamily="serif"
         android:padding="2dip"
         android:text="TextView"
         android:textColor="#736F6E"
         android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/imageView"
-        android:layout_toLeftOf="@+id/PPUtext" />
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/PPUtext"
@@ -38,22 +39,23 @@
         android:layout_column="3"
         android:layout_row="0"
         android:text="TextView"
-        android:layout_above="@+id/item_price"
-        android:layout_toLeftOf="@+id/alternate_items_check"
+        android:textStyle="bold|italic"
+        android:typeface="serif"
+        android:layout_alignTop="@+id/alternate_items_check"
         android:layout_toStartOf="@+id/alternate_items_check" />
 
     <TextView
         android:id="@+id/item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="serif"
         android:gravity="center_vertical"
         android:padding="2dip"
         android:text="Textview"
         android:textColor="#736F6E"
         android:textSize="12sp"
-        android:textStyle="bold"
-        android:layout_alignBottom="@+id/alternate_items_check"
-        android:layout_toLeftOf="@+id/alternate_items_check"
+        android:textStyle="bold|italic"
+        android:layout_below="@+id/PPUtext"
         android:layout_toStartOf="@+id/alternate_items_check" />
 
     <ImageView

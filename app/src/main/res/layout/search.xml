@@ -10,17 +10,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="ItemName" />
+        android:fontFamily="serif"
+        android:text="ItemName"
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/PPUsearchtext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
+        android:fontFamily="serif"
         android:text="TextView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:textStyle="bold|italic" />
 
 </RelativeLayout>
