@@ -38,7 +38,8 @@
         android:layout_column="3"
         android:layout_row="0"
         android:text="TextView"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/item_price"
+        android:layout_toLeftOf="@+id/alternate_items_check"
         android:layout_toStartOf="@+id/alternate_items_check" />
 
     <TextView
@@ -52,6 +53,7 @@
         android:textSize="12sp"
         android:textStyle="bold"
         android:layout_alignBottom="@+id/alternate_items_check"
+        android:layout_toLeftOf="@+id/alternate_items_check"
         android:layout_toStartOf="@+id/alternate_items_check" />
 
     <ImageView
