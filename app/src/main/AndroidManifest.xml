@@ -37,7 +37,9 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".AlternateItemsActivity"></activity>
+        <activity android:name=".AlternateItemsActivity"
+            android:label="Check new items">
+        </activity>
     </application>
 
 </manifest>

@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +21,7 @@ import java.util.ArrayList;
  * Created by Nils on 3/25/17.
  */
 
-public class CustomAdapter extends BaseAdapter implements ListAdapter {
+public class CustomAlternateAdapter extends BaseAdapter implements ListAdapter {
 
     private ArrayList<Item> items;
     private Context context;
@@ -29,7 +31,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
      * @param context The context of the class that constructs the object.
      * @param list The array list of items.
      */
-    public CustomAdapter(Context context, ArrayList<Item> list) {
+    public CustomAlternateAdapter(Context context, ArrayList<Item> list) {
         this.items = list;
         this.context = context;
     }
@@ -38,7 +40,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
      * Constructs a new CustomAdapter class from context.
      * @param context The context of the class that constructs the object.
      */
-    public CustomAdapter(Context context) {
+    public CustomAlternateAdapter(Context context) {
         items = new ArrayList<Item>();
         this.context = context;
     }
@@ -93,7 +95,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_info_test, null);
+            view = inflater.inflate(R.layout.alternate_item_info, null);
         }
 
         //Handle TextViews and display strings from your list
@@ -106,41 +108,15 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         TextView pricetext = (TextView)view.findViewById(R.id.item_price);
         pricetext.setText("Price: " + items.get(position).pricetoString());
 
-        //Handle buttons and add onClickListeners
-        ImageButton deleteButton = (ImageButton) view.findViewById(R.id.deleteButton);
-        CheckBox cb = (CheckBox) view.findViewById(R.id.alternate_items_check);
-
-        // The on click listener for the delete button.
-        deleteButton.setOnClickListener(new View.OnClickListener(){
+        final CheckBox checkBox = (CheckBox) view.findViewById(R.id.alternate_items_check);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-
-                // A new alert dialog is created.
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-                // set dialog message
-                alertDialogBuilder.setMessage("Are you sure you want to delete?")
-                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Make toast saying which item was removed.
-                                Toast.makeText(context, items.get(position).getName() + " has been removed.",
-                                        Toast.LENGTH_SHORT).show();
-                                // Remove the item.
-                                items.remove(position);
-                                notifyDataSetChanged();
-                                MainActivity main = (MainActivity)context;
-                                // Call the getTotalPrice() method to update the price in the MainActivity.
-                                main.getTotalPrice();
-                            }
-                        })
-                .setNegativeButton("Cancel", null);
-
-                // create alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                // show the alert dialog
-                alertDialog.show();
-
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    items.get(position).setSelected(true);
+                } else {
+                    items.get(position).setSelected(false);
+                }
             }
         });
 

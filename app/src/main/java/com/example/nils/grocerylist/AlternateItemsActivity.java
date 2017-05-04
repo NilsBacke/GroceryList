@@ -18,6 +18,7 @@ public class AlternateItemsActivity extends AppCompatActivity {
     ListView alternatelistview;
     TextView totalpricetext;
     ArrayList<Item> newlist;
+    ArrayList<Item> origlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,6 @@ public class AlternateItemsActivity extends AppCompatActivity {
         setContentView(R.layout.alternate_items_activity);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         db = new DatabaseHelper(this);
-        helper = new AlternateItemsHelper(this);
         newlist = new ArrayList<Item>();
         alternatelistview = (ListView) findViewById(R.id.list);
         totalpricetext = (TextView) findViewById(R.id.totalPriceNewList);
@@ -37,9 +37,11 @@ public class AlternateItemsActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        ArrayList<Item> items = (ArrayList<Item>) intent.getSerializableExtra("Grocery List");
-        for (int i = 0; i < items.size(); i++) {
-            helper.findAlternateItems(items.get(i));
+        origlist = (ArrayList<Item>) intent.getSerializableExtra("Grocery List");
+        int mode = (int) intent.getSerializableExtra("Mode");
+        helper = new AlternateItemsHelper(this, mode);
+        for (int i = 0; i < origlist.size(); i++) {
+            helper.findAlternateItems(origlist.get(i));
         }
         newlist = helper.getAlternateItemsList();
         updateLists();
@@ -58,7 +60,7 @@ public class AlternateItemsActivity extends AppCompatActivity {
      * This method updates the CustomAdapter with the selecteditems array list.
      */
     private void updateLists() {
-        CustomAdapter adapter = new CustomAdapter(this, newlist);
+        CustomAlternateAdapter adapter = new CustomAlternateAdapter(this, newlist);
         alternatelistview.setAdapter(adapter);
         getTotalPrice();
     }
@@ -78,8 +80,12 @@ public class AlternateItemsActivity extends AppCompatActivity {
     }
 
     public void replaceOriginalList(View view) {
-
         Intent intent = new Intent(AlternateItemsActivity.this, MainActivity.class);
+        for (int i = 0; i < newlist.size(); i++) {
+            if (newlist.get(i).isSelected() == false) {
+                newlist.set(i, origlist.get(i));
+            }
+        }
         intent.putExtra("Alternate List", newlist);
         startActivity(intent);
 
