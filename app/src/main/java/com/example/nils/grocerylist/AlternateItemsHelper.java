@@ -11,61 +11,59 @@ import java.util.ArrayList;
 
 public class AlternateItemsHelper {
 
-    ArrayList<Item> tempalternate;
+    ArrayList<Item> tempAlternate;
     ArrayList<Item> alternate;
     DatabaseHelper db;
     int mode;
 
     public AlternateItemsHelper (Context context, int mode){
         db = new DatabaseHelper(context);
-        tempalternate = new ArrayList<Item>();
+        tempAlternate = new ArrayList<Item>();
         alternate = new ArrayList<Item>();
         this.mode = mode;
     }
 
     public void findAlternateItems(Item item) {
-        ArrayList<Item> fulllist = db.getAllItems();
-        String[] itemingredients = item.getIngredients();
+        ArrayList<Item> allItems = db.getAllItems();
+        String[] itemIngredients = item.getIngredients();
         String[] ingredients;
         double percent;
 
-        if (!itemingredients[0].equals("")) {
-            for (Item listElement : fulllist) {
+        if (!itemIngredients[0].equals("")) {
+            for (Item listElement : allItems) {
                 ingredients = listElement.getIngredients();
                 percent = 0;
 
-                if (ingredients[0].equals("")) {
+                if (ingredients[0].equals(""))
                     break;
-                } else {
-                    for (String ingredient : ingredients) {
-                        for (String itemingredient : itemingredients) {
-                            if (ingredient.contains(itemingredient)) {
+                for (String ingredient : ingredients) {
+                        for (String itemIngredient : itemIngredients) {
+                            if (ingredient.contains(itemIngredient)) {
                                 percent = percent + 1;
                                 Log.d("Percent: ", " ++ (" + percent + ")");
                                 Log.d("Item added to alternate", listElement.toString());
-                            } else if (itemingredient.contains(ingredient)) {
+                            } else if (itemIngredient.contains(ingredient)) {
                                 percent = percent + 1;
                             }
 
                         }
-                    }
 
                     percent = percent / ingredients.length;
                     if (percent >= 0.25) {
-                        tempalternate.add(listElement);
+                        tempAlternate.add(listElement);
                         Log.d("Item added in percent", listElement.toString());
                     }
                 }
 
             }
-            if (!tempalternate.isEmpty()) {
-                alternate.add(findBestItem(tempalternate));
+            if (!tempAlternate.isEmpty()) {
+                alternate.add(findBestItem(tempAlternate));
             }
         } else {
-            tempalternate.add(item);
-            alternate.add(findBestItem(tempalternate));
+            tempAlternate.add(item);
+            alternate.add(findBestItem(tempAlternate));
         }
-        tempalternate.clear();
+        tempAlternate.clear();
     }
 
     public ArrayList<Item> getAlternateItemsList() {
@@ -74,12 +72,14 @@ public class AlternateItemsHelper {
 
     public Item findBestItem(ArrayList<Item> list) {
         HealthLogic healthLogic = new HealthLogic(list);
-        if (mode == 1) {
-            return healthLogic.getCheapestItem();
+
+        switch (mode){
+            case 1:
+                return healthLogic.getCheapestItem();
+            case 2:
+                return healthLogic.getHealthiestItem();
+            default:
+                return null;
         }
-        if (mode == 2) {
-            return healthLogic.getHealthiestItem();
-        }
-        return null;
     }
 }
