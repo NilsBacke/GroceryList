@@ -28,8 +28,6 @@ public class AlternateItemsHelper {
         String[] ingredients;
         double percent;
 
-
-
         if (!itemIngredients[0].equals("")) {
             for (Item listElement : allItems) {
                 ingredients = listElement.getIngredients();
@@ -61,8 +59,7 @@ public class AlternateItemsHelper {
                 alternate.add(findBestItem(tempAlternate));
             }
         } else {
-            tempAlternate.add(item);
-            alternate.add(findBestItem(tempAlternate));
+            alternate.add(item);
         }
         tempAlternate.clear();
     }
