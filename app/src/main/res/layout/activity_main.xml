@@ -40,6 +40,7 @@
         android:fontFamily="serif"
         android:onClick="AlternateItemsButton"
         android:text="Find Alternative List"
+        android:textSize="18sp"
         android:textStyle="bold|italic" />
 
 </RelativeLayout>

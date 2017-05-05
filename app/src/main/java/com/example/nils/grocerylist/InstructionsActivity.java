@@ -38,7 +38,8 @@ public class InstructionsActivity extends AppCompatActivity {
             str = "healthier";
         }
         text.setText("Grocery Switch will now generate a new list containing similar and " + str +
-                " items. Some items will not be changed. Check all of the alternative items that you accept.");
+                " items. Check all of the alternative items that you accept.\n\n" +
+                "Unchecked items will not replace any items in your list.");
     }
 
     public void OKButton(View view) {

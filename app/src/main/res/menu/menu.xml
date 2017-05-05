@@ -24,6 +24,18 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/save_list"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="Save List"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/get_saved_list"
+        android:icon="@android:drawable/stat_sys_download_done"
+        android:title="Get Saved List"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/deleteAll_button"
         android:icon="@android:drawable/ic_menu_delete"
         android:title="Delete All"

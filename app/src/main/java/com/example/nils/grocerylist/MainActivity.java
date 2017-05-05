@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<Item> selecteditems;
     DatabaseHelper db;
+    SavedDatabaseHelper dbsaved;
     int mode; //Price mode = 1, Health mode = 2
 
 
@@ -52,16 +53,20 @@ public class MainActivity extends AppCompatActivity {
         // Get TextView object from xml
         textView = (TextView)findViewById(R.id.totalPriceNewList);
         selecteditems = new ArrayList<Item>();
-        mode = 1; //Defaultly choose price mode
+        mode = 1;                                     //Defaultly choose price mode
         setTitle("Price Mode");
         db = new DatabaseHelper(this);
+        dbsaved = new SavedDatabaseHelper(this);
         updateList();
-        db.clearDatabase("items_tables");
+        db.clearDatabase("TABLE_ITEM");
+
         try {
             readJSON();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+//        selecteditems.addAll(db.getAllSavedItems());
 
     }
 
@@ -70,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
      * An item object is retrieved from the activity passing the intent.
      * This item is added to the arraylist of items in the grocery list.
      * The updateList() method is called.
-     * The getTotalPrice() method is called.
      * @param intent The passed intent.
      */
     @Override
@@ -93,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         updateList();
-        getTotalPrice();
 
     }
 
@@ -135,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
                                 // Remove all items
                                 selecteditems.clear();
                                 updateList();
-                                getTotalPrice();
                             }
                         })
                         .setNegativeButton("Cancel", null);
@@ -158,6 +160,54 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 setTitle("Health Mode");
                 return true;
+            case R.id.save_list:
+                AlertDialog.Builder alertDialogBuilder2 = new AlertDialog.Builder(this);
+
+                // set dialog message
+                alertDialogBuilder2.setMessage("Are you sure you want to overwrite the current saved list with this list?")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Make toast
+                                Toast.makeText(MainActivity.this,  "This list has been saved.",
+                                        Toast.LENGTH_SHORT).show();
+                                dbsaved.clearDatabase("items_saved");
+                                for (Item listitem : selecteditems) {
+                                    dbsaved.addItem(listitem);
+                                }
+                            }
+                        })
+                        .setNegativeButton("Cancel", null);
+
+                // create alert dialog
+                AlertDialog alertDialog2 = alertDialogBuilder2.create();
+                // show the alert dialog
+                alertDialog2.show();
+
+                return true;
+            case R.id.get_saved_list:
+                AlertDialog.Builder alertDialogBuilder3 = new AlertDialog.Builder(this);
+
+                // set dialog message
+                alertDialogBuilder3.setMessage("Are you sure you want to replace your current list with the most recently saved list?")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Make toast
+                                Toast.makeText(MainActivity.this,  "The list has been replaced.",
+                                        Toast.LENGTH_SHORT).show();
+                                selecteditems.clear();
+                                selecteditems.addAll(dbsaved.getAllItems());
+                                updateList();
+                            }
+                        })
+                        .setNegativeButton("Cancel", null);
+
+                // create alert dialog
+                AlertDialog alertDialog3 = alertDialogBuilder3.create();
+                // show the alert dialog
+                alertDialog3.show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -166,13 +216,11 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method is called when the MainActivity is resumed.
      * The updateList() method is called.
-     * The getTotalPrice() method is called.
      */
     @Override
     public void onResume(){
         super.onResume();
         updateList();
-        getTotalPrice();
     }
 
     /**
@@ -181,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateList() {
         CustomAdapter adapter = new CustomAdapter(this, selecteditems);
         listView.setAdapter(adapter);
+        getTotalPrice();
     }
 
     /**
