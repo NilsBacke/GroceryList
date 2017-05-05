@@ -11,23 +11,24 @@ import java.util.ArrayList;
 
 public class AlternateItemsHelper {
 
-    ArrayList<Item> tempAlternate;
     ArrayList<Item> alternate;
     DatabaseHelper db;
     int mode;
 
     public AlternateItemsHelper (Context context, int mode){
         db = new DatabaseHelper(context);
-        tempAlternate = new ArrayList<Item>();
-        alternate = new ArrayList<Item>();
+        alternate = new ArrayList<>();
         this.mode = mode;
     }
 
     public void findAlternateItems(Item item) {
         ArrayList<Item> allItems = db.getAllItems();
+        ArrayList<Item> tempAlternate = new ArrayList<>();
         String[] itemIngredients = item.getIngredients();
         String[] ingredients;
         double percent;
+
+
 
         if (!itemIngredients[0].equals("")) {
             for (Item listElement : allItems) {
