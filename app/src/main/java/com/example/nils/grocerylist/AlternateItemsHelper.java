@@ -27,22 +27,23 @@ public class AlternateItemsHelper {
         ArrayList<Item> fulllist = db.getAllItems();
         String[] itemingredients = item.getIngredients();
         String[] ingredients;
-        double percent = 0;
+        double percent;
 
         if (!itemingredients[0].equals("")) {
-            for (int k = 0; k < fulllist.size(); k++) {
-                ingredients = fulllist.get(k).getIngredients();
+            for (Item listElement : fulllist) {
+                ingredients = listElement.getIngredients();
+                percent = 0;
 
                 if (ingredients[0].equals("")) {
-                    k++;
+                    break;
                 } else {
-                    for (int i = 0; i < ingredients.length; i++) {
-                        for (int j = 0; j < itemingredients.length; j++) {
-                            if (ingredients[i].contains(itemingredients[j])) {
+                    for (String ingredient : ingredients) {
+                        for (String itemingredient : itemingredients) {
+                            if (ingredient.contains(itemingredient)) {
                                 percent = percent + 1;
                                 Log.d("Percent: ", " ++ (" + percent + ")");
-                                Log.d("Item added to alternate", fulllist.get(k).toString());
-                            } else if (itemingredients[j].contains(ingredients[i])) {
+                                Log.d("Item added to alternate", listElement.toString());
+                            } else if (itemingredient.contains(ingredient)) {
                                 percent = percent + 1;
                             }
 
@@ -51,12 +52,10 @@ public class AlternateItemsHelper {
 
                     percent = percent / ingredients.length;
                     if (percent >= 0.25) {
-                        tempalternate.add(fulllist.get(k));
-                        Log.d("Item added in percent", fulllist.get(k).toString());
+                        tempalternate.add(listElement);
+                        Log.d("Item added in percent", listElement.toString());
                     }
                 }
-
-                percent = 0;
 
             }
             if (!tempalternate.isEmpty()) {
