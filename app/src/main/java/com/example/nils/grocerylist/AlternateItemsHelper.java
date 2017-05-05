@@ -15,7 +15,7 @@ public class AlternateItemsHelper {
     DatabaseHelper db;
     int mode;
 
-    public AlternateItemsHelper (Context context, int mode){
+    public AlternateItemsHelper(Context context, int mode) {
         db = new DatabaseHelper(context);
         alternate = new ArrayList<>();
         this.mode = mode;
@@ -29,31 +29,32 @@ public class AlternateItemsHelper {
         double percent;
 
         if (!itemIngredients[0].equals("")) {
-            for (Item listElement : allItems) {
-                ingredients = listElement.getIngredients();
+            for (Item itemElement : allItems) {
+                ingredients = itemElement.getIngredients();
                 percent = 0;
 
                 if (ingredients[0].equals(""))
                     continue;
 
                 for (String ingredient : ingredients) {
-                        for (String itemIngredient : itemIngredients) {
-                            if (ingredient.contains(itemIngredient)) {
-                                percent = percent + 1;
-                                Log.d("Percent: ", " ++ (" + percent + ")");
-                                Log.d("Item added to alternate", listElement.toString());
-                            } else if (itemIngredient.contains(ingredient)) {
-                                percent = percent + 1;
-                            }
-
+                    for (String itemIngredient : itemIngredients) {
+                        if (ingredient.contains(itemIngredient)) {
+                            percent = percent + 1;
+                            Log.d("Percent: ", " ++ (" + percent + ")");
+                            Log.d("Item added to alternate", itemElement.toString());
+                        } else if (itemIngredient.contains(ingredient)) {
+                            percent = percent + 1;
                         }
 
-                    percent = percent / ingredients.length;
-                    if (percent >= 0.25) {
-                        tempAlternate.add(listElement);
-                        Log.d("Item added in percent", listElement.toString());
                     }
                 }
+
+                percent = percent / ingredients.length;
+                if (percent >= 0.25) {
+                    tempAlternate.add(itemElement);
+                    Log.d("Item added in percent", itemElement.toString());
+                }
+
 
             }
             if (!tempAlternate.isEmpty()) {
@@ -72,7 +73,7 @@ public class AlternateItemsHelper {
     public Item findBestItem(ArrayList<Item> list) {
         HealthLogic healthLogic = new HealthLogic(list);
 
-        switch (mode){
+        switch (mode) {
             case 1:
                 return healthLogic.getCheapestItem();
             case 2:
