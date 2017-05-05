@@ -10,13 +10,13 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import java.util.ArrayList;
 
 
-public class SavedDatabaseHelper extends SQLiteOpenHelper {
+public class AutoSaveDatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * A column for each piece of data is created.
      */
-    public static final String DATABASE_NAME = "items_saved.db";
-    public static final String TABLE_NAME = "items_saved";
+    public static final String DATABASE_NAME = "items_autosave.db";
+    public static final String TABLE_NAME = "items_autosave";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "name";
     public static final String COL_3 = "price";
@@ -36,7 +36,7 @@ public class SavedDatabaseHelper extends SQLiteOpenHelper {
      * A new DatabaseHelper object is created from a given context.
      * @param context The given context.
      */
-    public SavedDatabaseHelper(Context context) {
+    public AutoSaveDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 
@@ -132,7 +132,7 @@ public class SavedDatabaseHelper extends SQLiteOpenHelper {
      */
     public void clearDatabase(String TABLE_NAME) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String clearDBQuery = "DELETE FROM " + "items_saved";
+        String clearDBQuery = "DELETE FROM " + "items_autosave";
         db.execSQL(clearDBQuery);
     }
 

@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Item> selecteditems;
     DatabaseHelper db;
     SavedDatabaseHelper dbsaved;
+    AutoSaveDatabaseHelper dbautosave;
     int mode; //Price mode = 1, Health mode = 2
 
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Price Mode");
         db = new DatabaseHelper(this);
         dbsaved = new SavedDatabaseHelper(this);
+        dbautosave = new AutoSaveDatabaseHelper(this);
         updateList();
         db.clearDatabase("TABLE_ITEM");
 
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-//        selecteditems.addAll(db.getAllSavedItems());
+        selecteditems.addAll(dbautosave.getAllItems());
 
     }
 
@@ -109,6 +111,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbautosave.clearDatabase("TABLE_ITEM");
+        for (Item item : selecteditems) {
+            dbautosave.addItem(item);
+        }
     }
 
     /**

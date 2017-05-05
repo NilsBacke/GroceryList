@@ -14,9 +14,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * A column for each piece of data is created.
      */
-    public static final String DATABASE_NAME = "twotables.db";
+    public static final String DATABASE_NAME = "items_fulllist.db";
     public static final String TABLE_ITEMS = "items_table";
-    public static final String TABLE_SAVED = "saved_items";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "name";
     public static final String COL_3 = "price";
@@ -50,10 +49,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + TABLE_ITEMS + " (" + COL_1 + " INTEGER PRIMARY KEY," + COL_2 + " TEXT," + COL_3 +
         " TEXT," + COL_4 +  " TEXT," + COL_5 + " TEXT," + COL_6 + " TEXT," + COL_7 + " TEXT," + COL_8 + " TEXT," + COL_9 + " TEXT," +
         COL_10 + " TEXT," + COL_11 + " TEXT," + COL_12 + " TEXT," + COL_13 + " TEXT," + COL_14 + " TEXT" + ");");
-
-        db.execSQL("CREATE TABLE " + TABLE_SAVED + " (" + COL_1 + " INTEGER PRIMARY KEY," + COL_2 + " TEXT," + COL_3 +
-                " TEXT," + COL_4 +  " TEXT," + COL_5 + " TEXT," + COL_6 + " TEXT," + COL_7 + " TEXT," + COL_8 + " TEXT," + COL_9 + " TEXT," +
-                COL_10 + " TEXT," + COL_11 + " TEXT," + COL_12 + " TEXT," + COL_13 + " TEXT," + COL_14 + " TEXT" + ");");
     }
 
     /**
@@ -65,7 +60,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SAVED);
         onCreate(db);
     }
 
@@ -92,32 +86,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_13, item.getProtein());
         values.put(COL_14, item.ingredientstoString());
         db.insert(TABLE_ITEMS, null, values);
-        db.close(); // Closing database connection
-    }
-
-    /**
-     * This method adds an item to the saved item list data table.
-     * Each piece of data of an item is put into a separate row.
-     * @param item The new item.
-     */
-    public void addSavedItem(Item item) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COL_1, item.getId());
-        values.put(COL_2, item.getName());
-        values.put(COL_3, item.getPrice());
-        values.put(COL_4, item.getPPU());
-        values.put(COL_5, item.getCalories());
-        values.put(COL_6, item.getFatCalories());
-        values.put(COL_7, item.getFat());
-        values.put(COL_8, item.getCholesterol());
-        values.put(COL_9, item.getSodium());
-        values.put(COL_10, item.getCarbs());
-        values.put(COL_11, item.getFiber());
-        values.put(COL_12, item.getSugar());
-        values.put(COL_13, item.getProtein());
-        values.put(COL_14, item.ingredientstoString());
-        db.insert(TABLE_SAVED, null, values);
         db.close(); // Closing database connection
     }
 
@@ -158,56 +126,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * This method returns an ArrayList of all of the items stored in the saved items table.
-     * @return The ArrayList of items.
-     */
-    public ArrayList<Item> getAllSavedItems() {
-        ArrayList<Item> itemlist = new ArrayList<Item>();
-        // Select All Query
-        String selectQuery = "SELECT * FROM " + TABLE_SAVED;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                Item item = new Item();
-                item.setId(Integer.parseInt(cursor.getString(0)));
-                item.setName(cursor.getString(1));
-                item.setPrice(Double.parseDouble(cursor.getString(2)));
-                item.setPPU(Double.parseDouble(cursor.getString(3)));
-                item.setCalories(Integer.parseInt(cursor.getString(4)));
-                item.setFatCalories(Double.parseDouble(cursor.getString(5)));
-                item.setFat(Double.parseDouble(cursor.getString(6)));
-                item.setCholesterol(Double.parseDouble(cursor.getString(7)));
-                item.setSodium(Double.parseDouble(cursor.getString(8)));
-                item.setCarbs(Double.parseDouble(cursor.getString(9)));
-                item.setFiber(Double.parseDouble(cursor.getString(10)));
-                item.setSugar(Double.parseDouble(cursor.getString(11)));
-                item.setProtein(Double.parseDouble(cursor.getString(12)));
-                item.setIngredients(cursor.getString(13));
-                // Adding item to list
-                itemlist.add(item);
-            } while (cursor.moveToNext());
-        }
-        // return item list
-        return itemlist;
-    }
-
-    /**
      * This method clears the full item list database.
      */
     public void clearDatabase(String TABLE_ITEM) {
         SQLiteDatabase db = this.getWritableDatabase();
         String clearDBQuery = "DELETE FROM " + "items_table";
-        db.execSQL(clearDBQuery);
-    }
-
-    /**
-     * This method clears the saved item list database.
-     */
-    public void clearSavedDatabase(String TABLE_SAVE) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String clearDBQuery = "DELETE FROM " + TABLE_SAVED;
         db.execSQL(clearDBQuery);
     }
 
