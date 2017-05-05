@@ -34,7 +34,8 @@ public class AlternateItemsHelper {
                 percent = 0;
 
                 if (ingredients[0].equals(""))
-                    break;
+                    continue;
+
                 for (String ingredient : ingredients) {
                         for (String itemIngredient : itemIngredients) {
                             if (ingredient.contains(itemIngredient)) {
