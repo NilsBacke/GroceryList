@@ -38,14 +38,11 @@ public class AlternateItemsHelper {
 
                 for (String ingredient : ingredients) {
                     for (String itemIngredient : itemIngredients) {
-                        if (ingredient.contains(itemIngredient)) {
+                        if (ingredient.contains(itemIngredient)||itemIngredient.contains(ingredient)) {
                             percent = percent + 1;
                             Log.d("Percent: ", " ++ (" + percent + ")");
                             Log.d("Item added to alternate", itemElement.toString());
-                        } else if (itemIngredient.contains(ingredient)) {
-                            percent = percent + 1;
                         }
-
                     }
                 }
 
