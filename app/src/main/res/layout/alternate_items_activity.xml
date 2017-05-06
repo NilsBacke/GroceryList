@@ -34,6 +34,7 @@
         android:fontFamily="serif"
         android:onClick="replaceOriginalList"
         android:text="Replace Original List"
+        android:textSize="18sp"
         android:textStyle="bold|italic" />
 
 </RelativeLayout>

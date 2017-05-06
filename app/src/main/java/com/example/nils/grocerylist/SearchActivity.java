@@ -14,6 +14,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.nils.grocerylist.Databases.DatabaseHelper;
+import com.example.nils.grocerylist.ListAdapters.CustomSearchAdapter;
+
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, SearchView.OnCloseListener {

@@ -1,4 +1,4 @@
-package com.example.nils.grocerylist;
+package com.example.nils.grocerylist.ListAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+
+import com.example.nils.grocerylist.Item;
+import com.example.nils.grocerylist.R;
 
 import java.util.ArrayList;
 import java.util.Locale;

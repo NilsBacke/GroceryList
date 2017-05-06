@@ -15,7 +15,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="Your List"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,9 +38,9 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".AlternateItemsActivity"
+            android:name=".AlternateItems.AlternateItemsActivity"
             android:label="Check new items"></activity>
-        <activity android:name=".InstructionsActivity"></activity>
+        <activity android:name=".AlternateItems.InstructionsActivity"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,6 @@
-package com.example.nils.grocerylist;
+package com.example.nils.grocerylist.AlternateItems;
+
+import com.example.nils.grocerylist.Item;
 
 import java.util.ArrayList;
 

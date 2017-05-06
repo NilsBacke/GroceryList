@@ -1,4 +1,4 @@
-package com.example.nils.grocerylist;
+package com.example.nils.grocerylist.AlternateItems;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.nils.grocerylist.Item;
+import com.example.nils.grocerylist.R;
 
 import java.util.ArrayList;
 
@@ -47,5 +50,11 @@ public class InstructionsActivity extends AppCompatActivity {
         intent.putExtra("Grocery List", itemlist);
         intent.putExtra("Mode", mode);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in2, R.anim.slide_out2);
     }
 }

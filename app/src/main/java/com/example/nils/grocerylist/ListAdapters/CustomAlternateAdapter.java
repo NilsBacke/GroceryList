@@ -1,36 +1,44 @@
-package com.example.nils.grocerylist;
+package com.example.nils.grocerylist.ListAdapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.nils.grocerylist.Item;
+import com.example.nils.grocerylist.R;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
  * Created by Nils on 3/25/17.
  */
 
-public class CustomAdapter extends BaseAdapter implements ListAdapter {
+public class CustomAlternateAdapter extends BaseAdapter implements ListAdapter {
 
-    private ArrayList<Item> items;
+    private ArrayList<Item> items, orig;
     private Context context;
 
     /**
      * Constructs a new CustomAdapter object from context and an array list of items.
      * @param context The context of the class that constructs the object.
      * @param list The array list of items.
+     * @param orig The original array list of items.
      */
-    public CustomAdapter(Context context, ArrayList<Item> list) {
+    public CustomAlternateAdapter(Context context, ArrayList<Item> list, ArrayList<Item> orig) {
         this.items = list;
+        this.orig = orig;
         this.context = context;
     }
 
@@ -38,7 +46,7 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
      * Constructs a new CustomAdapter class from context.
      * @param context The context of the class that constructs the object.
      */
-    public CustomAdapter(Context context) {
+    public CustomAlternateAdapter(Context context) {
         items = new ArrayList<Item>();
         this.context = context;
     }
@@ -93,54 +101,41 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_info_test, null);
+            view = inflater.inflate(R.layout.alternate_item_info, null);
         }
+
+        new DownloadImageTask2((ImageView) view.findViewById(R.id.imageView))
+                .execute(items.get(position).getpictureurl());
 
         //Handle TextViews and display strings from your list
         TextView listItemText = (TextView)view.findViewById(R.id.item_name);
         listItemText.setText(items.get(position).getName());
 
-        TextView PPUtext = (TextView)view.findViewById(R.id.PPUtext);
-        PPUtext.setText("Per Unit: " + items.get(position).PPUtoString());
-
         TextView pricetext = (TextView)view.findViewById(R.id.item_price);
         pricetext.setText("Price: " + items.get(position).pricetoString());
 
-        //Handle buttons and add onClickListeners
-        ImageButton deleteButton = (ImageButton) view.findViewById(R.id.deleteButton);
-        CheckBox cb = (CheckBox) view.findViewById(R.id.alternate_items_check);
+        TextView PPUtext = (TextView)view.findViewById(R.id.item_PPU);
+        PPUtext.setText("Per Unit: " + items.get(position).PPUtoString());
 
-        // The on click listener for the delete button.
-        deleteButton.setOnClickListener(new View.OnClickListener(){
+        TextView origitemtext = (TextView) view.findViewById(R.id.orig_item_name);
+        origitemtext.setText("Original: " + orig.get(position).getName());
+
+        TextView origprice = (TextView) view.findViewById(R.id.orig_item_price);
+        origprice.setText("Original: " + orig.get(position).pricetoString());
+
+        TextView origPPU = (TextView) view.findViewById(R.id.orig_item_PPU);
+        origPPU.setText("Original: " + orig.get(position).PPUtoString());
+
+        // Setup checkbox
+        final CheckBox checkBox = (CheckBox) view.findViewById(R.id.alternate_items_check);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-
-                // A new alert dialog is created.
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-
-                // set dialog message
-                alertDialogBuilder.setMessage("Are you sure you want to delete?")
-                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Make toast saying which item was removed.
-                                Toast.makeText(context, items.get(position).getName() + " has been removed.",
-                                        Toast.LENGTH_SHORT).show();
-                                // Remove the item.
-                                items.remove(position);
-                                notifyDataSetChanged();
-                                MainActivity main = (MainActivity)context;
-                                // Call the getTotalPrice() method to update the price in the MainActivity.
-                                main.getTotalPrice();
-                            }
-                        })
-                .setNegativeButton("Cancel", null);
-
-                // create alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                // show the alert dialog
-                alertDialog.show();
-
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    items.get(position).setSelected(true);
+                } else {
+                    items.get(position).setSelected(false);
+                }
             }
         });
 
@@ -180,6 +175,36 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         return view;
     }
 
+    private class DownloadImageTask2 extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask2(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+                in.close();
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setScaleType(ImageView.ScaleType.FIT_XY);
+            bmImage.setImageBitmap(result);
+        }
+    }
+
+
 }
+
+
 
 

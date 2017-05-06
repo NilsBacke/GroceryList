@@ -22,11 +22,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/PPUtext"
+        android:layout_toLeftOf="@+id/item_PPU"
         android:layout_toRightOf="@+id/imageView"
         android:layout_weight="0.98"
         android:fontFamily="serif"
-        android:padding="2dip"
+        android:padding="5dip"
         android:text="TextView"
         android:textColor="#736F6E"
         android:textSize="22sp"
@@ -44,10 +44,10 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:id="@+id/PPUtext"
+        android:id="@+id/item_PPU"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/item_price"
+        android:layout_above="@+id/orig_item_PPU"
         android:layout_column="3"
         android:layout_row="0"
         android:layout_toLeftOf="@+id/alternate_items_check"
@@ -57,7 +57,7 @@
         android:textStyle="bold|italic" />
 
     <TextView
-        android:id="@+id/item_price"
+        android:id="@+id/orig_item_PPU"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/alternate_items_check"
@@ -75,9 +75,12 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_report_image"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:maxHeight="50dp"
+        android:maxWidth="50dp"
+        app:srcCompat="@android:drawable/ic_menu_report_image" />
 
 </RelativeLayout>

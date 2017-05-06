@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -18,6 +17,12 @@ import java.util.ArrayList;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.nils.grocerylist.AlternateItems.InstructionsActivity;
+import com.example.nils.grocerylist.Databases.AutoSaveDatabaseHelper;
+import com.example.nils.grocerylist.Databases.DatabaseHelper;
+import com.example.nils.grocerylist.Databases.SavedDatabaseHelper;
+import com.example.nils.grocerylist.ListAdapters.CustomAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
         dbautosave = new AutoSaveDatabaseHelper(this);
         updateList();
         db.clearDatabase("TABLE_ITEM");
+
+
+        dbautosave.clearDatabase("TABLE_SAVED"); //delete after
+
+
 
         try {
             readJSON();
@@ -238,6 +248,10 @@ public class MainActivity extends AppCompatActivity {
      * This method updates the CustomAdapter with the selecteditems array list.
      */
     private void updateList() {
+        Log.d("Size: ", Integer.toString(selecteditems.size()));
+        if (selecteditems.size() > 0) {
+            Log.d("URL1: ", selecteditems.get(0).getpictureurl());
+        }
         CustomAdapter adapter = new CustomAdapter(this, selecteditems);
         listView.setAdapter(adapter);
         getTotalPrice();
@@ -274,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<HashMap<String, String>> itemsList = new ArrayList<HashMap<String, String>>();
             HashMap<String, String> m_li;
             String name, price, each, fatCalories, fat, cholesterol, sodium, carbs, fiber, sugar, protein, ingredients;
-            Uri pictureuri;
+            String pictureurl;
             int calories;
 
             // Loops through every item and gets all of the nutrition label information.
@@ -299,10 +313,12 @@ public class MainActivity extends AppCompatActivity {
                     each = "0";
                 }
                 try {
-                    String s = jo_inside.getString("picture");
-                    pictureuri =  Uri.parse(s);
+                    pictureurl = jo_inside.getString("picture");
+//                    int index = pictureurl.indexOf('s');
+//                    pictureurl = pictureurl.substring(0, index) + pictureurl.substring(index + 1);
+//                    pictureurl = pictureurl.substring(8);
                 } catch (JSONException e) {
-                    pictureuri = Uri.parse(" ");
+                    pictureurl = " ";
                 }
                 try {
                     calories = jo_inside.getInt("calories");
@@ -365,6 +381,7 @@ public class MainActivity extends AppCompatActivity {
                 m_li.put("name", name);
                 m_li.put("price", price);
                 m_li.put("priceper", each);
+                m_li.put("pictureurl", pictureurl);
                 m_li.put("calories", Integer.toString(calories));
                 m_li.put("fatCalories", fatCalories);
                 m_li.put("fat", fat);
@@ -429,9 +446,9 @@ public class MainActivity extends AppCompatActivity {
                 protein = protein.substring(0, protein.length()-1);
                 Double doubleprotein = Double.parseDouble(protein);
 
-                Log.d("PictureUri: " , pictureuri.toString());
+                Log.d("pictureurl: " , pictureurl);
                 // A new item object is formed from all of the retreived data.
-                Item newItem = new Item(i, name, doubleprice, doubleeach, pictureuri, calories, doubleFatCalories, doublefat,
+                Item newItem = new Item(i, name, doubleprice, doubleeach, pictureurl, calories, doubleFatCalories, doublefat,
                         doublecholesterol, doublesodium, doublecarbs, doublefiber, doublesugar, doubleprotein, ingredients);
 
                 // The new item is added to the virtual data table.

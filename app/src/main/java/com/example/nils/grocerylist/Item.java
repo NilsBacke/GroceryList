@@ -1,6 +1,5 @@
 package com.example.nils.grocerylist;
 
-import android.net.Uri;
 
 import java.io.Serializable;
 import java.text.NumberFormat;
@@ -23,7 +22,7 @@ public class Item implements Serializable {
 
     public int points;
 
-    private Uri pictureuri;
+    private String pictureurl;
 
     private boolean selected;
 
@@ -44,13 +43,13 @@ public class Item implements Serializable {
      * @param protein The amount of protein per serving for the item in grams.
      * @param ingredients The list of ingredients for the item.
      */
-    public Item(int id, String name, Double price, Double ppu, Uri pictureuri, int calories, Double fatCalories, Double fat, Double cholesterol,
+    public Item(int id, String name, Double price, Double ppu, String pictureurl, int calories, Double fatCalories, Double fat, Double cholesterol,
                 Double sodium, Double carbs, Double fiber, Double sugar, Double protein, String ingredients) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.ppu = ppu;
-        this.pictureuri = pictureuri;
+        this.pictureurl = pictureurl;
         this.calories = calories;
         this.fatCalories = fatCalories;
         this.fat = fat;
@@ -72,7 +71,7 @@ public class Item implements Serializable {
         this.name = "";
         this.price = 0.;
         this.ppu = 0.;
-        this.pictureuri = null;
+        this.pictureurl = null;
         this.calories = 0;
         this.fatCalories = 0.;
         this.fat = 0.;
@@ -120,11 +119,11 @@ public class Item implements Serializable {
     }
 
     /**
-     * Gets the Uri for the picture of the item.
-     * @return The picture Uri of the item.
+     * Gets the String for the picture of the item.
+     * @return The picture String of the item.
      */
-    public Uri getPictureUri() {
-        return pictureuri;
+    public String getpictureurl() {
+        return pictureurl;
     }
 
     /**
@@ -254,11 +253,11 @@ public class Item implements Serializable {
     }
 
     /**
-     * Sets the picture uri of the item.
-     * @param pictureuri The new picture Uri for the item.
+     * Sets the picture String of the item.
+     * @param pictureurl The new picture String for the item.
      */
-    public void setPictureuri(Uri pictureuri) {
-        this.pictureuri = pictureuri;
+    public void setpictureurl(String pictureurl) {
+        this.pictureurl = pictureurl;
     }
 
     /**

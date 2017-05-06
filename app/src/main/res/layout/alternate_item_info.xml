@@ -7,6 +7,46 @@
     android:weightSum="1">
 
 
+    <TextView
+        android:id="@+id/orig_item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="2dip"
+        android:text="Textview"
+        android:textColor="#736F6E"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/imageView2"
+        android:layout_alignStart="@+id/item_PPU" />
+
+    <TextView
+        android:id="@+id/item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/item_name"
+        android:gravity="center_vertical"
+        android:padding="2dip"
+        android:text="Textview"
+        android:textColor="#736F6E"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/orig_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView2"
+        android:layout_weight="0.98"
+        android:padding="2dip"
+        android:text="TextView"
+        android:textColor="#736F6E"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_alignStart="@+id/item_name"
+        android:layout_toStartOf="@+id/orig_item_price" />
+
     <CheckBox
         android:id="@+id/alternate_items_check"
         android:layout_width="wrap_content"
@@ -22,45 +62,58 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.98"
-        android:padding="2dip"
+        android:padding="5dip"
         android:text="TextView"
         android:textColor="#736F6E"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imageView"
-        android:layout_toLeftOf="@+id/PPUtext" />
+        android:layout_toLeftOf="@+id/item_PPU" />
 
     <TextView
-        android:id="@+id/PPUtext"
+        android:id="@+id/item_PPU"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/item_price"
         android:layout_column="3"
         android:layout_row="0"
+        android:layout_toStartOf="@+id/alternate_items_check"
         android:text="TextView"
-        android:layout_below="@+id/item_price"
-        android:layout_toStartOf="@+id/alternate_items_check" />
+        android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/item_price"
+        android:id="@+id/orig_item_PPU"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:padding="2dip"
         android:text="Textview"
         android:textColor="#736F6E"
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:textStyle="bold"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/item_name" />
+        android:layout_below="@+id/orig_item_price"
+        android:layout_alignStart="@+id/orig_item_price" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_report_image"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:maxHeight="43dp"
+        android:maxWidth="43dp"
+        app:srcCompat="@android:drawable/ic_menu_report_image" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/item_name"
+        android:layerType="software"
+        android:src="@drawable/dotted" />
 
 </RelativeLayout>

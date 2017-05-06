@@ -1,4 +1,4 @@
-package com.example.nils.grocerylist;
+package com.example.nils.grocerylist.AlternateItems;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.nils.grocerylist.Databases.DatabaseHelper;
+import com.example.nils.grocerylist.Item;
+import com.example.nils.grocerylist.ListAdapters.CustomAlternateAdapter;
+import com.example.nils.grocerylist.MainActivity;
+import com.example.nils.grocerylist.R;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -60,7 +66,7 @@ public class AlternateItemsActivity extends AppCompatActivity {
      * This method updates the CustomAdapter with the selecteditems array list.
      */
     private void updateLists() {
-        CustomAlternateAdapter adapter = new CustomAlternateAdapter(this, newlist);
+        CustomAlternateAdapter adapter = new CustomAlternateAdapter(this, newlist, origlist);
         alternatelistview.setAdapter(adapter);
         getTotalPrice();
     }

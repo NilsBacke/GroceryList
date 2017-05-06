@@ -1,7 +1,10 @@
-package com.example.nils.grocerylist;
+package com.example.nils.grocerylist.AlternateItems;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.example.nils.grocerylist.Databases.DatabaseHelper;
+import com.example.nils.grocerylist.Item;
 
 import java.util.ArrayList;
 

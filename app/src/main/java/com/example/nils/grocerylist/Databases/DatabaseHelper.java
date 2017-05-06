@@ -1,10 +1,12 @@
-package com.example.nils.grocerylist;
+package com.example.nils.grocerylist.Databases;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.nils.grocerylist.Item;
 
 import java.util.ArrayList;
 
@@ -13,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * A column for each piece of data is created.
      */
-    public static final String DATABASE_NAME = "items_fulllist.db";
+    public static final String DATABASE_NAME = "items_full.db";
     public static final String TABLE_ITEMS = "items_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "name";
@@ -29,6 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_12 = "sugar";
     public static final String COL_13 = "protein";
     public static final String COL_14 = "ingredients";
+    public static final String COL_15 = "pictureurl";
 
     /**
      * A new DatabaseHelper object is created from a given context.
@@ -47,7 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_ITEMS + " (" + COL_1 + " INTEGER PRIMARY KEY," + COL_2 + " TEXT," + COL_3 +
         " TEXT," + COL_4 +  " TEXT," + COL_5 + " TEXT," + COL_6 + " TEXT," + COL_7 + " TEXT," + COL_8 + " TEXT," + COL_9 + " TEXT," +
-        COL_10 + " TEXT," + COL_11 + " TEXT," + COL_12 + " TEXT," + COL_13 + " TEXT," + COL_14 + " TEXT" + ");");
+        COL_10 + " TEXT," + COL_11 + " TEXT," + COL_12 + " TEXT," + COL_13 + " TEXT," + COL_14 + " TEXT," + COL_15 + " TEXT" + ");");
     }
 
     /**
@@ -84,6 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_12, item.getSugar());
         values.put(COL_13, item.getProtein());
         values.put(COL_14, item.ingredientstoString());
+        values.put(COL_15, item.getpictureurl());
         db.insert(TABLE_ITEMS, null, values);
         db.close(); // Closing database connection
     }
@@ -116,6 +120,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 item.setSugar(Double.parseDouble(cursor.getString(11)));
                 item.setProtein(Double.parseDouble(cursor.getString(12)));
                 item.setIngredients(cursor.getString(13));
+                item.setpictureurl(cursor.getString(14));
                 // Adding item to list
                 itemlist.add(item);
             } while (cursor.moveToNext());
