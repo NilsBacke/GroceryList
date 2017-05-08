@@ -14,75 +14,77 @@ import java.util.ArrayList;
 
 public class AlternateItemsHelper {
 
-    ArrayList<Item> tempalternate;
     ArrayList<Item> alternate;
     DatabaseHelper db;
     int mode;
 
-    public AlternateItemsHelper (Context context, int mode){
+    public AlternateItemsHelper(Context context, int mode) {
         db = new DatabaseHelper(context);
-        tempalternate = new ArrayList<Item>();
-        alternate = new ArrayList<Item>();
+        alternate = new ArrayList<>();
         this.mode = mode;
-    }
-
-    public void findAlternateItems(Item item) {
-        ArrayList<Item> fulllist = db.getAllItems();
-        String[] itemingredients = item.getIngredients();
-        String[] ingredients;
-        double percent;
-
-        if (!itemingredients[0].equals("")) {
-            for (Item listElement : fulllist) {
-                ingredients = listElement.getIngredients();
-                percent = 0;
-
-                if (ingredients[0].equals("")) {
-                    break;
-                } else {
-                    for (String ingredient : ingredients) {
-                        for (String itemingredient : itemingredients) {
-                            if (ingredient.contains(itemingredient)) {
-                                percent = percent + 1;
-                                Log.d("Percent: ", " ++ (" + percent + ")");
-                                Log.d("Item added to alternate", listElement.toString());
-                            } else if (itemingredient.contains(ingredient)) {
-                                percent = percent + 1;
-                            }
-
-                        }
-                    }
-
-                    percent = percent / ingredients.length;
-                    if (percent >= 0.25) {
-                        tempalternate.add(listElement);
-                        Log.d("Item added in percent", listElement.toString());
-                    }
-                }
-
-            }
-            if (!tempalternate.isEmpty()) {
-                alternate.add(findBestItem(tempalternate));
-            }
-        } else {
-            tempalternate.add(item);
-            alternate.add(findBestItem(tempalternate));
-        }
-        tempalternate.clear();
     }
 
     public ArrayList<Item> getAlternateItemsList() {
         return alternate;
     }
 
-    public Item findBestItem(ArrayList<Item> list) {
+    // Why doesn't findAlternateItems return an alternate item List
+    // It's bad to assume that that the caller is going to call this function before calling getAlternateItemsList
+    public void findAlternateItems(Item item) {
+
+        String[] itemIngredients = item.getIngredients();
+
+        if (!itemIngredients[0].equals("")) {
+
+            ArrayList<Item> allItems = db.getAllItems();
+            ArrayList<Item> tempAlternate = new ArrayList<>();
+
+            for (Item itemElement : allItems) {
+                String[] ingredients = itemElement.getIngredients();
+                double percent = 0;
+
+                if (ingredients[0].equals(""))
+                    continue;
+
+                for (String ingredient : ingredients) {
+                    for (String itemIngredient : itemIngredients) {
+                        if (ingredient.contains(itemIngredient) || itemIngredient.contains(ingredient)) {
+                            percent = percent + 1;
+                            Log.d("Percent: ", " ++ (" + percent + ")");
+                            Log.d("Item added to alternate", itemElement.toString());
+                        }
+                    }
+                }
+
+                percent /= ingredients.length;
+                if (percent >= 0.25) {
+                    tempAlternate.add(itemElement);
+                    Log.d("Item added in percent", itemElement.toString());
+                }
+            }
+
+            // When the list was empty the alternate list added the item itself
+            // Why is that not happening here?
+            // consistency?
+            if (!tempAlternate.isEmpty()) {
+                alternate.add(findBestItem(tempAlternate));
+            }
+
+        } else {
+            alternate.add(item);
+        }
+    }
+
+    private Item findBestItem(ArrayList<Item> list) {
         HealthLogic healthLogic = new HealthLogic(list);
-        if (mode == 1) {
-            return healthLogic.getCheapestItem();
+
+        switch (mode) {
+            case 1:
+                return healthLogic.getCheapestItem();
+            case 2:
+                return healthLogic.getHealthiestItem();
+            default:
+                return null;
         }
-        if (mode == 2) {
-            return healthLogic.getHealthiestItem();
-        }
-        return null;
     }
 }
