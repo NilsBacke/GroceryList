@@ -12,12 +12,11 @@ import java.util.ArrayList;
 
 
 public class AutoSaveDatabaseHelper extends SQLiteOpenHelper {
-
     /**
      * A column for each piece of data is created.
      */
-    public static final String DATABASE_NAME = "items_autosave.db";
-    public static final String TABLE_NAME = "items_autosave";
+    public static final String DATABASE_NAME = "items_autosaved.db";
+    public static final String TABLE_ITEMS = "items_autosaved";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "name";
     public static final String COL_3 = "price";
@@ -32,6 +31,7 @@ public class AutoSaveDatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_12 = "sugar";
     public static final String COL_13 = "protein";
     public static final String COL_14 = "ingredients";
+    public static final String COL_15 = "pictureurl";
 
     /**
      * A new DatabaseHelper object is created from a given context.
@@ -48,9 +48,9 @@ public class AutoSaveDatabaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " INTEGER PRIMARY KEY," + COL_2 + " TEXT," + COL_3 +
+        db.execSQL("CREATE TABLE " + TABLE_ITEMS + " (" + COL_1 + " INTEGER PRIMARY KEY," + COL_2 + " TEXT," + COL_3 +
                 " TEXT," + COL_4 +  " TEXT," + COL_5 + " TEXT," + COL_6 + " TEXT," + COL_7 + " TEXT," + COL_8 + " TEXT," + COL_9 + " TEXT," +
-                COL_10 + " TEXT," + COL_11 + " TEXT," + COL_12 + " TEXT," + COL_13 + " TEXT," + COL_14 + " TEXT" + ");");
+                COL_10 + " TEXT," + COL_11 + " TEXT," + COL_12 + " TEXT," + COL_13 + " TEXT," + COL_14 + " TEXT," + COL_15 + " TEXT" + ");");
     }
 
     /**
@@ -61,12 +61,12 @@ public class AutoSaveDatabaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMS);
         onCreate(db);
     }
 
     /**
-     * This method adds an item to the data table.
+     * This method adds an item to the full item list data table.
      * Each piece of data of an item is put into a separate row.
      * @param item The new item.
      */
@@ -87,18 +87,19 @@ public class AutoSaveDatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_12, item.getSugar());
         values.put(COL_13, item.getProtein());
         values.put(COL_14, item.ingredientstoString());
-        db.insert(TABLE_NAME, null, values);
+        values.put(COL_15, item.getpictureurl());
+        db.insert(TABLE_ITEMS, null, values);
         db.close(); // Closing database connection
     }
 
     /**
-     * This method returns an ArrayList of all of the items stored in the table.
+     * This method returns an ArrayList of all of the items stored in the full list table.
      * @return The ArrayList of items.
      */
     public ArrayList<Item> getAllItems() {
         ArrayList<Item> itemlist = new ArrayList<Item>();
         // Select All Query
-        String selectQuery = "SELECT * FROM " + TABLE_NAME;
+        String selectQuery = "SELECT * FROM " + TABLE_ITEMS;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         // looping through all rows and adding to list
@@ -119,6 +120,7 @@ public class AutoSaveDatabaseHelper extends SQLiteOpenHelper {
                 item.setSugar(Double.parseDouble(cursor.getString(11)));
                 item.setProtein(Double.parseDouble(cursor.getString(12)));
                 item.setIngredients(cursor.getString(13));
+                item.setpictureurl(cursor.getString(14));
                 // Adding item to list
                 itemlist.add(item);
             } while (cursor.moveToNext());
@@ -128,12 +130,11 @@ public class AutoSaveDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * This method clears the database.
-     * @param TABLE_NAME The name of the database table.
+     * This method clears the full item list database.
      */
-    public void clearDatabase(String TABLE_NAME) {
+    public void clearDatabase(String TABLE_ITEM) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String clearDBQuery = "DELETE FROM " + "items_autosave";
+        String clearDBQuery = "DELETE FROM " + "items_autosaved";
         db.execSQL(clearDBQuery);
     }
 
