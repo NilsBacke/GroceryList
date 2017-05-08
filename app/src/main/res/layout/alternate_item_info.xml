@@ -24,7 +24,7 @@
         android:layout_weight="0.98"
         android:padding="2dip"
         android:text="TextView"
-        android:textColor="#736F6E"
+        android:textColor="#000000"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
@@ -39,7 +39,8 @@
         android:layout_row="0"
         android:text="TextView"
         android:layout_below="@+id/item_price"
-        android:layout_toStartOf="@+id/alternate_items_check" />
+        android:layout_toStartOf="@+id/alternate_items_check"
+        android:textColor="#000000"/>
 
     <TextView
         android:id="@+id/item_price"
@@ -48,7 +49,7 @@
         android:gravity="center_vertical"
         android:padding="2dip"
         android:text="Textview"
-        android:textColor="#736F6E"
+        android:textColor="#000000"
         android:textSize="12sp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
