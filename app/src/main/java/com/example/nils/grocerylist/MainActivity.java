@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.nils.grocerylist.AlternateItems.InstructionsActivity;
 import com.example.nils.grocerylist.Databases.AutoSaveDatabaseHelper;
+import com.example.nils.grocerylist.Databases.DataWrapper;
 import com.example.nils.grocerylist.Databases.DatabaseHelper;
 import com.example.nils.grocerylist.Databases.SavedDatabaseHelper;
 import com.example.nils.grocerylist.ListAdapters.CustomAdapter;
@@ -81,7 +82,9 @@ public class MainActivity extends AppCompatActivity {
 
         selecteditems.addAll(dbautosave.getAllItems());
 
-
+        DataWrapper data = new DataWrapper();
+        Log.d("Oncreate: ", "getItem");
+        data.getItem();
 
 
 

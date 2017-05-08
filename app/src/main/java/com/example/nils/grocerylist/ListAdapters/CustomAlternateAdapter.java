@@ -117,11 +117,11 @@ public class CustomAlternateAdapter extends BaseAdapter implements ListAdapter {
         TextView PPUtext = (TextView)view.findViewById(R.id.item_PPU);
         PPUtext.setText("Per Unit: " + items.get(position).PPUtoString());
 
-        TextView origitemtext = (TextView) view.findViewById(R.id.orig_item_name);
-        origitemtext.setText("Original: " + orig.get(position).getName());
-
-        TextView origprice = (TextView) view.findViewById(R.id.orig_item_price);
-        origprice.setText("Original: " + orig.get(position).pricetoString());
+//        TextView origitemtext = (TextView) view.findViewById(R.id.orig_item_name);
+//        origitemtext.setText("Original: " + orig.get(position).getName());
+//
+//        TextView origprice = (TextView) view.findViewById(R.id.orig_item_price);
+//        origprice.setText("Original: " + orig.get(position).pricetoString());
 
         TextView origPPU = (TextView) view.findViewById(R.id.orig_item_PPU);
         origPPU.setText("Original: " + orig.get(position).PPUtoString());
