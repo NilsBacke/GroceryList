@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * A column for each piece of data is created.
      */
-    public static final String DATABASE_NAME = "items_full.db";
+    public static final String DATABASE_NAME = "items_firebase.db";
     public static final String TABLE_ITEMS = "items_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "name";

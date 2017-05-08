@@ -10,21 +10,21 @@ import java.text.NumberFormat;
 
 public class Item implements Serializable {
 
-    private String name;
+    public String name;
 
-    private Double price, ppu, fat, fiber, sugar, protein, fatCalories, cholesterol, sodium, carbs;
+    public Double price, ppu, fat, fiber, sugar, protein, fatCalories, cholesterol, sodium, carbs;
 
-    private int calories;
+    public int calories;
 
-    private int id;
+    public int id;
 
-    private String ingredients;
+    public String ingredients;
 
     public int points;
 
-    private String pictureurl;
+    public String pictureurl;
 
-    private boolean selected;
+    public boolean selected;
 
     /**
      * Constructor that initializes the item's id, name, price information, and nutritionial information.

@@ -10,8 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import android.util.Log;
@@ -25,10 +23,6 @@ import com.example.nils.grocerylist.Databases.DatabaseHelper;
 import com.example.nils.grocerylist.Databases.SavedDatabaseHelper;
 import com.example.nils.grocerylist.ListAdapters.CustomAdapter;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     SavedDatabaseHelper dbsaved;
     AutoSaveDatabaseHelper dbautosave;
     int mode; //Price mode = 1, Health mode = 2
-//    private DatabaseReference mDatabase;
 
 
     /**
@@ -69,41 +62,11 @@ public class MainActivity extends AppCompatActivity {
         updateList();
         db.clearDatabase("TABLE_ITEM");
 
-
-        dbautosave.clearDatabase("TABLE_SAVED"); //delete after
-
-
-
-        try {
-            readJSON();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         selecteditems.addAll(dbautosave.getAllItems());
 
-        DataWrapper data = new DataWrapper();
+        DataWrapper data = new DataWrapper(this);
         Log.d("Oncreate: ", "getItem");
-        data.getItem();
-
-
-
-//        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference ref = database.getReference("server/saving-data/fireblog/posts");
-//
-//// Attach a listener to read the data at our posts reference
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Post post = dataSnapshot.getValue(Post.class);
-//                System.out.println(post);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                System.out.println("The read failed: " + databaseError.getCode());
-//            }
-//        });
+        data.getItems();
 
     }
 
@@ -280,210 +243,6 @@ public class MainActivity extends AppCompatActivity {
         CustomAdapter adapter = new CustomAdapter(this, selecteditems);
         listView.setAdapter(adapter);
         getTotalPrice();
-    }
-
-    /**
-     * This method retrieves the JSON file from a given file name.
-     * @param filename The filename of the JSON file.
-     * @param context The context of the MainActivity.
-     * @return A string formed from an array of bytes from the JSON file.
-     * @throws IOException Necessary for file retrieving and reading.
-     */
-    private String AssetJSONFile (String filename, Context context) throws IOException {
-        AssetManager manager = context.getAssets();
-        InputStream file = manager.open(filename);
-        byte[] formArray = new byte[file.available()];
-        file.read(formArray);
-        file.close();
-
-        return new String(formArray);
-    }
-
-    /**
-     * This method reads and parses through the given JSON file.
-     * The item data is put into the virtual data table.
-     * @throws IOException Necessary for file retrieving and reading.
-     */
-    public void readJSON() throws IOException {
-        try {
-            String jsonLocation = AssetJSONFile("sample.json", this);
-            JSONObject obj = new JSONObject(jsonLocation);
-
-            JSONArray itemsArray = obj.getJSONArray("Fruit");
-            ArrayList<HashMap<String, String>> itemsList = new ArrayList<HashMap<String, String>>();
-            HashMap<String, String> m_li;
-            String name, price, each, fatCalories, fat, cholesterol, sodium, carbs, fiber, sugar, protein, ingredients;
-            String pictureurl;
-            int calories;
-
-            // Loops through every item and gets all of the nutrition label information.
-            for (int i = 0; i < itemsArray.length(); i++) {
-                JSONObject jo_inside = itemsArray.getJSONObject(i);
-                Log.d("JSON length: ", Integer.toString(itemsArray.length()));
-                Log.d("Details-->", jo_inside.getString("name"));
-
-                try {
-                    name = jo_inside.getString("name");
-                } catch (JSONException e) {
-                    name = " ";
-                }
-                try {
-                    price = jo_inside.getString("Price");
-                } catch (JSONException e) {
-                    price = "0";
-                }
-                try {
-                    each = jo_inside.getString("PerUnit");
-                } catch (JSONException e) {
-                    each = "0";
-                }
-                try {
-                    pictureurl = jo_inside.getString("picture");
-//                    int index = pictureurl.indexOf('s');
-//                    pictureurl = pictureurl.substring(0, index) + pictureurl.substring(index + 1);
-//                    pictureurl = pictureurl.substring(8);
-                } catch (JSONException e) {
-                    pictureurl = " ";
-                }
-                try {
-                    calories = jo_inside.getInt("calories");
-                } catch (JSONException e) {
-                    calories = 0;
-                }
-                try {
-                    fatCalories = jo_inside.getString("fatCalories");
-                } catch (JSONException e) {
-                    fatCalories = "0";
-                }
-                try {
-                    fat = jo_inside.getString("fat");
-                } catch (JSONException e) {
-                    fat = "0";
-                }
-                try {
-                    cholesterol = jo_inside.getString("cholesterol");
-                } catch (JSONException e) {
-                    cholesterol = "0";
-                }
-                try {
-                    sodium = jo_inside.getString("sodium");
-                } catch (JSONException e) {
-                    sodium = "0";
-                }
-                try {
-                    carbs = jo_inside.getString("carbs");
-                } catch (JSONException e) {
-                    carbs = "0";
-                }
-                try {
-                    fiber = jo_inside.getString("fiber");
-                } catch (JSONException e) {
-                    fiber = "0";
-                }
-                try {
-                    sugar = jo_inside.getString("sugar");
-                } catch (JSONException e) {
-                    sugar = "0";
-                }
-
-                try {
-                    protein = jo_inside.getString("protein");
-                } catch (JSONException e) {
-                    protein = "0";
-                }
-                try {
-                    ingredients = jo_inside.getString("ingredients");
-                    if (ingredients.equals(" ")) {
-                        ingredients = "";
-                    }
-                } catch (JSONException e) {
-                    ingredients = "";
-                }
-
-
-                // Adds values into ArrayList
-                m_li = new HashMap<String, String>();
-                m_li.put("name", name);
-                m_li.put("price", price);
-                m_li.put("priceper", each);
-                m_li.put("pictureurl", pictureurl);
-                m_li.put("calories", Integer.toString(calories));
-                m_li.put("fatCalories", fatCalories);
-                m_li.put("fat", fat);
-                m_li.put("cholesterol", cholesterol);
-                m_li.put("sodium", sodium);
-                m_li.put("carbs", carbs);
-                m_li.put("fiber", fiber);
-                m_li.put("sugar", sugar);
-                m_li.put("protein", protein);
-                m_li.put("ingredients", ingredients);
-
-                itemsList.add(m_li);
-
-                // A double is formed from the price data by removing the '$'
-                price = price.substring(1);
-                Double doubleprice = Double.parseDouble(price);
-
-                // A double "each" (PPU) is formed by removing all of the characters except for the relevant numbers.
-                int start = 0;
-                int end = 0;
-                for (int j = 0; j < each.length(); j++) {
-                    if (each.charAt(j) == '$') {
-                        start = j + 1;
-                    }
-                    if (each.charAt(j) == '/') {
-                        end = j - 1;
-                    }
-                }
-                each = each.substring(start, end);
-                Double doubleeach = Double.parseDouble(each);
-
-                // A double is formed from the retrieved calories from fat
-                Double doubleFatCalories = Double.parseDouble(fatCalories);
-
-                // A double is formed from reformatting the fat.
-                fat = fat.substring(0, fat.length()-1);
-                Double doublefat = Double.parseDouble(fat);
-
-                // A double is formed from reformatting the cholesterol.
-                if (cholesterol.length() >= 2) {
-                    cholesterol = cholesterol.substring(0, cholesterol.length()-2);
-                }
-                Double doublecholesterol = Double.parseDouble(cholesterol);
-
-                // A double is formed from reformatting the sodium.
-                sodium = sodium.substring(0, sodium.length()-2);
-                Double doublesodium = Double.parseDouble(sodium);
-
-                // A double is formed from reformatting the carbs.
-                carbs = carbs.substring(0, carbs.length()-1);
-                Double doublecarbs = Double.parseDouble(carbs);
-
-                // A double is formed from reformatting the fiber
-                fiber = fiber.substring(0, fiber.length()-1);
-                Double doublefiber = Double.parseDouble(fiber);
-
-                // A double is formed from reformatting the sugar.
-                sugar = sugar.substring(0, sugar.length()-1);
-                Double doublesugar = Double.parseDouble(sugar);
-
-                // A double is formed from reformatting the protein.
-                protein = protein.substring(0, protein.length()-1);
-                Double doubleprotein = Double.parseDouble(protein);
-
-                Log.d("pictureurl: " , pictureurl);
-                // A new item object is formed from all of the retreived data.
-                Item newItem = new Item(i, name, doubleprice, doubleeach, pictureurl, calories, doubleFatCalories, doublefat,
-                        doublecholesterol, doublesodium, doublecarbs, doublefiber, doublesugar, doubleprotein, ingredients);
-
-                // The new item is added to the virtual data table.
-                db.addItem(newItem);
-            }
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
