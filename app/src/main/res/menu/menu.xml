@@ -53,5 +53,11 @@
         android:title="Set Health Mode"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/refresh"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="Refresh Item Data"
+        app:showAsAction="ifRoom" />
+
 
 </menu>

@@ -48,7 +48,7 @@ public class AlternateItemsHelper {
 
                 for (String ingredient : ingredients) {
                     for (String itemIngredient : itemIngredients) {
-                        if (ingredient.contains(itemIngredient) || itemIngredient.contains(ingredient)) {
+                        if (itemIngredient.contains(ingredient)) {
                             percent = percent + 1;
                             Log.d("Percent: ", " ++ (" + percent + ")");
                             Log.d("Item added to alternate", itemElement.toString());
@@ -57,7 +57,7 @@ public class AlternateItemsHelper {
                 }
 
                 percent /= ingredients.length;
-                if (percent >= 0.25) {
+                if (percent >= 0.75) {
                     tempAlternate.add(itemElement);
                     Log.d("Item added in percent", itemElement.toString());
                 }

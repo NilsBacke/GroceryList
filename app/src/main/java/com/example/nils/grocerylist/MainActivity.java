@@ -1,9 +1,7 @@
 package com.example.nils.grocerylist;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -22,8 +20,6 @@ import com.example.nils.grocerylist.Databases.DataWrapper;
 import com.example.nils.grocerylist.Databases.DatabaseHelper;
 import com.example.nils.grocerylist.Databases.SavedDatabaseHelper;
 import com.example.nils.grocerylist.ListAdapters.CustomAdapter;
-
-
 
 public class MainActivity extends AppCompatActivity {
     TextView textView;
@@ -60,13 +56,13 @@ public class MainActivity extends AppCompatActivity {
         dbsaved = new SavedDatabaseHelper(this);
         dbautosave = new AutoSaveDatabaseHelper(this);
         updateList();
-        db.clearDatabase("TABLE_ITEM");
 
         selecteditems.addAll(dbautosave.getAllItems());
 
-        DataWrapper data = new DataWrapper(this);
-        Log.d("Oncreate: ", "getItem");
-        data.getItems();
+
+        if (db.getAllItems().isEmpty()) {
+            refreshfirebasedata();
+        }
 
     }
 
@@ -217,6 +213,10 @@ public class MainActivity extends AppCompatActivity {
                 // show the alert dialog
                 alertDialog3.show();
                 return true;
+            case R.id.refresh:
+                refreshfirebasedata();
+                Toast.makeText(MainActivity.this,  "Please wait while the item data refreshes.",
+                        Toast.LENGTH_LONG).show();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -265,6 +265,13 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("Mode", mode);
         startActivity(intent);
         Log.d("Intent ","Intent is switched");
+    }
+
+    public void refreshfirebasedata() {
+        db.clearDatabase("TABLE_ITEMS");
+        DataWrapper data = new DataWrapper(this);
+        Log.d("Oncreate: ", "getItem");
+        data.getItems();
     }
 
 }
