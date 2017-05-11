@@ -36,7 +36,6 @@ public class HealthLogic {
      * Sorts the array by the number of points each item has.
      * @return the ArrayList of all items sorted by health points.
      */
-
     public Item getHealthiestItem() {
         rankByHealth();
         if (b.size() > 1 && b.get(0).points == b.get(1).points) {
@@ -45,6 +44,9 @@ public class HealthLogic {
         return b.get(0);
     }
 
+    /**
+     * Ranks (and sorts by rank) the arraylist of alternate items by health score.
+     */
     public void rankByHealth() {
         for (int i = 0; i < b.size(); i++) {
             ingredients(b.get(i));
@@ -73,6 +75,10 @@ public class HealthLogic {
 
     }
 
+    /**
+     * Returns the cheapest item (by price per unit) within the arraylist of alternate items.
+     * @return The cheapest item.
+     */
     public Item getCheapestItem() {
         Item cheapest = new Item();
         cheapest.setPPU(1000000.0);
@@ -88,6 +94,12 @@ public class HealthLogic {
         }
     }
 
+    /**
+     * Returns the cheapest item between two given items.
+     * @param one The first item.
+     * @param two The second item.
+     * @return The cheapest item.
+     */
     public Item getCheapestItem(Item one, Item two) {
         if (one.getPPU() <= two.getPPU()) {
             return one;

@@ -24,6 +24,10 @@ public class DataWrapper {
     DatabaseHelper db;
     Context context;
 
+    /**
+     * Contructs a new DataWrapper object.
+     * @param context The context of the activity using this object.
+     */
     public DataWrapper(Context context) {
         database = FirebaseDatabase.getInstance();
         Log.d("DATA", database.toString());
@@ -31,6 +35,10 @@ public class DataWrapper {
         this.context = context;
     }
 
+    /**
+     * This method downloads all of the items in the firebase database and adds them to the local data table.
+     * Each downloaded piece of data is reformatted into its intended data type to form an item object.
+     */
     public void getItems(){
         DatabaseReference itemRef = database.getReference().child("Items"); //directory
         itemRef.addValueEventListener (new ValueEventListener() {
@@ -234,6 +242,11 @@ public class DataWrapper {
                 }
             }
 
+            /**
+             * If the download from firebase is cancelled.
+             * A log statement is printed.
+             * @param databaseError The error.
+             */
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getMessage());

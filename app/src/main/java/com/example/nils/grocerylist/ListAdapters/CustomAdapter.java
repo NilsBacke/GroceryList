@@ -195,13 +195,25 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
 
 
 
+    /**
+     * This class downloads the image to be displayed for each item.
+     */
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
+        /**
+         * Constructs a new DownloadImageTask2 object.
+         * @param bmImage The imageview to display the image with.
+         */
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
 
+        /**
+         * This method runs in the background and downloads the pictures from the url from the internet.
+         * @param urls The url for the image.
+         * @return The bitmap of the downloaded image.
+         */
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
             Bitmap mIcon11 = null;
@@ -216,11 +228,16 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
             return mIcon11;
         }
 
+        /**
+         * This method is called after the class is executed.
+         * @param result The bitmap of the image.
+         */
         protected void onPostExecute(Bitmap result) {
             bmImage.setScaleType(ImageView.ScaleType.FIT_XY);
             bmImage.setImageBitmap(result);
         }
     }
+
 
 }
 

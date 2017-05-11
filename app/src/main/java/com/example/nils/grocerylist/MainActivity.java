@@ -107,6 +107,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+    /**
+     * This method is called upon destroy of the main activity.
+     * It clears the existing items in the auto save database, and adds the current list to the auto save database.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -259,6 +264,11 @@ public class MainActivity extends AppCompatActivity {
         textView.setText("Total Price: " + fmt.format(totalprice));
     }
 
+    /**
+     * This method is called when the Alternate Items button is pressed.
+     * It passes the intent to the instructions acitivity, with the selecteditems list and the mdoe (price or health).
+     * @param view The view of the activity.
+     */
     public void AlternateItemsButton(View view) {
         Intent intent = new Intent(MainActivity.this, InstructionsActivity.class);
         intent.putExtra("Grocery List", selecteditems);
@@ -267,6 +277,10 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Intent ","Intent is switched");
     }
 
+    /**
+     * This method is called when the refresh items list menu bar button is pressed.
+     * It updates the item list database with the most recent items from the firebase storage.
+     */
     public void refreshfirebasedata() {
         db.clearDatabase("TABLE_ITEMS");
         DataWrapper data = new DataWrapper(this);

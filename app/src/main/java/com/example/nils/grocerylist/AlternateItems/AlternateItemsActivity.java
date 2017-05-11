@@ -26,6 +26,12 @@ public class AlternateItemsActivity extends AppCompatActivity {
     ArrayList<Item> newlist;
     ArrayList<Item> origlist;
 
+    /**
+     * This method is called when this activity is created.
+     * The database, ArrayList, ListView, and TextView are all initialized.
+     * The onNewIntent method is called.
+     * @param savedInstanceState The current state of the app.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +46,19 @@ public class AlternateItemsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method is called when the activity is started.
+     */
     @Override
     protected void onStart() {
         super.onStart();
         onNewIntent(getIntent());
     }
 
+    /**
+     * This method is automatically called when a new intent is passed to this activity.
+     * @param intent The passed intent.
+     */
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -61,6 +74,10 @@ public class AlternateItemsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method is called when the back button is pressed.
+     * The transition is set for transitioning between activities.
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -91,6 +108,12 @@ public class AlternateItemsActivity extends AppCompatActivity {
         totalpricetext.setText("Total Price: " + fmt.format(totalprice));
     }
 
+    /**
+     * This method replaces the original list with all of the checked items.
+     * If an item is unchecked, the corresponding item in the original list is unchanged.
+     * The intent is passed to the main activity.
+     * @param view The current view of the activity.
+     */
     public void replaceOriginalList(View view) {
         Intent intent = new Intent(AlternateItemsActivity.this, MainActivity.class);
         for (int i = 0; i < newlist.size(); i++) {

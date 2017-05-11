@@ -135,6 +135,9 @@ public class CustomSearchAdapter extends BaseAdapter implements Filterable {
         };
     }
 
+    /**
+     * If the data set is altered, call the super method.
+     */
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
     }

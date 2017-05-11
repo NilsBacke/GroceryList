@@ -18,18 +18,30 @@ public class AlternateItemsHelper {
     DatabaseHelper db;
     int mode;
 
+    /**
+     * Constructs an AlternateItemsHelper object.
+     * @param context The context of the activity using this object.
+     * @param mode The mode of the app (price or health).
+     */
     public AlternateItemsHelper(Context context, int mode) {
         db = new DatabaseHelper(context);
         alternate = new ArrayList<>();
         this.mode = mode;
     }
 
+    /**
+     * Returns the alternate item list.
+     * @return The alternate item list.
+     */
     public ArrayList<Item> getAlternateItemsList() {
         return alternate;
     }
 
-    // Why doesn't findAlternateItems return an alternate item List
-    // It's bad to assume that that the caller is going to call this function before calling getAlternateItemsList
+    /**
+     * Finds alternate items for a given item.
+     * If the item shared at least 50% of the same ingredients as an item, that item is added to the alternate list.
+     * @param item The item that alternate items will be found for.
+     */
     public void findAlternateItems(Item item) {
 
         String[] itemIngredients = item.getIngredients();
@@ -75,6 +87,11 @@ public class AlternateItemsHelper {
         }
     }
 
+    /**
+     * Finds the best item (either by price or health depending on the mode) from the list of alternate items.
+     * @param list The list of alternate items.
+     * @return The best item (either by price or health depending on the mode).
+     */
     private Item findBestItem(ArrayList<Item> list) {
         HealthLogic healthLogic = new HealthLogic(list);
 

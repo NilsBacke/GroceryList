@@ -70,18 +70,33 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
     }
 
+    /**
+     * This method is called when the back button is pressed.
+     * A transition is set when transitioning between activities.
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_in2, R.anim.slide_out2);
     }
 
+    /**
+     * This method is called when this activity is closed.
+     * The list view is set to display the list of searchable items.
+     * @return false
+     */
     @Override
     public boolean onClose() {
         searchlistView.setAdapter(searchadapter);
         return false;
     }
 
+    /**
+     * This method creates the options menu.
+     * The search button is loaded.
+     * @param menu The options menu.
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.searchmenu, menu);
@@ -100,6 +115,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         searchlistView.setAdapter(searchadapter);
     }
 
+    /**
+     * This method sets up the search view to be able to use search functionality.
+     */
     private void setupSearchView() {
         sv.setIconifiedByDefault(false);
         sv.setOnQueryTextListener(this);
@@ -107,7 +125,11 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         sv.setQueryHint("Search Here");
     }
 
-
+    /**
+     * This method filters the displayed items when a keyword is searched.
+     * @param newText The searched keyword.
+     * @return true
+     */
     public boolean onQueryTextChange(String newText) {
         if (TextUtils.isEmpty(newText)) {
             searchlistView.clearTextFilter();
@@ -119,6 +141,11 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         return true;
     }
 
+    /**
+     * This method is called when the searched text is submitted (the enter button on the keyboard is pressed).
+     * @param query The keyword being searched.
+     * @return false
+     */
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
