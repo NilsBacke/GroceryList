@@ -5,9 +5,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.nils.grocerylist.Item;
-import com.example.nils.grocerylist.ItemTest;
-import com.example.nils.grocerylist.MainActivity;
-import com.google.firebase.FirebaseException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
