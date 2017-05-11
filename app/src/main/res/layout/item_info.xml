@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/item_PPU"
+        android:layout_toLeftOf="@+id/item_price"
         android:layout_toRightOf="@+id/imageView"
         android:layout_weight="0.98"
         android:fontFamily="serif"
@@ -45,10 +45,10 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:id="@+id/item_PPU"
+        android:id="@+id/item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/orig_item_PPU"
+        android:layout_above="@+id/orig_item_price"
         android:layout_column="3"
         android:layout_row="0"
         android:layout_toLeftOf="@+id/alternate_items_check"
@@ -58,7 +58,7 @@
         android:textStyle="bold|italic" />
 
     <TextView
-        android:id="@+id/orig_item_PPU"
+        android:id="@+id/orig_item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/alternate_items_check"

@@ -41,6 +41,12 @@ public class AlternateItemsActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        onNewIntent(getIntent());
+    }
+
+    @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         origlist = (ArrayList<Item>) intent.getSerializableExtra("Grocery List");

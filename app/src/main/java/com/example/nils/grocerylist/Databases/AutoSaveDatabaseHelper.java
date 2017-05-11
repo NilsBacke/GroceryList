@@ -15,8 +15,8 @@ public class AutoSaveDatabaseHelper extends SQLiteOpenHelper {
     /**
      * A column for each piece of data is created.
      */
-    public static final String DATABASE_NAME = "items_autosaved.db";
-    public static final String TABLE_ITEMS = "items_autosaved";
+    public static final String DATABASE_NAME = "items_savedauto.db";
+    public static final String TABLE_ITEMS = "items_savedauto";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "name";
     public static final String COL_3 = "price";
@@ -134,7 +134,7 @@ public class AutoSaveDatabaseHelper extends SQLiteOpenHelper {
      */
     public void clearDatabase(String TABLE_ITEM) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String clearDBQuery = "DELETE FROM " + "items_autosaved";
+        String clearDBQuery = "DELETE FROM " + "items_savedauto";
         db.execSQL(clearDBQuery);
     }
 

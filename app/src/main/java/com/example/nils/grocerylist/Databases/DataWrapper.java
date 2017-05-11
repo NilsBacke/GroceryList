@@ -42,10 +42,10 @@ public class DataWrapper {
                     int i = 0;
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         i++;
-                        if (i < 1500) {
+                        if (i < 7000) {
                             Log.d("DATA", child.child("name").getValue().toString() + i);
                             Toast.makeText(context, "Please wait while the item data refreshes.",
-                                    Toast.LENGTH_LONG).show();
+                                    Toast.LENGTH_SHORT).show();
                             try {
                                 calories = child.child("calories").getValue().toString();
                             } catch (NullPointerException e) {
@@ -224,7 +224,9 @@ public class DataWrapper {
                                     doublecholesterol, doublesodium, doublecarbs, doublefiber, doublesugar, doubleprotein, ingredients);
 
                             // The new item is added to the virtual data table.
-                            db.addItem(newItem);
+                            if (i > 5500) {
+                                db.addItem(newItem);
+                            }
                         } else {
                             continue;
                         }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Grocery List</string>
+    <string name="app_name">getFood();</string>
     <string name="add">+</string>
     <string name="search">Search...</string>
 </resources>

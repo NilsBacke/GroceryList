@@ -57,7 +57,7 @@ public class AlternateItemsHelper {
                 }
 
                 percent /= ingredients.length;
-                if (percent >= 0.75) {
+                if (percent >= 0.50) {
                     tempAlternate.add(itemElement);
                     Log.d("Item added in percent", itemElement.toString());
                 }

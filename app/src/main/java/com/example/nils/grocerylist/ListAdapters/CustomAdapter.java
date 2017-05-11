@@ -113,10 +113,10 @@ public class CustomAdapter extends BaseAdapter implements ListAdapter {
         TextView listItemText = (TextView)view.findViewById(R.id.item_name);
         listItemText.setText(items.get(position).getName());
 
-        TextView PPUtext = (TextView)view.findViewById(R.id.item_PPU);
+        TextView PPUtext = (TextView)view.findViewById(R.id.item_price);
         PPUtext.setText("Per Unit: " + items.get(position).PPUtoString());
 
-        TextView pricetext = (TextView)view.findViewById(R.id.orig_item_PPU);
+        TextView pricetext = (TextView)view.findViewById(R.id.orig_item_price);
         pricetext.setText("Price: " + items.get(position).pricetoString());
 
         //Handle buttons and add onClickListeners

@@ -81,7 +81,11 @@ public class HealthLogic {
                 cheapest = b.get(i);
             }
         }
-        return cheapest;
+        if (cheapest.getPPU() == b.get(0).getPPU()) {
+            return b.get(0);
+        } else {
+            return cheapest;
+        }
     }
 
     public Item getCheapestItem(Item one, Item two) {

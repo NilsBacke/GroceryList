@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/orig_item_price"
+        android:id="@+id/orig_item_PPU"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -18,20 +18,20 @@
         android:textSize="10sp"
         android:textStyle="bold"
         android:layout_below="@+id/imageView2"
-        android:layout_alignStart="@+id/item_PPU" />
+        android:layout_alignStart="@+id/item_price" />
 
     <TextView
-        android:id="@+id/item_price"
+        android:id="@+id/item_PPU"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/item_name"
         android:gravity="center_vertical"
         android:padding="2dip"
         android:text="Textview"
         android:textColor="#736F6E"
         android:textSize="12sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_toStartOf="@+id/alternate_items_check" />
 
     <TextView
         android:id="@+id/orig_item_name"
@@ -45,7 +45,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_alignStart="@+id/item_name"
-        android:layout_toStartOf="@+id/orig_item_price" />
+        android:layout_toStartOf="@+id/orig_item_PPU" />
 
     <CheckBox
         android:id="@+id/alternate_items_check"
@@ -69,13 +69,13 @@
         android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imageView"
-        android:layout_toLeftOf="@+id/item_PPU" />
+        android:layout_toLeftOf="@+id/item_price" />
 
     <TextView
-        android:id="@+id/item_PPU"
+        android:id="@+id/item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/item_price"
+        android:layout_below="@+id/item_PPU"
         android:layout_column="3"
         android:layout_row="0"
         android:layout_toStartOf="@+id/alternate_items_check"
@@ -83,7 +83,7 @@
         android:textSize="12sp" />
 
     <TextView
-        android:id="@+id/orig_item_PPU"
+        android:id="@+id/orig_item_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -92,8 +92,8 @@
         android:textColor="#736F6E"
         android:textSize="10sp"
         android:textStyle="bold"
-        android:layout_below="@+id/orig_item_price"
-        android:layout_alignStart="@+id/orig_item_price" />
+        android:layout_below="@+id/orig_item_PPU"
+        android:layout_alignStart="@+id/orig_item_PPU" />
 
     <ImageView
         android:id="@+id/imageView"
