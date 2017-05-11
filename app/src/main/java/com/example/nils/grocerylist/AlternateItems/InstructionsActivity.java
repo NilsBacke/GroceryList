@@ -17,6 +17,10 @@ public class InstructionsActivity extends AppCompatActivity {
     ArrayList<Item> itemlist;
     int mode;
 
+    /**
+     * This method changes the main activity to the instructions activity and gets the intent of the state.
+     * @param savedInstanceState The current state of the app.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +29,10 @@ public class InstructionsActivity extends AppCompatActivity {
         Log.d("onCreate:", "started");
     }
 
+    /**
+     * This method generates the text for the instructions activity and changes the view of the app.
+     * @param intent The intent to the instructions activity.
+     */
     @Override
     protected void onNewIntent(Intent intent) {
         Log.d("onNewIntent:", "started");
@@ -46,6 +54,10 @@ public class InstructionsActivity extends AppCompatActivity {
                 "Please wait for the new list to be generated.");
     }
 
+    /**
+     * This method provides functionality to the OK button by passing the intent to the alternate items activity.
+     * @param view The current view of the app.
+     */
     public void OKButton(View view) {
         Intent intent = new Intent(InstructionsActivity.this, AlternateItemsActivity.class);
         intent.putExtra("Grocery List", itemlist);
@@ -53,6 +65,9 @@ public class InstructionsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * This method sets a slide transition to the activity.
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
