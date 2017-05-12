@@ -2,4 +2,7 @@
     <string name="app_name">getFood();</string>
     <string name="add">+</string>
     <string name="search">Search...</string>
+    <string name="ok">OK</string>
+    <string name="alternate">Find Alternative List</string>
+    <string name="totalPrice">Total Price:</string>
 </resources>

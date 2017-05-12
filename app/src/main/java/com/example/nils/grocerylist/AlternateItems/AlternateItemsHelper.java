@@ -46,6 +46,12 @@ public class AlternateItemsHelper {
 
         String[] itemIngredients = item.getIngredients();
 
+        for (int i = 0; i < itemIngredients.length; i++) {
+            if (itemIngredients[i].contains("water") || itemIngredients[i].contains("Water")) {
+                itemIngredients[i] = "";
+            }
+        }
+
         if (!itemIngredients[0].equals("")) {
 
             ArrayList<Item> allItems = db.getAllItems();
