@@ -39,9 +39,9 @@
         android:layout_alignParentStart="true"
         android:fontFamily="serif"
         android:onClick="AlternateItemsButton"
+        android:text="@string/alternate"
         android:textSize="18sp"
         android:textStyle="bold|italic"
-        android:typeface="normal"
-        tools:text="@string/alternate" />
+        android:typeface="normal" />
 
 </RelativeLayout>
