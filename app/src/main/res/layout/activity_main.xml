@@ -22,26 +22,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_replacelist"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:fontFamily="sans-serif"
         android:paddingBottom="8dp"
         android:textAlignment="center"
+        android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="italic"
-        android:textColor="#000000"/>
+        tools:text="@string/totalPrice" />
 
     <Button
         android:id="@+id/button_replacelist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:fontFamily="serif"
         android:onClick="AlternateItemsButton"
-        android:text="Find Alternative List"
         android:textSize="18sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        android:typeface="normal"
+        tools:text="@string/alternate" />
 
 </RelativeLayout>
