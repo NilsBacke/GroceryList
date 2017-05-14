@@ -33,6 +33,7 @@
         android:layout_marginEnd="8dp"
         android:elevation="0dp"
         android:onClick="OKButton"
+        android:text="@string/ok"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_editor_absoluteX="258dp"

@@ -219,9 +219,23 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog3.show();
                 return true;
             case R.id.refresh:
-                refreshfirebasedata();
-                Toast.makeText(MainActivity.this,  "Please wait while the item data refreshes.",
-                        Toast.LENGTH_LONG).show();
+                AlertDialog.Builder alertDialogBuilder4 = new AlertDialog.Builder(this);
+
+                // set dialog message
+                alertDialogBuilder4.setMessage("Are you sure you want to refresh the item data? This may take a few minutes.")
+                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                refreshfirebasedata();
+                            }
+                        })
+                        .setNegativeButton("Cancel", null);
+
+                // create alert dialog
+                AlertDialog alertDialog4 = alertDialogBuilder4.create();
+                // show the alert dialog
+                alertDialog4.show();
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -283,6 +297,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void refreshfirebasedata() {
         db.clearDatabase("TABLE_ITEMS");
+        Toast.makeText(MainActivity.this,  "Please wait while the item data refreshes.",
+                Toast.LENGTH_SHORT).show();
         DataWrapper data = new DataWrapper(this);
         Log.d("Oncreate: ", "getItem");
         data.getItems();

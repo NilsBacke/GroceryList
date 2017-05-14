@@ -17,9 +17,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DataWrapper {
 
-    final FirebaseDatabase database;
-    DatabaseHelper db;
-    Context context;
+    private final FirebaseDatabase database;
+    private DatabaseHelper db;
+    private Context context;
 
     /**
      * Contructs a new DataWrapper object.
@@ -47,7 +47,6 @@ public class DataWrapper {
                     int i = 0;
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         i++;
-                        if (i < 7000) {
                             Log.d("DATA", child.child("name").getValue().toString() + i);
                             Toast.makeText(context, "Please wait while the item data refreshes.",
                                     Toast.LENGTH_SHORT).show();
@@ -229,12 +228,17 @@ public class DataWrapper {
                                     doublecholesterol, doublesodium, doublecarbs, doublefiber, doublesugar, doubleprotein, ingredients);
 
                             // The new item is added to the virtual data table.
-                            if (i > 5500) {
+//                            if (i > 3000 && i < 4500) {
+//                                db.addItem(newItem);
+//                            } else {
+//                                continue;
+//                            }
+
+                            if (Math.random() <= .21) {
                                 db.addItem(newItem);
+                            } else {
+                                continue;
                             }
-                        } else {
-                            continue;
-                        }
                     }
                 }
             }
