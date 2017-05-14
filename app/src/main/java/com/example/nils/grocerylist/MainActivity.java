@@ -22,14 +22,21 @@ import com.example.nils.grocerylist.Databases.SavedDatabaseHelper;
 import com.example.nils.grocerylist.ListAdapters.CustomAdapter;
 
 public class MainActivity extends AppCompatActivity {
-    TextView textView;
-    ListView listView;
-    ArrayList<Item> selecteditems;
-    DatabaseHelper db;
-    SavedDatabaseHelper dbsaved;
-    AutoSaveDatabaseHelper dbautosave;
-    int mode; //Price mode = 1, Health mode = 2
 
+    // The total price textview
+    TextView textView;
+    //The main list view
+    ListView listView;
+    // The array list of items in the user's created grocery list
+    ArrayList<Item> selecteditems;
+    // The databasehelper object
+    DatabaseHelper db;
+    // The saveddatabasehelper object
+    SavedDatabaseHelper dbsaved;
+    // The autosavedatabasehelper object
+    AutoSaveDatabaseHelper dbautosave;
+    // The mode of the app (either price or health)
+    int mode; //Price mode = 1, Health mode = 2
 
     /**
      * When the main activity first loads this method is called.
