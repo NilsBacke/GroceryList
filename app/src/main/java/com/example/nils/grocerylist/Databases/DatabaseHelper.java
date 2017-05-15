@@ -15,8 +15,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * A column for each piece of data is created.
      */
-    public static final String DATABASE_NAME = "items_fullfire.db";
-    public static final String TABLE_ITEMS = "items_fullfire";
+    public static final String DATABASE_NAME = "items_fullfiretable.db";
+    public static final String TABLE_ITEMS = "items_fullfiretable";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "name";
     public static final String COL_3 = "price";
@@ -134,7 +134,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public void clearDatabase(String TABLE_ITEM) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String clearDBQuery = "DELETE FROM " + "items_fullfire";
+        String clearDBQuery = "DELETE FROM " + "items_fullfiretable";
         db.execSQL(clearDBQuery);
     }
 

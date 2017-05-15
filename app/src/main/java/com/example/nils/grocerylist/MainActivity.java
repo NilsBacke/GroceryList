@@ -123,8 +123,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dbautosave.clearDatabase("TABLE_ITEM");
-        for (Item item : selecteditems) {
-            dbautosave.addItem(item);
+        if (!selecteditems.isEmpty()) {
+            for (Item item : selecteditems) {
+                dbautosave.addItem(item);
+            }
         }
     }
 
@@ -227,7 +229,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.refresh:
                 AlertDialog.Builder alertDialogBuilder4 = new AlertDialog.Builder(this);
-
                 // set dialog message
                 alertDialogBuilder4.setMessage("Are you sure you want to refresh the item data? This may take a few minutes.")
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {

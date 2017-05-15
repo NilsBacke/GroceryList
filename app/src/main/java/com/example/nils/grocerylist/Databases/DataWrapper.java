@@ -38,6 +38,7 @@ public class DataWrapper {
      */
     public void getItems(){
         DatabaseReference itemRef = database.getReference().child("Items"); //directory
+        Log.d("DATA", itemRef.toString());
         itemRef.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -48,8 +49,6 @@ public class DataWrapper {
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         i++;
                             Log.d("DATA", child.child("name").getValue().toString() + i);
-                            Toast.makeText(context, "Please wait while the item data refreshes.",
-                                    Toast.LENGTH_SHORT).show();
                             try {
                                 calories = child.child("calories").getValue().toString();
                             } catch (NullPointerException e) {
