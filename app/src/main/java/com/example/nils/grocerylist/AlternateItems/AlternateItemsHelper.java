@@ -50,6 +50,10 @@ public class AlternateItemsHelper {
             if (itemIngredients[i].contains("water") || itemIngredients[i].contains("Water")) {
                 itemIngredients[i] = "";
             }
+
+            if (itemIngredients[i].contains("salt") || itemIngredients[i].contains("Salt")) {
+                itemIngredients[i] = "";
+            }
         }
 
         if (!itemIngredients[0].equals("")) {
