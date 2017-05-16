@@ -226,14 +226,8 @@ public class DataWrapper {
                             Item newItem = new Item(i, name, doubleprice, doubleeach, picture, intcalories, doubleFatCalories, doublefat,
                                     doublecholesterol, doublesodium, doublecarbs, doublefiber, doublesugar, doubleprotein, ingredients);
 
-                            // The new item is added to the virtual data table.
-//                            if (i > 3000 && i < 4500) {
-//                                db.addItem(newItem);
-//                            } else {
-//                                continue;
-//                            }
-
-                            if (Math.random() <= .21) {
+//                          The new item is added to the virtual data table.
+                            if (i > 4500 && i < 6000) {
                                 db.addItem(newItem);
                             } else {
                                 continue;

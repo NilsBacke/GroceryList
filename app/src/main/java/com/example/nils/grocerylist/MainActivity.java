@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.d("Main","onCreate");
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.list);
         // Get TextView object from xml
@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         updateList();
 
         selecteditems.addAll(dbautosave.getAllItems());
-
 
         if (db.getAllItems().isEmpty()) {
             refreshfirebasedata();
@@ -256,7 +255,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        updateList();
     }
 
     /**
