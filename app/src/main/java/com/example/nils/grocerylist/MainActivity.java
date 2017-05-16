@@ -304,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
     public void refreshfirebasedata() {
         db.clearDatabase("TABLE_ITEMS");
         Toast.makeText(MainActivity.this,  "Please wait while the item data refreshes.",
-                Toast.LENGTH_SHORT).show();
+                Toast.LENGTH_LONG).show();
         DataWrapper data = new DataWrapper(this);
         Log.d("Oncreate: ", "getItem");
         data.getItems();
