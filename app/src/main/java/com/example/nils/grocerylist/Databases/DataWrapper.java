@@ -227,7 +227,7 @@ public class DataWrapper {
                                     doublecholesterol, doublesodium, doublecarbs, doublefiber, doublesugar, doubleprotein, ingredients);
 
 //                          The new item is added to the virtual data table.
-                            if (i > 4500 && i < 6000) {
+                            if (i > 3500 && i < 5000) {
                                 db.addItem(newItem);
                             } else {
                                 continue;
