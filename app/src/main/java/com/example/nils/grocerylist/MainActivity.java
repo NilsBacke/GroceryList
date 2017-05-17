@@ -73,6 +73,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * This method is necessary to allow successful operation of the app when the device orientation is switched.
+     * The list is updated, which also updates the total price text view.
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        updateList();
+    }
+
+    /**
      * This method is called when the MainActivity is called in an intent of another activity.
      * An item object is retrieved from the activity passing the intent.
      * This item is added to the arraylist of items in the grocery list.
